@@ -229,11 +229,12 @@ International Conference on Artificial Neural Networks and Machine Learning, ICA
 ```
 * Ballroom dataset or Homburg dataset
 
-    _Shallow MCLNN for Ballroom_
+   _Shallow MCLNN for Ballroom_
 ```
 Fady Medhat, David Chesmore, John Robinson, "Automatic Classification of Music Genre Using 
 Masked Conditional Neural Networks," IEEE International Conference on Data Mining, ICDM 2017.
 ```
+
    _Deep MCLNN for Ballroom and Homburg_
 ```
 Fady Medhat, David Chesmore, John Robinson, "Music Genre Classification Using 
