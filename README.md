@@ -36,7 +36,8 @@ The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scall
 
 A visualization of MCLNN weights for sample hidden nodes
 
-![MCLNN weights](mclnnweights.png)
+<img height='150'  src='mclnnweights.png'/>
+
 
 
 ## Getting Started
