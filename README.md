@@ -228,8 +228,8 @@ Fady Medhat, David Chesmore, John Robinson, "Masked Conditional Neural Networks 
 International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 ```
 * Ballroom dataset or Homburg dataset
-```
 __Shallow MCLNN for Ballroom__
+```
 Fady Medhat, David Chesmore, John Robinson, "Automatic Classification of Music Genre Using Masked Conditional Neural Networks," IEEE International Conference on Data Mining, ICDM 2017
 ```
 
