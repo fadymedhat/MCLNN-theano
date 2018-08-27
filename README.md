@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/MCLNN/blob/master/LICENSE)
 
-Masked Conditional Neural Networks
+MCLNN: Masked Conditional Neural Networks
 ========
 A neural network model designed for multi-channel temporal signals.
 The Masked Conditional Neural Networks (MCLNN) is inspired by spectrograms and the use of filterbanks in signal analysis. It has been evaluated on sound. However, the model is
