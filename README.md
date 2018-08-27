@@ -13,6 +13,26 @@ The MCLNN allows inferring the middle frame of a window of frames, in a temporal
 The mask enforces a systematic sparsness that follows a filterbank-like pattern and it automates the mixing-and-matching
 between different feature combinations at the input, analgous to the manual hand-crafting of features.
 
+## Conditional Neural Networks (CLNN)
+The below figure shows a network having two CLNN layers. The CLNN is used as a structure for the MCLNN.
+
+
+<img height="400" width="400" src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-3-source-large.gif'>
+
+## Masked Conditional Neural Network
+
+The below figure shows the enforced filterbank-like behavior enforced over the weights of a single temporal instance using
+a systematic controlled sparsness.
+
+
+<img height="150"  src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-4-source-large.gif'>
+
+## MCLNN in operation
+The below figures show 30 segments of a spectrogram as an input (left) and their corresponding output (right) from an MCLNN befre applying any activaton function.
+The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
+
+![Spectrogram](segments.gif)&nbsp;&nbsp;&nbsp;&nbsp;![MCLNN output](mclnnout.gif)
+
 
 ## Getting Started
 
@@ -42,27 +62,6 @@ between different feature combinations at the input, analgous to the manual hand
      * FFmpeg version N-81489-ga37e6dd (built with gcc 5.4.0)
      * librosa 0.4.0
      * muda 0.2.0
-
-
-## Conditional Neural Networks (CLNN)
-The below figure shows a network having two CLNN layers. The CLNN is used as a structure for the MCLNN.
-
-
-<img height="400" width="400" src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-3-source-large.gif'>
-
-## Masked Conditional Neural Network
-
-The below figure shows the enforced filterbank-like behavior enforced over the weights of a single temporal instance using
-a systematic controlled sparsness.
-
-
-<img height="150"  src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-4-source-large.gif'>
-
-## MCLNN in operation
-The below figures shows 30 segments of a spectrogram as an input (left) and their corresponding output (right) from an MCLNN befre applying any activaton function.
-The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
-
-![Spectrogram](segments.gif)&nbsp;&nbsp;&nbsp;&nbsp;![MCLNN output](mclnnout.gif)
 
 
 ## Execution requirements
