@@ -224,6 +224,12 @@ If you are using the MCLNN in your work please cite us as follows:
 
 * If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets, then use:
 ```
-Fady Medhat, David Chesmore, John Robinson, "Masked Conditional Neural Networks for Audio Classification."
-International Conference on Artificial Neural Networks and Machine Learning – ICANN 2017.
+Fady Medhat, David Chesmore, John Robinson, "Masked Conditional Neural Networks for Audio Classification,"
+International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 ```
+* Ballroom dataset or Homburg dataset
+```
+* Shallow MCLNN for Ballroom
+Fady Medhat, David Chesmore, John Robinson, "Automatic Classification of Music Genre Using Masked Conditional Neural Networks," IEEE International Conference on Data Mining, ICDM 2017
+```
+
