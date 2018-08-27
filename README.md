@@ -70,9 +70,7 @@ The MCLNN code requires two .hdf5 files, one containing the samples and another 
 
 ##### _Samples.hdf5_
 
-A single file to hold all the files of a single dataset. Samples are the complete clips (segmentation is
-handled within the MCLNN code). Samples are ordered by their category name in ascending order, similarly samples within
-a category are ordered by their name.
+A single file containing the intermediate representation (e.g. spectrograms for sound) of all the files of a single dataset. Samples are the complete clips (segmentation is handled within the MCLNN code). Samples are ordered by their category name in ascending order, similarly samples within a category are ordered by their name.
 
 ##### _Indices.hdf5_
 
