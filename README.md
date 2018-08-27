@@ -34,6 +34,11 @@ The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scall
 ![Spectrogram](segments.gif)&nbsp;&nbsp;&nbsp;&nbsp;![MCLNN output](mclnnout.gif)
 
 
+A visualization of MCLNN weights for sample hidden nodes
+
+![MCLNN weights](mclnnweights.png)
+
+
 ## Getting Started
 
 ### Prerequisite
