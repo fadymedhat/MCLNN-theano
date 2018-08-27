@@ -222,12 +222,12 @@ HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
 ## Citing the MCLNN
 If you are using the MCLNN in your work please cite us as follows:
 
-* If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets, then use:
+If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets, then use:
 ```
 Fady Medhat, David Chesmore, John Robinson, "Masked Conditional Neural Networks for Audio Classification,"
 International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 ```
-* Ballroom dataset or Homburg dataset
+Ballroom dataset or Homburg dataset
 
    _Shallow MCLNN for Ballroom_
 ```
