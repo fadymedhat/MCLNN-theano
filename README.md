@@ -68,13 +68,13 @@ The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scall
 
 The MCLNN code requires two .hdf5 files, one containing the samples and another of the indices.
 
-#####_Samples.hdf5_
+##### _Samples.hdf5_
 
 A single file to hold all the files of a single dataset. Samples are the complete clips (segmentation is
 handled within the MCLNN code). Samples are ordered by their category name in ascending order, similarly samples within
 a category are ordered by their name.
 
-#####_Indices.hdf5_
+##### _Indices.hdf5_
 
 These are primarily 3 files, training, testing and validation. Each of the indices files hold the indices of the samples
 following their location in the Samples.hdf5. These files can be generated as many times as the number of cross-validation
