@@ -1,4 +1,5 @@
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/blob/master/LICENSE)
+
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/MCLNN/blob/master/LICENSE)
 
 MCLNN: Masked Conditional Neural Networks
 ========
