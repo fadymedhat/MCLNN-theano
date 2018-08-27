@@ -231,6 +231,10 @@ International Conference on Artificial Neural Networks and Machine Learning, ICA
 
     _Shallow MCLNN for Ballroom_
 ```
-Fady Medhat, David Chesmore, John Robinson, "Automatic Classification of Music Genre Using Masked Conditional Neural Networks," IEEE International Conference on Data Mining, ICDM 2017
+Fady Medhat, David Chesmore, John Robinson, "Automatic Classification of Music Genre Using 
+Masked Conditional Neural Networks," IEEE International Conference on Data Mining, ICDM 2017.
 ```
-
+    _Deep MCLNN for Ballroom and Homburg_
+```
+Fady Medhat, David Chesmore, John Robinson, "Music Genre Classification Using Masked Conditional Neural Networks," International Conference on Neural Information Processing, ICONIP 2017.
+```
