@@ -220,14 +220,13 @@ HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
 ```
 
 ## Citing the MCLNN
-If you are using the MCLNN in your work please cite us as follows:
+If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
 
 _If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets._
 ```
 Fady Medhat, David Chesmore, John Robinson, "Masked Conditional Neural Networks for Audio Classification,"
 International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 ```
-
 
 _Shallow MCLNN with long segments for Ballroom_
 ```
@@ -240,3 +239,8 @@ _Deep MCLNN with short segments for Ballroom and Homburg_
 Fady Medhat, David Chesmore, John Robinson, "Music Genre Classification Using 
 Masked Conditional Neural Networks," International Conference on Neural Information Processing, ICONIP 2017.
 ```
+
+
+
+
+
