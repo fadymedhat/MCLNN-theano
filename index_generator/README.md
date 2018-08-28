@@ -2,8 +2,10 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/MCLNN/blob/master/LICENSE)
 
-MCLNN: Masked Conditional Neural Networks
+MCLNN index generation
 ========
+The MCLNN expects a dataset to be packed in a single .hdf5 file. The assignment of each of the sample to any of the folds during training, testing and validation is delegated to the indices generated before the MCLNN starts its operation. Accordingly, it is the responsibility of the index generator to produce these required indices.
+
 A neural network model designed for multi-channel temporal signals.
 The Masked Conditional Neural Networks (MCLNN) is inspired by spectrograms and the use of filterbanks in signal analysis. It has been evaluated on sound. However, the model is
 general enough to be used for any multi-channel temporal signal. This work also introduces the Conditional Neural Networks (CLNN)
