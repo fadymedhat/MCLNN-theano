@@ -10,7 +10,7 @@ The MCLNN expects a dataset to be packed in a single .hdf5 file. The assignment 
 
 We will refer, in this section, to possible configurations using the datasets used in the experiments as examples for clarification.
 
-
+#### Balanced dataset without Augmentation
 The ESC10 environmental sound dataset is composed of 400 sound file for 10 environmental categories. The dataset is balanced, i.e. each category has 40 samples. The dataset is released into 5-folds. So each fold has 8 samples of a specific category.
 The below listing shows the required configuration to generate the training, testing and validation indices for the 5-fold cross-validation.
 
@@ -24,7 +24,7 @@ class ESC10:
     CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40] # number of clips for each category.
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8 # number of samples of a specific category assigned to a fold.
 ```
-
+#### Unbalanced dataset without Augmentation
 The Ballroom dataset is another example. This dataset is made up of 698 music file that are unbalanced in distribution among 8 music genres. There is no specific arrangement or folds defined for the dataset. Accordingly, the index generator will handle the shuffling of the samples across the folds during the index generation. The assigned batch for each fold in this case will be 1 sample at a time that is iteratively assigned to the folds in turn until the samples are consumed.  
 
 ``` 	
@@ -37,7 +37,7 @@ class BALLROOM:
     CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110] # the samples of each class following the alphabetical order of the class name.
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1 # samples are assigned to the folds a sample at a time until they are consumed.
 ```
-
+#### Balanced dataset with Augmentation
 This is a different experiment to the ESC10 dataset in which augmentation is applied. Augmentation is a method to apply certain controlled deformations to the dataset that enhances the generalization of the model during training while still keeping the properties of the original sample to a certain extent. In the below listings, we applied 12 augmentation variants for the ESC10 dataset. Accordingly, the index generator will handle this generation and assignment of the samples across the folds. Keeping in mind that augmentation is applied on the training data only and the samples.hdf5 will include the original and the augmentated version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, while constraining the validation and test data to the original data only. This is carried on for all the folds of the cross-validtion operation.
 
 ```
