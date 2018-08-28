@@ -34,7 +34,7 @@ class BALLROOM:
     FOLDER_NAME = 'folds_indices_ballroom'
     SHUFFLE_CATEGORY_CLIPS = True # allow shuffling the samples of each category separately before assiging them to the folds
     AUGMENTATION_VARIANTS_COUNT = 0 # augmentation is disabled
-    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110] # the samples of each class in following the alphabetical order of the class name.
+    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110] # the samples of each class following the alphabetical order of the class name.
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1 # samples are assigned to the folds a sample at a time until they are consumed.
 ```
 
