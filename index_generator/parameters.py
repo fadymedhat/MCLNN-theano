@@ -2,7 +2,7 @@
 class ISMIR2004:
     DATASET = 'ismir2004'
     FOLD_COUNT = 10
-    FOLDER_NAME = 'folds_indices_imnir'
+    FOLDER_NAME = 'folds_indices_ismir2004'
     SHUFFLE_CATEGORY_CLIPS = True
     AUGMENTATION_VARIANTS_COUNT = 0
     CLIP_COUNT_PER_CATEGORY_LIST = [640, 229, 52, 90, 203, 244]
@@ -30,14 +30,15 @@ class ESC50:
                                     40, 40, 40, 40, 40, 40, 40, 40, 40, 40]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
 
-
+    
+  	
 class BALLROOM:
     DATASET = 'ballroom'
     FOLD_COUNT = 10
     FOLDER_NAME = 'folds_indices_ballroom'
     SHUFFLE_CATEGORY_CLIPS = True
     AUGMENTATION_VARIANTS_COUNT = 0
-    CLIP_COUNT_PER_CATEGORY_LIST = []
+    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
 class ESC10AUGMENTED:
