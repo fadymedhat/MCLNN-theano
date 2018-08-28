@@ -2,7 +2,7 @@ import os
 import h5py
 import numpy as np
 
-from parameters import ESC10,BALLROOM,ESC10AUGMENTED,ESC50AUGMENTED,ESC50, ISMIR2004
+from configuration import ESC10,BALLROOM,ESC10AUGMENTED,ESC50AUGMENTED,ESC50, ISMIR2004
 
 from numpy import random as rand
 
