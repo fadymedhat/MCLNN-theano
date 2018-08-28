@@ -8,6 +8,50 @@ The MCLNN expects a dataset to be packed in a single .hdf5 file. The assignment 
 
 ## Configuration 
 
+We will refer, in this section, to possible configurations using the datasets used in the experiments as examples for clarification.
+
+
+The ESC10 environmental sound dataset is composed of 400 sound file for 10 environmental categories. The dataset is balanced, i.e. each category has 40 samples. The dataset is released into 5-folds. So each fold has 8 samples of a specific category.
+The below listing shows the required configuration to generate the training, testing and validation indices for the 5-fold cross-validation.
+
+```
+class ESC10:
+    DATASET = 'esc10' # the name of the dataset
+    FOLD_COUNT = 5 # the number of folds for the dataset
+    FOLDER_NAME = 'folds_indices_esc10' # the name of the folder that will hold the generated .hdf5 indices.
+    SHUFFLE_CATEGORY_CLIPS = False # this dataset is already released with prespecified folds. So we do not need random shuffling. 
+    AUGMENTATION_VARIANTS_COUNT = 0 # no augmentation is required for this experiment. So a value of Zero disables augmentation.
+    CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40] # number of clips for each category.
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8 # number of samples of a specific category assigned to a fold.
+```
+
+
+
+``` 	
+class BALLROOM:
+    DATASET = 'ballroom'
+    FOLD_COUNT = 10
+    FOLDER_NAME = 'folds_indices_ballroom'
+    SHUFFLE_CATEGORY_CLIPS = True
+    AUGMENTATION_VARIANTS_COUNT = 0
+    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110]
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
+```
+
+
+```
+class ESC10AUGMENTED:
+    DATASET = 'esc10_12augment'
+    FOLD_COUNT = 5
+    FOLDER_NAME = 'folds_indices_esc10_aug'
+    SHUFFLE_CATEGORY_CLIPS = False
+    AUGMENTATION_VARIANTS_COUNT = 12
+    CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40]
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
+```    
+    
+    
+
 A neural network model designed for multi-channel temporal signals.
 The Masked Conditional Neural Networks (MCLNN) is inspired by spectrograms and the use of filterbanks in signal analysis. It has been evaluated on sound. However, the model is
 general enough to be used for any multi-channel temporal signal. This work also introduces the Conditional Neural Networks (CLNN)
