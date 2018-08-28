@@ -33,14 +33,14 @@ class DataLoader(object):
         """
         print('Loading ' + fold_name + ' fold ...')
         with h5py.File(index_path, "r") as hdf5_handle:
-            index = hdf5_handle[str('index')].value
-            label = hdf5_handle[str('label')].value
+            index = hdf5_handle[str('index')].value #hdf5_handle[str('index')].value  #  np.asarray([0, 1]) #
+            label = hdf5_handle[str('label')].value #hdf5_handle[str('label')].value  # np.asarray( [0, 1])
 
         sound_cell_array = []
         category = []
         with h5py.File(data_path, 'r') as f:
             # print('List of arrays in this file: \n', f.keys())
-            for i in range(0, len(index)):  # to execlude the category list dataset vector
+            for i in range(len(index)): #range(len(index)):    # range(2): to execlude the category list dataset vector
                 data = f[str(index[i])].value
                 sound_cell_array.append(data)
 
@@ -70,9 +70,8 @@ class DataLoader(object):
         frames = str(len(data[0]))
         features = str(len(data[0][0]))
 
-        standardization_file_path = train_index_path.replace('.hdf5', 'Parameters.hdf5').replace('_index','_standardization')
-
-
+        standardization_file_path = train_index_path.replace('.hdf5', 'Parameters.hdf5').replace('_index',
+                                                                                                 '_standardization')
 
         if not os.path.exists(standardization_file_path):
             print ('Calculating standardization parameters ...')

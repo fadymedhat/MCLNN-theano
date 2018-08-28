@@ -10,88 +10,60 @@ from keras import backend as K
 from keras.backend.common import _FLOATX
 from keras.engine import InputSpec, Layer
 
-
 # INTERNAL UTILS
 theano.config.floatX = _FLOATX
-_LEARNING_PHASE = T.scalar(dtype='uint8', name='keras_learning_phase')  # 0 = test, 1 = train
+#_LEARNING_PHASE = T.scalar(dtype='uint8', name='keras_learning_phase')  # 0 = test, 1 = train
 
 
 class MaskedConditional(Layer):
-    '''Just your regular fully connected NN layer.
-    # Example
-    ```python
-        # as first layer in a sequential model:
-        model = Sequential(my_dense(32, input_dim=16))
-        # now the model will take as input arrays of shape (*, 16)
-        # and output arrays of shape (*, 32)
-        # this is equivalent to the above:
-        model = Sequential(my_dense(32, input_shape=(16,)))
-        # after the first layer, you don't need to specify
-        # the size of the input anymore:
-        model.add(my_dense(32))
-    ```
+    '''Masked Conditional Neural Network layer.
+
     # Arguments
         output_dim: int > 0.
         init: name of initialization function for the weights of the layer
-            (see [initializations](../initializations.md)),
+            (see Keras [initializations](../initializations.md)),
             or alternatively, Theano function to use for weights
             initialization. This parameter is only relevant
             if you don't pass a `weights` argument.
         activation: name of activation function to use
-            (see [activations](../activations.md)),
+            (see Keras [activations](../activations.md)),
             or alternatively, elementwise Theano function.
             If you don't specify anything, no activation is applied
             (ie. "linear" activation: a(x) = x).
-        weights: list of numpy arrays to set as initial weights.
-            The list should have 2 elements, of shape `(input_dim, output_dim)`
-            and (output_dim,) for weights and biases respectively.
-        W_regularizer: instance of [WeightRegularizer](../regularizers.md)
-            (eg. L1 or L2 regularization), applied to the main weights matrix.
-        b_regularizer: instance of [WeightRegularizer](../regularizers.md),
-            applied to the bias.
-        activity_regularizer: instance of [ActivityRegularizer](../regularizers.md),
-            applied to the network output.
-        W_constraint: instance of the [constraints](../constraints.md) module
-            (eg. maxnorm, nonneg), applied to the main weights matrix.
-        b_constraint: instance of the [constraints](../constraints.md) module,
-            applied to the bias.
+        order: frames in a single temporal direction of an MCLNN
+        bandwidth: consecutive 1's to enable features in a single feature vector.
+        overlap: overlapping distance between two neighbouring hidden nodes.
         input_dim: dimensionality of the input (integer).
             This argument (or alternatively, the keyword argument `input_shape`)
             is required when using this layer as the first layer in a model.
     # Input shape
-        2D tensor with shape: `(nb_samples, input_dim)`.
         3D tensor with shape:  (nb_samples, input_row,input_dim)`.
     # Output shape
-        2D tensor with shape: `(nb_samples, output_dim)`.
         3D tensor with shape:  (nb_samples, output_row,output_dim)`.
     '''
-    def __init__(self, output_dim, init='glorot_uniform', activation='linear', weights=None,
-                 conditionalweights=None, order=None, bandwidth=None, overlap=None, mask=None,
-                 W_regularizer=None, C_regularizer=None, b_regularizer=None, activity_regularizer=None,
-                 W_constraint=None, C_constraint=None, b_constraint=None, input_dim=None, **kwargs):
+
+    def __init__(self, output_dim, init='glorot_uniform', activation='linear',
+                 weights=None, order=None, bandwidth=None, overlap=None,
+                 W_regularizer=None, b_regularizer=None, activity_regularizer=None,
+                 W_constraint=None, b_constraint=None, input_dim=None, **kwargs):
         self.init = initializations.get(init)
         self.activation = activations.get(activation)
         self.output_dim = output_dim
         self.input_dim = input_dim
-
-        self.W_regularizer = regularizers.get(W_regularizer)
-        #self.C_regularizer = regularizers.get(C_regularizer)
-        self.b_regularizer = regularizers.get(b_regularizer)
-        self.activity_regularizer = regularizers.get(activity_regularizer)
-
-        self.W_constraint = constraints.get(W_constraint)
-        #self.C_constraint = constraints.get(C_constraint)
-        self.b_constraint = constraints.get(b_constraint)
-
-
-        self.initial_weights = weights
-        #self.initial_conditionalweights = conditionalweights
         self.order = order
         self.bandwidth = bandwidth
         self.overlap = overlap
 
+        # --K_START -- Refer to keras documentation for the below parameters.
+        self.W_regularizer = regularizers.get(W_regularizer)
+        self.b_regularizer = regularizers.get(b_regularizer)
+        self.activity_regularizer = regularizers.get(activity_regularizer)
 
+        self.W_constraint = constraints.get(W_constraint)
+        self.b_constraint = constraints.get(b_constraint)
 
+        self.initial_weights = weights
+        # --K_END -- Refer to keras documentation for the above parameters.
 
         self.input_spec = [InputSpec(ndim=3)]
 
@@ -101,18 +73,11 @@ class MaskedConditional(Layer):
 
     def printme(self, name, mat):
         return printing.Print('vector')(mat)
-        # return mat
 
     def printdim(self, name, mat):
         return printing.Print(name, attrs=['shape'])(mat)
-        #return mat
 
     def construct_mask(self, feature_count, hidden_count, bandwidth, overlap):
-        # feature_count = 120  # 1026#120  # URBAN ESC
-        # window = 20  # 5#20
-        # overlap = -5  # 10#-5#-10#-5#-30#15 #-5
-        # maskrow = feature_count;
-        # maskcol = 300  # 500 #300
 
         binary_mask = np.zeros([hidden_count, feature_count])
         base_index = np.arange(0, feature_count * hidden_count, feature_count + (bandwidth - overlap))
@@ -134,13 +99,10 @@ class MaskedConditional(Layer):
         binary_mask.flat[linear_index_filtered] = 1
         binary_mask = binary_mask.transpose()
         binary_mask = np.asarray(binary_mask, np.float32)
-        # print('=============================== DISABLE MASK  ===============================')
+        # print('=============================== DISABLE MASK  (CLNN)===============================')
         # binary_mask = np.ones(binary_mask.shape, np.float32)
-        # hiddencount1 = hidden_count
-        # featcount1 = feature_count
-        # print('Layer1 featcount: ' + str(feature_count) + ' window: ' + str(bandwidth) + ' overlap: ' + str(
-        #     overlap) + ' maskcol: ' + str(
-        #     hidden_count))
+        # print('Layer featcount: ' + str(feature_count) + ' bandwidth: ' + str(bandwidth) + ' overlap: ' + str(
+        #     overlap) + ' maskcol: ' + str( hidden_count))
         return binary_mask
 
     def build(self, input_shape):
@@ -149,12 +111,12 @@ class MaskedConditional(Layer):
         self.input_spec = [InputSpec(dtype=K.floatx(),
                                      shape=(None, input_shape[1], input_dim))]
 
-        self.W = self.init((self.order*2+1, input_dim, self.output_dim),
+        self.W = self.init((self.order * 2 + 1, input_dim, self.output_dim),
                            name='{}_W'.format(self.name))
-        #self.W = self.print_dim('W :',self.W)
+        # self.W = self.print_dim('W :',self.W)
         self.b = K.zeros((self.output_dim,),
                          name='{}_b'.format(self.name))
-        #self.trainable_weights = [self.W,self.C, self.b]
+
         self.trainable_weights = [self.W, self.b]
 
         self.weightmask = self.construct_mask(feature_count=input_dim,
@@ -166,7 +128,6 @@ class MaskedConditional(Layer):
         if self.W_regularizer:
             self.W_regularizer.set_param(self.W)
             self.regularizers.append(self.W_regularizer)
-
 
         if self.b_regularizer:
             self.b_regularizer.set_param(self.b)
@@ -189,14 +150,15 @@ class MaskedConditional(Layer):
     def call(self, x, mask=None):
 
         mini_batch = x
-        segment_count = mini_batch.shape[0] # number of samples in a minibatch
+        segment_count = mini_batch.shape[0]  # number of samples in a minibatch
         segment_length = mini_batch.shape[1]
         feature_count = mini_batch.shape[2]
 
         concatenated_segments = mini_batch.reshape((segment_count * segment_length, feature_count))
         # concatenated_segments = self.print_dim('concatenated_segments',concatenated_segments)
 
-        frame_count_per_minibatch = concatenated_segments.shape[0]  # number of frames after concatenating the minibatch samples
+        frame_count_per_minibatch = concatenated_segments.shape[
+            0]  # number of frames after concatenating the minibatch samples
         # frame_count_per_minibatch = self.print_me('frame_count_per_minibatch', frame_count_per_minibatch)
         frames_index_per_minibatch = T.arange((frame_count_per_minibatch))  # index vector for all the frames
         ##frames_index_per_minibatch = self.print_dim('frames_index_per_minibatch', frames_index_per_minibatch)
@@ -220,7 +182,8 @@ class MaskedConditional(Layer):
         frames_index_per_minibatch_trimmed_flattened = frames_index_per_segment_trimmed_matrix.flatten()
 
         # repeating the flat index a number of times equal to the 2 x order + 1
-        frames_index_per_minibatch_trim_flat_tile = T.tile(frames_index_per_minibatch_trimmed_flattened, (self.order * 2 + 1, 1))
+        frames_index_per_minibatch_trim_flat_tile = T.tile(frames_index_per_minibatch_trimmed_flattened,
+                                                           (self.order * 2 + 1, 1))
         # frames_index_per_minibatch_trim_flat_tile = self.print_dim('frames_index_per_minibatch_trim_flat_tile', frames_index_per_minibatch_trim_flat_tile)
         # frames_index_per_minibatch_trim_flat_tile = self.print_me('frames_index_per_minibatch_trim_flat_tile', frames_index_per_minibatch_trim_flat_tile)
 
@@ -241,29 +204,25 @@ class MaskedConditional(Layer):
         # window_index = self.print_me('window_index',window_index)
 
         result, updates = theano.scan(
-            fn=lambda w, i, previous_result, x, mask:  previous_result + T.dot(x[i, :],w * mask),
+            fn=lambda w, i, previous_result, x, mask: previous_result + T.dot(x[i, :], w * mask),
             outputs_info=T.zeros([window_index.shape[1], self.W.shape[2]]),
             sequences=[self.W, window_index],
             non_sequences=[concatenated_segments, self.weightmask],
             n_steps=(self.order * 2 + 1))
 
-
         # result = self.print_dim('result', result)
-
         result = result[-1]
 
         result = result + self.b
         # result = self.print_dim('result', result)
-        activation_input = result.reshape((segment_count, segment_length-self.order*2, result.shape[1]))#
+        activation_input = result.reshape((segment_count, segment_length - self.order * 2, result.shape[1]))  #
         # activation_input = self.print_dim('activation_input', activation_input)
-        return self.activation(activation_input )
-
-
+        return self.activation(activation_input)
 
     def get_output_shape_for(self, input_shape):
         assert input_shape and len(input_shape) == 3
-        return (input_shape[0],input_shape[1]-self.order*2  ,self.output_dim)
-        #return (1, 1,1)
+        return (input_shape[0], input_shape[1] - self.order * 2, self.output_dim)
+        # return (1, 1,1)
 
     def get_config(self):
         config = {'output_dim': self.output_dim,
@@ -279,83 +238,18 @@ class MaskedConditional(Layer):
         return dict(list(base_config.items()) + list(config.items()))
 
 
-
-
 class GlobalPooling1D(Layer):
-    '''Just your regular fully connected NN layer.
-    # Example
-    ```python
-        # as first layer in a sequential model:
-        model = Sequential(my_dense(32, input_dim=16))
-        # now the model will take as input arrays of shape (*, 16)
-        # and output arrays of shape (*, 32)
-        # this is equivalent to the above:
-        model = Sequential(my_dense(32, input_shape=(16,)))
-        # after the first layer, you don't need to specify
-        # the size of the input anymore:
-        model.add(my_dense(32))
-    ```
-    # Arguments
-        output_dim: int > 0.
-        init: name of initialization function for the weights of the layer
-            (see [initializations](../initializations.md)),
-            or alternatively, Theano function to use for weights
-            initialization. This parameter is only relevant
-            if you don't pass a `weights` argument.
-        activation: name of activation function to use
-            (see [activations](../activations.md)),
-            or alternatively, elementwise Theano function.
-            If you don't specify anything, no activation is applied
-            (ie. "linear" activation: a(x) = x).
-        weights: list of numpy arrays to set as initial weights.
-            The list should have 2 elements, of shape `(input_dim, output_dim)`
-            and (output_dim,) for weights and biases respectively.
-        W_regularizer: instance of [WeightRegularizer](../regularizers.md)
-            (eg. L1 or L2 regularization), applied to the main weights matrix.
-        b_regularizer: instance of [WeightRegularizer](../regularizers.md),
-            applied to the bias.
-        activity_regularizer: instance of [ActivityRegularizer](../regularizers.md),
-            applied to the network output.
-        W_constraint: instance of the [constraints](../constraints.md) module
-            (eg. maxnorm, nonneg), applied to the main weights matrix.
-        b_constraint: instance of the [constraints](../constraints.md) module,
-            applied to the bias.
-        input_dim: dimensionality of the input (integer).
-            This argument (or alternatively, the keyword argument `input_shape`)
-            is required when using this layer as the first layer in a model.
+    ''' A single dimensional temporal pooling.
     # Input shape
-        2D tensor with shape: `(nb_samples, input_dim)`.
         3D tensor with shape:  (nb_samples, input_row,input_dim)`.
     # Output shape
-        2D tensor with shape: `(nb_samples, output_dim)`.
-        3D tensor with shape:  (nb_samples, output_row,output_dim)`.
+        2D tensor with shape: `(nb_samples, output_dim=input_dim)`.
     '''
-    def __init__(self, # init='glorot_uniform', activation='linear', weights=None,
-                 #conditionalweights = None, #order=2, window=None, overlap=None, mask=None, dropConnectLevel=0.2,
-                 #W_regularizer=None,C_regularizer=None, b_regularizer=None, activity_regularizer=None,
-                 #W_constraint=None, C_constraint=None, b_constraint=None,
-                 output_dim=None, input_dim=None, **kwargs):
-        #self.init = None # initializations.get(init)
-        #self.activation = activations.get(activation)
+
+    def __init__(self, output_dim=None, input_dim=None, **kwargs):
         self.output_dim = output_dim
         self.input_dim = input_dim
 
-        # self.W_regularizer = regularizers.get(W_regularizer)
-        # #self.C_regularizer = regularizers.get(C_regularizer)
-        # self.b_regularizer = regularizers.get(b_regularizer)
-        # self.activity_regularizer = regularizers.get(activity_regularizer)
-
-        # self.W_constraint = constraints.get(W_constraint)
-        # #self.C_constraint = constraints.get(C_constraint)
-        # self.b_constraint = constraints.get(b_constraint)
-
-        # self.initial_weights = weights
-        # #self.initial_conditionalweights = conditionalweights
-        # self.order = order
-        # self.window = window
-        # self.overlap = overlap
-        # self.weightmask = mask
-        # self.dropConnectLevel = dropConnectLevel
         self.input_spec = [InputSpec(ndim=3)]
 
         if self.input_dim:
@@ -363,12 +257,10 @@ class GlobalPooling1D(Layer):
         super(GlobalPooling1D, self).__init__(**kwargs)
 
     def print_me(self, name, mat):
-
         mat = printing.Print('vector')(mat)
         return mat
 
     def print_dim(self, name, mat):
-
         mat = printing.Print(name, attrs=['shape'])(mat)
         return mat
 
@@ -381,7 +273,6 @@ class GlobalPooling1D(Layer):
                                      shape=(None, input_shape[1], input_dim))]
 
     def call(self, x, mask=None):
-
         # x = self.print_dim('x', x)
         extra_frames_mean = x.mean(axis=1)
         # result_max = x.max(axis=1)
@@ -393,18 +284,12 @@ class GlobalPooling1D(Layer):
 
         return result
 
-
     def get_output_shape_for(self, input_shape):
         assert input_shape and len(input_shape) == 3
         return (None, 1, self.output_dim)
 
-
     def get_config(self):
         config = {'output_dim': self.output_dim,
-                  #'init': self.init.__name__,
-                  #'activation': self.activation.__name__,
                   'input_dim': self.input_dim}
         base_config = super(GlobalPooling1D, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
-
-

@@ -1,5 +1,23 @@
 
 class Configuration:
+
+    USE_PRETRAINED_WEIGHTS = False  # True or False - no training is initiated (pre-trained weights are used)
+
+    # IMPORTANT! This flag will affect training epochs.
+    # Keep Visualization DISABLED if you need a properly trained model.
+    # Visualization occurs in a callback function, which requires a call to model.predict(). It was found that calling the
+    # prediction at the end of every epoch during training affects the weights for later epochs even if a new model is
+    # loaded from the weights stored on from a previous epoch. You can check this behavior by tracking the validation
+    # accuracy with the flag enabled or disabled. This could be related to the _Learning_phase flag in keras
+    # (used to disable/enable dropout), which is not disabled when predicting during the training phase.
+    # The below flag shows visualization for first MCLNN layer only.
+    # This flag will affect training time and accuracy, DO NOT enable unless you only need to visualize the MCLNN layer predictions
+    SAVE_SEGMENT_PREDICTION_IMAGE_PER_EPOCH = False # True or False - store an image of the prediction of a specific segment at the end of every epoch.
+
+    TRAIN_SEGMENT_INDEX = 500 # train segment index to plot during training
+    TEST_SEGMENT_INDEX = 500 # test segment index to plot during training
+    VALIDATION_SEGMENT_INDEX = 500 # validation segment index to plot during training
+
     NB_EPOCH = 2000 # maximum number of epochs
     WAIT_COUNT = 50 # early stopping count
     SPLIT_COUNT = 3 # training/testing/validation splits
@@ -8,12 +26,22 @@ class Configuration:
     VALIDATION_FOLD_NAME = 'validation'
     STOPPING_CRITERION = 'val_acc'  # 'val_acc' or 'val_loss'
 
+    # the following flags are used during testing phase
+    # they allow storing the predictions of n consecutive segments across all layers before the pooling layer.
+    # Enabling the below flag will allow storing a visualization of the MCLNN weights.
+    # Note! this is applied for the first fold only and disabled later on.
+    SAVE_TEST_SEGMENT_PREDICTION_IMAGE = True  # True or False - store prediction images for segments of a specific clip of testing data
+    SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # first segment to plot. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+    SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # number of segments to save after the first segment. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+    HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
+
 class ESC10(Configuration):
     # A model of 85.5% accuarcy
     INITIAL_FOLD_ID = 0 # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/ESC10-for-MCLNN/ESC10_5_folds_index'
-    FILE_PATH = 'F:/ESC10-for-MCLNN/esc10Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/ESC10-for-MCLNN/ESC10_5_folds_pretrained_weights_85.5percent'
+    INDEX_PATH = 'I:/ESC10-for-MCLNN/ESC10_5_folds_index'
+    FILE_PATH = 'I:/ESC10-for-MCLNN/esc10Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
+    ALL_FOLDS_WEIGHTS_PATH = 'I:/ESC10-for-MCLNN/recheck/ESC10_5_folds_pretrained_weights_85.5percent'
+    VISUALIZATION_PARENT_PATH = 'I:/ESC10-for-MCLNN/recheck/ESC10_5_visualization'
     CROSS_VALIDATION_FOLDS_COUNT = 5
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -29,8 +57,8 @@ class ESC10(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15, 15]  # the order for each layer
-    MASK_BANDWIDTH = [20, 5] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-5, 3] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [20, 5] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-5, 3] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['DB', 'Ra', 'SW', 'BC', 'CT', 'PS', 'He', 'Ch', 'Ro', 'FC']
@@ -38,9 +66,10 @@ class ESC10(Configuration):
 class ESC10AUGMENTED(Configuration):
 
     INITIAL_FOLD_ID = 0 # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/ESC10-augmented-for-MCLNN/ESC10_5_folds_12augment_index'
-    FILE_PATH = 'F:/ESC10-augmented-for-MCLNN/esc10aug_8pitch_4stretch_Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/ESC10-augmented-for-MCLNN/ESC10_5_folds_12augment_pretrained_weights_85.25percent'
+    INDEX_PATH = 'I:/ESC10-augmented-for-MCLNN/ESC10_5_folds_12augment_index'
+    FILE_PATH = 'I:/ESC10-augmented-for-MCLNN/esc10aug_8pitch_4stretch_Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
+    ALL_FOLDS_WEIGHTS_PATH = 'I:/ESC10-augmented-for-MCLNN/recheck/ESC10_5_folds_12augment_pretrained_weights_85.25percent'
+    VISUALIZATION_PARENT_PATH = 'I:/ESC10-augmented-for-MCLNN/recheck/ESC10_5_folds_12augment_visualization'
     CROSS_VALIDATION_FOLDS_COUNT = 5
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -56,8 +85,8 @@ class ESC10AUGMENTED(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15, 15]  # the order for each layer
-    MASK_BANDWIDTH = [20, 5] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-5, 3] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [20, 5] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-5, 3] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 20  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['DB', 'Ra', 'SW', 'BC', 'CT', 'PS', 'He', 'Ch', 'Ro', 'FC']
@@ -65,9 +94,10 @@ class ESC10AUGMENTED(Configuration):
 class ESC50(Configuration):
     # A model of 62.85% accuarcy
     INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/ESC50-for-MCLNN/ESC50_5_folds_index'
-    FILE_PATH = 'F:/ESC50-for-MCLNN/esc50Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/ESC50-for-MCLNN/ESC50_5_folds_pretrained_weights_62.85percent'
+    INDEX_PATH = 'I:/ESC50-for-MCLNN/ESC50_5_folds_index'
+    FILE_PATH = 'I:/ESC50-for-MCLNN/esc50Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
+    ALL_FOLDS_WEIGHTS_PATH = 'I:/ESC50-for-MCLNN/recheck/ESC50_5_folds_pretrained_weights_62.85percent'
+    VISUALIZATION_PARENT_PATH = 'I:/ESC50-for-MCLNN/recheck/ESC50_5_folds_visualization'
     CROSS_VALIDATION_FOLDS_COUNT = 5
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -83,8 +113,8 @@ class ESC50(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [14]  # the order for each layer
-    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-5] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-5] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['Do','Ro','Pi','Cw','Fr','Ca','He','In','Sh','Cr',
@@ -96,9 +126,10 @@ class ESC50(Configuration):
 class ESC50AUGMENTED(Configuration):
 
     INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/ESC50-augmented-for-MCLNN/ESC50_5_folds_4augment_index'
-    FILE_PATH = 'F:/ESC50-augmented-for-MCLNN/esc50aug_2pitch_2stretch_Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN=200_5secsDelta.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/ESC50-augmented-for-MCLNN/ESC50_5_folds_4augment_pretrained_weights_66.85percent'
+    INDEX_PATH = 'I:/ESC50-augmented-for-MCLNN/ESC50_5_folds_4augment_index'
+    FILE_PATH = 'I:/ESC50-augmented-for-MCLNN/esc50AUGMENT_2pitch_2stretch_Specmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=4_FN_200_secDelta.hdf5'
+    ALL_FOLDS_WEIGHTS_PATH = 'I:/ESC50-augmented-for-MCLNN/recheck/ESC50_5_folds_4augment_pretrained_weights_66.85percent'
+    VISUALIZATION_PARENT_PATH = 'I:/ESC50-augmented-for-MCLNN/recheck/ESC50_5_folds_visualization'
     CROSS_VALIDATION_FOLDS_COUNT = 5
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -114,8 +145,8 @@ class ESC50AUGMENTED(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [14]  # the order for each layer
-    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-5] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-5] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['Do','Ro','Pi','Cw','Fr','Ca','He','In','Sh','Cr',
@@ -127,9 +158,13 @@ class ESC50AUGMENTED(Configuration):
 class URBANSOUND8K(Configuration):
     # A model of 74.37% accuarcy
     INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/UrbanSound8K-for-MCLNN/UrbanSound8K_10_folds_index'
-    FILE_PATH = 'F:/UrbanSound8K-for-MCLNN/urbansound8kSpecmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=1_FN=170_4secsDelta.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/UrbanSound8K-for-MCLNN/UrbanSound8K_folds_pretrained_weights_74.37percent'
+    INDEX_PATH = 'I:/UrbanSound8K-for-MCLNN/UrbanSound8K_10_folds_index'
+    FILE_PATH = 'I:/UrbanSound8K-for-MCLNN/urbansound8kSpecmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=1_FN=170_4secsDelta.hdf5'
+    FILE_PATH = 'I:/dataset-urbansound8k/UrbanSound8KexpandedSmallfiles/urbanSpecmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=1_FN_170_4secDelta.hdf5'
+    # ALL_FOLDS_WEIGHTS_PATH = 'F:/UrbanSound8K-for-MCLNN/UrbanSound8K_folds_pretrained_weights_74.37percent'
+    ALL_FOLDS_WEIGHTS_PATH = 'I:\locallyconnectedlearnedweights/urbanvis/UrbanSound8K_folds_pretrained_weights_74.37percentEpochSegmentPlot'
+    VISUALIZATION_PARENT_PATH = 'I:\locallyconnectedlearnedweights/urbanvis/Urban_visualization'
+
     CROSS_VALIDATION_FOLDS_COUNT = 10
 
     STEP_SIZE = 2 # overlap between segments is q minus step_size
@@ -145,8 +180,8 @@ class URBANSOUND8K(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15]  # the order for each layer
-    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-5] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-5] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 50  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['AC', 'CH' , 'CP', 'DB', 'Dr', 'EI' , 'GS' , 'Ja' , 'Si' ,'SM']
@@ -155,8 +190,15 @@ class BALLROOM(Configuration):
     # A model of 92.55% accuarcy
     INITIAL_FOLD_ID = 0  # the initial fold to start with zero indexed. This should be zero unless you want to start from another fold
     INDEX_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_index'
-    FILE_PATH = 'F:/Ballroom-for-MCLNN/ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_pretrained_weights_92.55percent'
+    # FILE_PATH = 'F:/Ballroom-for-MCLNN/ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5'
+    FILE_PATH = 'F:/Ballroom-for-MCLNN/ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN_600_30sec.hdf5'
+    # ALL_FOLDS_WEIGHTS_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_pretrained_weights_92.55percent'
+    # VISUALIZATION_PARENT_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_visualization'
+
+    ALL_FOLDS_WEIGHTS_PATH = 'I:\locallyconnectedlearnedweights/ballroomvis/ballroom_10_folds_pretrained_weights_92.55percentSegmentPlot'
+    VISUALIZATION_PARENT_PATH = 'I:\locallyconnectedlearnedweights/ballroomvis/ballroom_10_folds_visualization'
+
+
     CROSS_VALIDATION_FOLDS_COUNT = 10
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -172,8 +214,8 @@ class BALLROOM(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [20]  # the order for each layer
-    MASK_BANDWIDTH = [40] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-10] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [40] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-10] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 55  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa']
@@ -183,7 +225,7 @@ class HOMBURG(Configuration):
     INITIAL_FOLD_ID = 0 # the initial fold to start with. This should be zero unless you want to start from another fold
     INDEX_PATH = 'F:/Homburg-for-MCLNN/Homburg_10_folds_index/'
     FILE_PATH = 'F:/Homburg-for-MCLNN/homburgSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=8_FN=200_10secs.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/Homburg-for-MCLNN/homburg_10_folds_pretrained_weights_61.45percent'
+    ALL_FOLDS_WEIGHTS_PATH = 'F:/Homburg-for-MCLNN/homburg_10_folds_pretrained_weights_61.45percent'
     CROSS_VALIDATION_FOLDS_COUNT = 10
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -199,8 +241,8 @@ class HOMBURG(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [5, 5]  # the order for each layer
-    MASK_BANDWIDTH = [40, 10] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-10, 3] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [40, 10] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-10, 3] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 1  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['Al', 'Bl' , 'El', 'FC', 'FS' , 'Ja' , 'Po' , 'RH' ,'Ro']
@@ -210,7 +252,7 @@ class GTZAN(Configuration):
     INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
     INDEX_PATH = 'F:/GTZAN-for-MCLNN/GTZAN_10_folds_index'
     FILE_PATH = 'F:/GTZAN-for-MCLNN/gtzanSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/GTZAN-for-MCLNN/GTZAN_10_folds_pretrained_weights_85percent'
+    ALL_FOLDS_WEIGHTS_PATH = 'F:/GTZAN-for-MCLNN/GTZAN_10_folds_pretrained_weights_85percent'
     CROSS_VALIDATION_FOLDS_COUNT = 10
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -226,8 +268,8 @@ class GTZAN(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [4, 4]  # the order for each layer
-    MASK_BANDWIDTH = [40, 10] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-10, 3] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [40, 10] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-10, 3] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 10  # the k extra frames
 
     CLASS_NAMES = ['Bl', 'Cl' , 'Co', 'Di', 'Hi', 'Ja' , 'Me' , 'Po' , 'Re' ,'Ro']
@@ -237,7 +279,7 @@ class ISMIR2004(Configuration):
     INITIAL_FOLD_ID = 0  # the initial fdold to start with. This should be zero unless you want to start from another fold
     FILE_PATH = 'F:/ISMIR2004-for-MCLNN/ismir2004Specmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=600_FN=600_30secs.hdf5'
     INDEX_PATH = 'F:/ISMIR2004-for-MCLNN/ISMIR2004_10_folds_index_1754157958_hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/ISMIR2004-for-MCLNN/ISMIR2004_10_folds_pretrained_weights_85.0percent'
+    ALL_FOLDS_WEIGHTS_PATH = 'F:/ISMIR2004-for-MCLNN/ISMIR2004_10_folds_pretrained_weights_85.0percent'
     CROSS_VALIDATION_FOLDS_COUNT = 10
 
     STEP_SIZE = 1 # overlap between segments is q minus step_size
@@ -253,8 +295,8 @@ class ISMIR2004(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [4, 4]  # the order for each layer
-    MASK_BANDWIDTH = [40, 10] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-10, 3] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [40, 10] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-10, 3] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 10  # the k extra frames
 
     CLASS_NAMES = ['Cl', 'El' , 'Ja', 'Me', 'Po', 'Wo' ]
@@ -262,9 +304,10 @@ class ISMIR2004(Configuration):
 class YORNOISE(Configuration):
 
     INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/YorNoise-for-MCLNN/YorNoise_10_folds_index'
-    FILE_PATH = 'F:/YorNoise-for-MCLNN/yornoiseSpecmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=1_FN=170_4secsDelta.hdf5'
-    WEIGHTS_TO_STORE_PATH = 'F:/YorNoise-for-MCLNN/YorNoise_10_folds_pretrained_weights_75.8percent'
+    INDEX_PATH = 'I:/YorNoise-for-MCLNN/YorNoise_10_folds_index'
+    FILE_PATH = 'I:/YorNoise-for-MCLNN/yornoiseSpecmeln_mels=60_nfft=1024_hoplength=512_fmax=NIL_22050hzsampling_FF=1_FN=170_4secsDelta.hdf5'
+    ALL_FOLDS_WEIGHTS_PATH = 'I:/YorNoise-for-MCLNN/recheck/YorNoise_10_folds_pretrained_weights_75.8percent'
+    VISUALIZATION_PARENT_PATH = 'I:/YorNoise-for-MCLNN/recheck//YorNoise_10_folds_visualization'
     CROSS_VALIDATION_FOLDS_COUNT = 10
 
     STEP_SIZE = 2 # overlap between segments is q minus step_size
@@ -280,8 +323,8 @@ class YORNOISE(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15]  # the order for each layer
-    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input
-    MASK_OVERLAP = [-5] # the overlap of observation between the a hidden and another
+    MASK_BANDWIDTH = [20] # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-5] # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 50  # the k extra frames beyond the middle frame (included by default)
 
     CLASS_NAMES = ['AC', 'CH' , 'CP', 'DB', 'Dr', 'EI' , 'GS' , 'Ja' , 'Si' ,'SM', 'Ra', 'Tr' ]

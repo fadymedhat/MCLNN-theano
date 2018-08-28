@@ -1,5 +1,5 @@
 '''
-Masked ConditionaL Neural Networks
+Masked ConditionaL Neural Networks (MCLNN)
 '''
 from __future__ import print_function
 import gc
@@ -17,7 +17,8 @@ from keras.models import Sequential
 from keras.optimizers import SGD, Adam
 from keras.utils import np_utils
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from trainingcallbacks import DirectoryHouseKeepingCallback
+# from trainingcallbacks import DirectoryHouseKeepingCallback, SegmentPlotCallback
+import trainingcallbacks
 from datapreprocessor import DataLoader
 from layers import MaskedConditional, GlobalPooling1D
 import platform as plf
@@ -27,48 +28,48 @@ from keras import callbacks
 from sklearn.metrics import f1_score as f1score
 from sklearn.metrics import confusion_matrix
 
+from keras.models import Model
+import matplotlib.pyplot as plt
+import matplotlib
 from memory_profiler import profile
+from visualization import Visualizer
 
-Config = ESC10  # 85.5% Checked - weights upload - Fold name check
 # Config = URBANSOUND8K # 74.22% NEW trans script
-# Config = BALLROOM # 92.55% NEW trans script
-# Config = YORNOISE # 75.816 - NEW trans script
+# Config = BALLROOM  # 92.55% NEW trans script
 # Config = ISMIR2004 # 85% majority vote, NEW trans script
-# Config = HOMBURG # 61.45% Checked - weights to upload - Fold name check
 # Config = GTZAN # 85% majority vote Checked-weights to upload
-# Config = ESC50 # 62.85% Checked - weights to upload - Fold name check
+# Config = YORNOISE # 75.816 - NEW trans script
+
+# August revision check----------------------------
+# Config = ESC10  # 85.5% Validated in I
+# Config = ESC10AUGMENTED # 85.25% Validated in I
+# Config = ESC50 # 62.85% Validated in I
 # Config = ESC50AUGMENTED # 66.85%
-# Config = ESC10AUGMENTED # 85.25% Checked -weights upload
-# JULY revision and final uploads check----------------------------
 
+#http://mirg.city.ac.uk/
+# pipreqs --force .
 
-
-
-
-
-
-
-
+# pip install -U memory_profiler MCLNN_MAIN.py
+# python -m memory_profiler MCLNN_MAIN.py
 
 # -------------- END of july check --------------------------
 
-USE_PRETRAINED_WEIGHTS = True  # True or False - no training is initiated (pre-trained weights are used)
-
 
 class MCLNNTrainer(object):
-    def build_model(self, segment_size, feature_count, pretrained_weights_path=None):
+    def build_model(self, segment_size, feature_count, pretrained_weights_path=None, verbose=True):
 
         model = Sequential()
 
         layer_index = 0
 
         for layer_index in range(Config.MCLNN_LAYER_COUNT):
-            print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
-                  ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
-                  ', Order = ' + str(Config.LAYERS_ORDER_LIST[layer_index]) +
-                  ', Bandwidth = ' + str(Config.MASK_BANDWIDTH[layer_index]) +
-                  ', Overlap = ' + str(Config.MASK_OVERLAP[layer_index]) +
-                  ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
+            if verbose == True:
+                print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
+                      ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
+                      ', Order = ' + str(Config.LAYERS_ORDER_LIST[layer_index]) +
+                      ', Bandwidth = ' + str(Config.MASK_BANDWIDTH[layer_index]) +
+                      ', Overlap = ' + str(Config.MASK_OVERLAP[layer_index]) +
+                      ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
             model.add(Dropout(Config.DROPOUT[layer_index],
                               input_shape=(segment_size, feature_count),
                               name='dropout' + str(layer_index)))
@@ -87,9 +88,10 @@ class MCLNNTrainer(object):
         # --------- Dense LAYER -----------------
         layer_index += 1
         for layer_index in range(layer_index, layer_index + Config.DENSE_LAYER_COUNT):
-            print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
-                  ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
-                  ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
+            if verbose == True:
+                print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
+                      ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
+                      ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
             model.add(Dropout(Config.DROPOUT[layer_index], name='dropout' + str(layer_index)))
             model.add(Dense(init=Config.WEIGHT_INITIALIZATION[layer_index],
                             output_dim=Config.HIDDEN_NODES_LIST[layer_index],
@@ -98,16 +100,18 @@ class MCLNNTrainer(object):
 
         # --------- Output LAYER -----------------
         layer_index += 1
-        print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
-              ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
-              ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
+        if verbose == True:
+            print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
+                  ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
+                  ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
         model.add(Dropout(Config.DROPOUT[layer_index], name='dropout' + str(layer_index)))
         model.add(Dense(init=Config.WEIGHT_INITIALIZATION[layer_index],
                         output_dim=Config.HIDDEN_NODES_LIST[layer_index],
                         name='dense' + str(layer_index)))
         model.add(Activation('softmax', name='softmax' + str(layer_index)))
 
-        model.summary()
+        if verbose == True:
+            model.summary()
         adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
 
         model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
@@ -117,29 +121,27 @@ class MCLNNTrainer(object):
 
         return model
 
-    def train_model(self, model, data_loader, weights_to_store_path):
-        # stoppingCriterion = 'val_acc'  # 'val_acc' or 'val_loss'
-        # print('----------- Monitor --------------- : ', stoppingCriterion)
+    def train_model(self, model, data_loader, fold_weights_path):
+        '''
+        Train a model
+        :param model:
+        :param data_loader:
+        :param fold_weights_path:
+        :return:
+        '''
 
-        print('----------- waitCount --------------- : ', str(Config.WAIT_COUNT))
+        print('----------- Early stopping wait count --------------- : ', str(Config.WAIT_COUNT))
 
-        # remote = callbacks.RemoteMonitor(root='http://localhost:9000')
-        earlyStopping = callbacks.EarlyStopping(monitor=Config.STOPPING_CRITERION, patience=Config.WAIT_COUNT,
-                                                verbose=0,
-                                                mode='auto')
-        weights_file_name_format = 'weights.epoch{epoch:02d}-val_loss{val_loss:.2f}-val_acc{val_acc:.4f}.hdf5'
-        checkpoint = ModelCheckpoint(os.path.join(weights_to_store_path, weights_file_name_format),
-                                     monitor='val_loss', verbose=0,
-                                     save_best_only=False, mode='auto')
-        directoryHouseKeeping = DirectoryHouseKeepingCallback(weights_to_store_path)
+        callback_list = trainingcallbacks.prepare_callbacks(configuration=Config, fold_weights_path=fold_weights_path,
+                                                            data_loader=data_loader)
 
         before = datetime.datetime.now()
         print(before)
         history = model.fit(data_loader.train_segments, data_loader.train_one_hot_target,
                             batch_size=Config.BATCH_SIZE, nb_epoch=Config.NB_EPOCH,
                             verbose=1,
-                            validation_data=(data_loader.validation_Segments, data_loader.validation_one_hot_target),
-                            callbacks=[earlyStopping, checkpoint, directoryHouseKeeping])  # , remote,
+                            validation_data=(data_loader.validation_segments, data_loader.validation_one_hot_target),
+                            callbacks=callback_list)
         after = datetime.datetime.now()
         print(after)
         print('It took:')
@@ -223,7 +225,9 @@ def run():
     all_folds_probability_vote_label = np.asarray([])
 
     segment_size = sum(Config.LAYERS_ORDER_LIST) * 2 + Config.EXTRA_FRAMES
-    print('window:' + str(segment_size))
+    print('Sgement without middle frame:' + str(segment_size))
+
+    is_visualization_called_flag = False
 
     # list of paths to the n-fold indices of the Training/Testing/Validation splits
     # number of paths should be e.g. 30 for 3x10, where 3 is for the splits and 10 for the 10-folds
@@ -241,7 +245,6 @@ def run():
             '_train.hdf5') else None
         validation_index_path = folds_index_file_list[j + 2] if folds_index_file_list[j + 2].lower().endswith(
             '_validation.hdf5') else None
-
 
         if None in [test_index_path, train_index_path, validation_index_path]:
             print('Train / Validation / Test indices are not correctly assigned')
@@ -266,9 +269,9 @@ def run():
                                       + 'wait' + str(Config.WAIT_COUNT) \
                                       + 'order' + str(Config.LAYERS_ORDER_LIST[0]) \
                                       + 'extra' + str(Config.EXTRA_FRAMES)
-        weights_to_store_path = os.path.join(Config.WEIGHTS_TO_STORE_PATH, weights_to_store_foldername)
-        if not os.path.exists(weights_to_store_path):
-            os.makedirs(weights_to_store_path)
+        fold_weights_path = os.path.join(Config.ALL_FOLDS_WEIGHTS_PATH, weights_to_store_foldername)
+        if not os.path.exists(fold_weights_path):
+            os.makedirs(fold_weights_path)
 
         print('----------- Training param -------------')
         print(' batch_size>' + str(Config.BATCH_SIZE) +
@@ -283,14 +286,14 @@ def run():
               ' wait_count>' + str(Config.WAIT_COUNT) +
               ' split_count>' + str(Config.SPLIT_COUNT))
 
-        if USE_PRETRAINED_WEIGHTS == False:
+        if Config.USE_PRETRAINED_WEIGHTS == False:
             model = mclnn_trainer.build_model(segment_size=data_loader.train_segments.shape[1],
                                               feature_count=data_loader.train_segments.shape[2],
-                                              pretrained_weights_path=startup_weights)
-            mclnn_trainer.train_model(model, data_loader, weights_to_store_path)
+                                              pretrained_weights_path=None)
+            mclnn_trainer.train_model(model, data_loader, fold_weights_path)
 
         # load paths of all weights generated during training
-        weight_list = glob.glob(os.path.join(weights_to_store_path, "*.hdf5"))
+        weight_list = glob.glob(os.path.join(fold_weights_path, "*.hdf5"))
         weight_list.sort(key=os.path.getmtime)
 
         if len(weight_list) > 1:
@@ -303,6 +306,12 @@ def run():
         model = mclnn_trainer.build_model(segment_size=data_loader.train_segments.shape[1],
                                           feature_count=data_loader.train_segments.shape[2],
                                           pretrained_weights_path=startup_weights)
+
+        if is_visualization_called_flag == False and Config.SAVE_TEST_SEGMENT_PREDICTION_IMAGE == True:
+            visualizer = Visualizer(Config)
+            visualizer.visualize_weights_and_sample_test_clip(model=model, data_loader=data_loader)
+            # mclnn_trainer.visualize_model(model=model, data_loader=data_loader)
+            is_visualization_called_flag = True
 
         fold_majority_cm, fold_probability_cm, \
         fold_majority_vote_label, fold_probability_vote_label, \
@@ -318,6 +327,8 @@ def run():
         all_folds_target_label = np.append(all_folds_target_label, fold_target_label)
 
         gc.collect()
+
+        break
 
     print('-------------- Cross validation performance --------------')
 
@@ -340,54 +351,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-
-
-
-
-
-    # W = model.layers[1].W.get_value(borrow=True)
-    # W = np.squeeze(W)
-    # print("W shape : ", W.shape)
-    # pl.figure(figsize=(15, 15))
-    # pl.title('conv1 weights')
-    # nice_imshow(pl.gca(), make_mosaic(W, 6, 6), cmap=cm.binary)
-
-
-
-
-
-
-    # def nice_imshow(ax, data, vmin=None, vmax=None, cmap=None):
-    #     """Wrapper around pl.imshow"""
-    #     if cmap is None:
-    #         cmap = cm.jet
-    #     if vmin is None:
-    #         vmin = data.min()
-    #     if vmax is None:
-    #         vmax = data.max()
-    #     divider = make_axes_locatable(ax)
-    #     cax = divider.append_axes("right", size="5%", pad=0.05)
-    #     im = ax.imshow(data, vmin=vmin, vmax=vmax, interpolation='nearest', cmap=cmap)
-    #     pl.colorbar(im, cax=cax)
-    #
-    # def make_mosaic(imgs, nrows, ncols, border=1):
-    #     """
-    #     Given a set of images with all the same shape, makes a
-    #     mosaic with nrows and ncols
-    #     """
-    #     nimgs = imgs.shape[0]
-    #     imshape = imgs.shape[1:]
-    #
-    #     mosaic = ma.masked_all((nrows * imshape[0] + (nrows - 1) * border,
-    #                             ncols * imshape[1] + (ncols - 1) * border),
-    #                            dtype=np.float32)
-    #
-    #     paddedh = imshape[0] + border
-    #     paddedw = imshape[1] + border
-    #     for i in xrange(nimgs):
-    #         row = int(np.floor(i / ncols))
-    #         col = i % ncols
-    #
-    #         mosaic[row * paddedh:row * paddedh + imshape[0],
-    #         col * paddedw:col * paddedw + imshape[1]] = imgs[i]
-    #     return mosaic

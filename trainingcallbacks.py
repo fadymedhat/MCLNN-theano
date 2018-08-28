@@ -8,102 +8,207 @@ import numpy as np
 import numpy.ma as ma
 import pylab as pl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+import matplotlib.pyplot as plt
+
 np.set_printoptions(threshold=np.nan)
 
 import keras
 import glob
 import os
+import matplotlib.pyplot as plt
+from sklearn import preprocessing
+from keras import callbacks
+from keras.callbacks import ModelCheckpoint
+
+import matplotlib.pyplot as pyplt
+import matplotlib
+import matplotlib.pyplot as plt
+from visualization import Visualizer
 
 
-class MinibatchPlotCallback(keras.callbacks.Callback):
-    def nice_imshow(self, ax, data, vmin=None, vmax=None, cmap=None):
-        """Wrapper around pl.imshow"""
-        if cmap is None:
-            cmap = cm.jet
-        if vmin is None:
-            vmin = data.min()
-        if vmax is None:
-            vmax = data.max()
-        divider = make_axes_locatable(ax)
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        im = ax.imshow(data, vmin=vmin, vmax=vmax, interpolation='nearest', cmap=cmap)
-        pl.colorbar(im, cax=cax)
+class SegmentPlotCallback(keras.callbacks.Callback):
+    def __init__(self, configuration, data_loader):
+        self.configuration = configuration
+        self.visualization_parent_path = configuration.VISUALIZATION_PARENT_PATH
+        self.visualizer = Visualizer(configuration)
+        self.data_loader = data_loader
 
-    def make_mosaic(self, imgs, nrows, ncols, border=0):
-        """
-        Given a set of images with all the same shape, makes a
-        mosaic with nrows and ncols
-        """
-        nimgs = imgs.shape[0]
-        imshape = imgs.shape[1:]
+        self.train_path = os.path.join(self.visualization_parent_path, 'train_sample_across_epochs')
+        self.test_path = os.path.join(self.visualization_parent_path, 'test_sample_across_epochs')
+        self.validation_path = os.path.join(self.visualization_parent_path, 'validation_sample_across_epochs')
 
-        mosaic = ma.masked_all((nrows * imshape[0] + (nrows - 1) * border,
-                                ncols * imshape[1] + (ncols - 1) * border),
-                               dtype=np.float32)
+        # self.train_path = 'train_sample_across_epochs'
+        # self.test_path = 'test_sample_across_epochs'
+        # self.validation_path = 'validation_sample_across_epochs'
 
-        paddedh = imshape[0] + border
-        paddedw = imshape[1] + border
-        for i in xrange(nimgs):
-            row = int(np.floor(i / ncols))
-            col = i % ncols
+        # change the following numbers to choose other segments for visualization
+        self.train_segment_index = configuration.TRAIN_SEGMENT_INDEX
+        self.test_segment_index = configuration.TEST_SEGMENT_INDEX
+        self.validation_segment_index = configuration.VALIDATION_SEGMENT_INDEX
+        #
+        if not os.path.exists(self.train_path):
+            os.makedirs(self.train_path)
+        if not os.path.exists(self.test_path):
+            os.makedirs(self.test_path)
+        if not os.path.exists(self.validation_path):
+            os.makedirs(self.validation_path)
 
-            mosaic[row * paddedh:row * paddedh + imshape[0],
-            col * paddedw:col * paddedw + imshape[1]] = imgs[i]
-        return mosaic
-
-    def __init__(self, filepath,X_train, X_test):
-        self.learnedweightpath=filepath
-        self.X_train = X_train
-        self.X_test = X_test
     def on_epoch_end(self, epoch, logs={}):
-        weightList = glob.glob(self.learnedweightpath + "*.hdf5")
-        loccal_model=self.model
 
 
-        modelIntermediate = Model(input=loccal_model.input,
-                      output=loccal_model.get_layer('block1_prelu').output)  # block3_flatter block4_prelu block5_dropout
-        block4_prelu = modelIntermediate.predict(self.X_train[0:1,:,:])
-        block4_prelu1 = modelIntermediate.predict(self.X_train[130:131, :, :])
-        #block4_prelu_test = modelIntermediate.predict(self.X_test)
-        import matplotlib.pyplot as plt
-        plt.ion()
-        plt.figure(8)
-        #h = modelIntermediate.get_weights()[0]
-        #imgplot = plt.imshow(h[0, :, :])
-        #imgplot = plt.imshow(np.transpose(block4_prelu[40000:40200, :]))
-        b1 = np.squeeze(block4_prelu)
-        b2 = np.squeeze(block4_prelu1)
-        h = np.concatenate((b1, b2))
-        #plt.imshow(np.transpose(block4_prelu[0, :, :]))
-        plt.imshow(np.transpose(h))
-        plt.pause(0.05)
-        #plt.show()
-        plt.ion()
-        plt.figure(9)
-        W = modelIntermediate.layers[2].W.get_value(borrow=True)
-        W = np.squeeze(W)
-        print("W shape : ", W)
-        # #pl.figure()#figsize=(150, 150)
-        # #pl.title('conv1 weights')
-        # #self.nice_imshow(pl.gca(), self.make_mosaic(W, 6, 6), cmap=cm.binary)
-        # rr = W.transpose(2, 1, 0)
-        # self.nice_imshow(pl.gca(), self.make_mosaic(rr[0:30, :, :], 1, 30), cmap=cm.binary_r)
-        # #t= modelIntermediate.get_weights()[0]
-        # #imgplot = plt.imshow(t[0, :, :])
-        # #plt.imshow(np.transpose(rr[0:30, :, :]))
-        # plt.pause(0.05)
+        self.visualizer.visualize_prediction_segments(self.model,
+                                                      np.expand_dims(
+                                                          self.data_loader.train_segments[self.train_segment_index], 0),
+                                                      path=self.train_path,
+                                                      initial_segment=self.train_segment_index,
+                                                      epoch_id='epoch_'+str(epoch),
+                                                      layer_filter_list=['mclnn'], first_mclnn_only=True)
+
+        self.visualizer.visualize_prediction_segments(self.model,
+                                                      np.expand_dims(
+                                                          self.data_loader.test_segments[self.test_segment_index], 0),
+                                                      path=self.test_path,
+                                                      initial_segment=self.test_segment_index,
+                                                      epoch_id='epoch_'+str(epoch),
+                                                      layer_filter_list=['mclnn'], first_mclnn_only=True)
+
+        self.visualizer.visualize_prediction_segments(self.model,
+                                                      np.expand_dims(self.data_loader.validation_segments[
+                                                                         self.validation_segment_index], 0),
+                                                      path=self.validation_path,
+                                                      initial_segment=self.validation_segment_index,
+                                                      epoch_id='epoch_'+str(epoch),
+                                                      layer_filter_list=['mclnn'], first_mclnn_only=True)
 
 
 
+        # visualizer.special_save(self.model, np.expand_dims(self.data_loader.train_segments[100], 0), epoch,
+        #                         self.train_path,
+        #                         layer_filter_list=['mclnn'], first_mclnn_only=False)
+
+        # plt = pyplt
+        # plt.ioff()
+        # plt.axis('off')
+        # plt.tick_params(
+        #     axis='both',  # changes apply to the x-axis
+        #     which='both',  # both major and minor ticks are affected
+        #     bottom='off',  # ticks along the bottom edge are off
+        #     top='off',  # ticks along the top edge are off
+        #     left='off',
+        #     right='off',
+        #     labelbottom='off',
+        #     labelleft='off')
+        #
+        #
+        # for layer in self.model.layers:
+        #
+        #     layer_name = layer.name
+        #     layer_type = layer_name.strip('0123456789')
+        #
+        #     if layer_type in ['mclnn']:
+        #         intermediate_model = Model(input=self.model.input,
+        #                                    output=self.model.get_layer(layer_name).output)
+        #
+        #         # import matplotlib
+        #
+        #
+        #
+        #         intermediate_prediction = intermediate_model.predict(np.expand_dims(self.data_loader.train_segments[100], 0), batch_size=1)
+        #         normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
+        #         segment_image = plt.imshow(np.transpose(normalized_prediction), interpolation='none', aspect='equal', cmap='gray')
+        #         plt.savefig(os.path.join(self.train_path, 'mclnn_training_segment_epoch_' + str(epoch) + '.png'), dpi=300, bbox_inches='tight', pad_inches=0)
+        #
+
+
+
+        # for layer in self.model.layers:
+        #
+        #     layer_name = layer.name
+        #     layer_type = layer_name.strip('0123456789')
+        #
+        #     if layer_type in ['mclnn']:
+        #         intermediate_model = Model(input=self.model.input,
+        #                                    output=self.model.get_layer(layer_name).output)
+        #
+        #         # import matplotlib
+        #         plt = pyplt
+        #         plt.ioff()
+        #         plt.axis('off')
+        #         plt.tick_params(
+        #             axis='both',  # changes apply to the x-axis
+        #             which='both',  # both major and minor ticks are affected
+        #             bottom='off',  # ticks along the bottom edge are off
+        #             top='off',  # ticks along the top edge are off
+        #             left='off',
+        #             right='off',
+        #             labelbottom='off',
+        #             labelleft='off')
+        #
+        #         intermediate_prediction = intermediate_model.predict(
+        #             np.expand_dims(self.data_loader.train_segments[100], 0), batch_size=1)
+        #         normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
+        #         segment_image = plt.imshow(np.transpose(normalized_prediction),
+        #                                    interpolation='none',
+        #                                    aspect='equal', cmap='gray')
+        #         plt.savefig(os.path.join(self.train_path, 'mclnn_training_segment_epoch_' + str(epoch) + '.png'),
+        #                     dpi=300, bbox_inches='tight', pad_inches=0)
+        #
+        # intermediate_prediction = intermediate_model.predict(
+        #     np.expand_dims(self.data_loader.test_segments[50], 0))
+        # normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
+        # segment_image = plt.imshow(np.transpose(normalized_prediction),
+        #                            interpolation='none',
+        #                            aspect='equal', cmap='gray')
+        # plt.savefig(os.path.join(self.test_path, 'mclnn_testing_segment_epoch_' + str(epoch) + '.png'),
+        #             dpi=300, bbox_inches='tight', pad_inches=0)
+        #
+        # intermediate_prediction = intermediate_model.predict(
+        #     np.expand_dims(self.data_loader.validation_segments[50], 0))
+        # normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
+        # segment_image = plt.imshow(np.transpose(normalized_prediction),
+        #                            interpolation='none',
+        #                            aspect='equal', cmap='gray')
+        # plt.savefig(os.path.join(self.validation_path, 'mclnn_validation_segment_epoch_' + str(epoch) + '.png'),
+        #             dpi=300, bbox_inches='tight', pad_inches=0)
+
+        # break  # Only the first MCLNN layer is visualized
 
 
 class DirectoryHouseKeepingCallback(keras.callbacks.Callback):
     def __init__(self, filepath):
-        self.learnedweightpath=filepath
+        self.learnedweightpath = filepath
+
     def on_epoch_end(self, epoch, logs={}):
         weightList = glob.glob(os.path.join(self.learnedweightpath, "*.hdf5"))
         weightList.sort(key=os.path.getmtime)
         if len(weightList) > 60:
             os.remove(weightList[0])
-        x= 6
 
+
+def prepare_callbacks(configuration, fold_weights_path, data_loader):
+    callback_list = []
+
+    # remote_callback = callbacks.RemoteMonitor(root='http://localhost:9000')
+    # callback_list.append(remote_callback)
+
+    early_stopping_callback = callbacks.EarlyStopping(monitor=configuration.STOPPING_CRITERION,
+                                                      patience=configuration.WAIT_COUNT,
+                                                      verbose=0,
+                                                      mode='auto')
+    callback_list.append(early_stopping_callback)
+
+    weights_file_name_format = 'weights.epoch{epoch:02d}-val_loss{val_loss:.2f}-val_acc{val_acc:.4f}.hdf5'
+    checkpoint_callback = ModelCheckpoint(os.path.join(fold_weights_path, weights_file_name_format),
+                                          monitor='val_loss', verbose=0,
+                                          save_best_only=False, mode='auto')
+    callback_list.append(checkpoint_callback)
+
+    directory_house_keeping_callback = DirectoryHouseKeepingCallback(fold_weights_path)
+    callback_list.append(directory_house_keeping_callback)
+
+    if configuration.SAVE_SEGMENT_PREDICTION_IMAGE_PER_EPOCH == True:
+        segment_plot_callback = SegmentPlotCallback(configuration=configuration,
+                                                    data_loader=data_loader)
+        callback_list.append(segment_plot_callback)
+
+    return callback_list

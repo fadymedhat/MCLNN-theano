@@ -1,0 +1,8 @@
+memory_profiler==0.52.0
+numpy==1.9.2
+scipy==1.0.1
+Keras==1.0.8
+Theano==0.8.2
+h5py==2.8.0
+matplotlib==2.2.3
+scikit_learn==0.19.2
