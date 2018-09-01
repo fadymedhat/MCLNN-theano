@@ -33,14 +33,15 @@ class DataLoader(object):
         """
         print('Loading ' + fold_name + ' fold ...')
         with h5py.File(index_path, "r") as hdf5_handle:
-            index = hdf5_handle[str('index')].value #hdf5_handle[str('index')].value  #  np.asarray([0, 1]) #
-            label = hdf5_handle[str('label')].value #hdf5_handle[str('label')].value  # np.asarray( [0, 1])
+            index = hdf5_handle[str('index')].value  # hdf5_handle[str('index')].value  #  np.asarray([0, 1]) #
+            label = hdf5_handle[str('label')].value  # hdf5_handle[str('label')].value  # np.asarray( [0, 1])
 
         sound_cell_array = []
         category = []
         with h5py.File(data_path, 'r') as f:
             # print('List of arrays in this file: \n', f.keys())
-            for i in range(len(index)): #range(len(index)):    # range(2): to execlude the category list dataset vector
+            for i in range(
+                    len(index)):  # range(len(index)):    # range(2): to execlude the category list dataset vector
                 data = f[str(index[i])].value
                 sound_cell_array.append(data)
 
@@ -59,7 +60,7 @@ class DataLoader(object):
               + '\' - labels count =\'' + str(label.shape[0]) + '\'')
         return sound_cell_array, label
 
-    def retrieve_standardization_parameters(self, data, train_index_path):
+    def retrieve_standardization_parameters(self, data, standardization_path, train_file_name):
         """
 
         :param data:
@@ -70,8 +71,9 @@ class DataLoader(object):
         frames = str(len(data[0]))
         features = str(len(data[0][0]))
 
-        standardization_file_path = train_index_path.replace('.hdf5', 'Parameters.hdf5').replace('_index',
-                                                                                                 '_standardization')
+        standardization_file_path = os.path.join(standardization_path,
+                                                 train_file_name.replace('.hdf5', 'Parameters.hdf5'))
+
 
         if not os.path.exists(standardization_file_path):
             print ('Calculating standardization parameters ...')
@@ -160,7 +162,8 @@ class DataLoader(object):
             segments_labels.append(label)
         return np.asarray(data_segments), np.asarray(segments_labels)
 
-    def load_data(self, segment_size, step_size, nb_classes, data_path, train_index_path, test_index_path,
+    def load_data(self, segment_size, step_size, nb_classes, data_path, standardization_path, train_index_path,
+                  test_index_path,
                   validation_index_path):
         """
 
@@ -184,7 +187,8 @@ class DataLoader(object):
 
         # standardization
         print('-------------------------------- Standardization -----------------------------------------------')
-        mean_vector, std_vector = self.retrieve_standardization_parameters(training_clips, train_index_path)
+        mean_vector, std_vector = self.retrieve_standardization_parameters(training_clips, standardization_path,
+                                                                           os.path.basename(train_index_path))
         training_clips = self.standardize_data(training_clips, mean_vector, std_vector)
         self.test_clips = self.standardize_data(self.test_clips, mean_vector, std_vector)
         validation_clips = self.standardize_data(validation_clips, mean_vector, std_vector)

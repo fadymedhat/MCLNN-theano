@@ -22,7 +22,7 @@ import trainingcallbacks
 from datapreprocessor import DataLoader
 from layers import MaskedConditional, GlobalPooling1D
 import platform as plf
-from parameters import ESC10, ESC50, URBANSOUND8K, BALLROOM, GTZAN, HOMBURG, ISMIR2004, YORNOISE, ESC10AUGMENTED, \
+from configuration import ESC10, ESC50, URBANSOUND8K, BALLROOM, GTZAN, HOMBURG, ISMIR2004, YORNOISE, ESC10AUGMENTED, \
     ESC50AUGMENTED
 from keras import callbacks
 from sklearn.metrics import f1_score as f1score
@@ -34,17 +34,19 @@ import matplotlib
 from memory_profiler import profile
 from visualization import Visualizer
 
-# Config = URBANSOUND8K # 74.22% NEW trans script
+
 # Config = BALLROOM  # 92.55% NEW trans script
 # Config = ISMIR2004 # 85% majority vote, NEW trans script
 # Config = GTZAN # 85% majority vote Checked-weights to upload
-# Config = YORNOISE # 75.816 - NEW trans script
+# Config = HOMBURG
 
 # August revision check----------------------------
-# Config = ESC10  # 85.5% Validated in I
-# Config = ESC10AUGMENTED # 85.25% Validated in I
-# Config = ESC50 # 62.85% Validated in I
-# Config = ESC50AUGMENTED # 66.85%
+# Config = ESC10  # 85.5% FULL CYCLE VALIDATION
+# Config = ESC10AUGMENTED # 85.25% FULL CYCLE VALIDATION
+# Config = ESC50 # 62.85% FULL CYCLE VALIDATION
+# Config = ESC50AUGMENTED # 66.6% FULL CYCLE VALIDATION
+# Config = URBANSOUND8K # 74.22% FULL CYCLE VALIDATION
+Config = YORNOISE # 75.816 - NEW trans script
 
 #http://mirg.city.ac.uk/
 # pipreqs --force .
@@ -112,7 +114,7 @@ class MCLNNTrainer(object):
 
         if verbose == True:
             model.summary()
-        adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+        adam = Adam(lr=Config.LEARNING_RATE, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
 
         model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
 
@@ -214,7 +216,7 @@ class MCLNNTrainer(object):
         return cm_majority, cm_probability, clip_predicted_majority_vote, clip_predicted_probability_mean_vote, data_loader.test_clips_labels
 
 
-@profile
+# @profile
 def run():
     all_folds_target_label = np.asarray([])
 
@@ -225,7 +227,7 @@ def run():
     all_folds_probability_vote_label = np.asarray([])
 
     segment_size = sum(Config.LAYERS_ORDER_LIST) * 2 + Config.EXTRA_FRAMES
-    print('Sgement without middle frame:' + str(segment_size))
+    print('Segment without middle frame:' + str(segment_size))
 
     is_visualization_called_flag = False
 
@@ -233,6 +235,9 @@ def run():
     # number of paths should be e.g. 30 for 3x10, where 3 is for the splits and 10 for the 10-folds
     # Every 3 files are for one run to train and validate on 9-folds and test on the remaining fold.
     folds_index_file_list = glob.glob(os.path.join(Config.INDEX_PATH, "Fold*.hdf5"))
+    if len(folds_index_file_list) == 0:
+        print ('Index path is not found = '+ Config.INDEX_PATH)
+        return
     folds_index_file_list.sort()
 
     cross_val_index_list = np.arange(0, Config.SPLIT_COUNT * Config.CROSS_VALIDATION_FOLDS_COUNT, Config.SPLIT_COUNT)
@@ -258,7 +263,8 @@ def run():
         data_loader.load_data(segment_size,
                               Config.STEP_SIZE,
                               Config.NB_CLASSES,
-                              Config.FILE_PATH,
+                              Config.DATASET_FILE_PATH,
+                              Config.STANDARDIZATION_PATH,
                               train_index_path,
                               test_index_path,
                               validation_index_path)
@@ -294,6 +300,10 @@ def run():
 
         # load paths of all weights generated during training
         weight_list = glob.glob(os.path.join(fold_weights_path, "*.hdf5"))
+        if len(weight_list) == 0:
+            print('Weight path is not found = ' + fold_weights_path)
+            return
+
         weight_list.sort(key=os.path.getmtime)
 
         if len(weight_list) > 1:
@@ -328,7 +338,7 @@ def run():
 
         gc.collect()
 
-        break
+
 
     print('-------------- Cross validation performance --------------')
 
