@@ -140,7 +140,7 @@ class URBANSOUND8K:
                         .
                         .
 
-    # shuffling is disabled for the dataset since it is released with predefined splits                                                                         
+    # shuffling is disabled for the dataset since it is released with predefined splits
     SHUFFLE_CATEGORY_CLIPS = False
     
     # Augmentation is disabled
@@ -163,7 +163,5 @@ class URBANSOUND8K:
     COL_FOLD_ID = 7 
     
     # csv column index for class id of a file - class id is zero indexed
-    COL_CLASS_ID = 8 
-
-
+    COL_CLASS_ID = 8
 ```
