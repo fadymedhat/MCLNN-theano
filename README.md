@@ -31,7 +31,7 @@ a systematic controlled sparsness.
 The below figures show 30 segments of a spectrogram as an input (left) and their corresponding output (right) from an MCLNN before applying any activation function.
 The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
 
-![Spectrogram](imgs/segments.gif)&nbsp;&nbsp;&nbsp;&nbsp;![MCLNN output](imgs/mclnnout.gif)
+![Spectrogram](imgs/segments.gif)&nbsp;&nbsp;&nbsp;&nbsp;![MCLNN output](imgs/mclnnout.gif){style='display: block; margin: 0 auto' }
 
 
 A visualization of MCLNN weights for sample hidden nodes
