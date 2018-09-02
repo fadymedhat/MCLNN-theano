@@ -132,6 +132,9 @@ if the dataset is accompanied with a CSV file, specifiying the samples assignmen
  required configuration.
  
  
+ ![Urbansound8k CSV](imgs/urbansound8kcsv.png)
+ 
+ 
 ```
 
 class URBANSOUND8K:
