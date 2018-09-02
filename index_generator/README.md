@@ -137,7 +137,7 @@ If the dataset is accompanied with a CSV file, specifiying the samples assignmen
  The indices of the three highlighted columns are required for the configuration as shown in the below listing. 
  
  
-<div style='text-align:center'><img height='200' src='imgs/urbansound8kcsv.png'/></div>
+<img height='200' src='imgs/urbansound8kcsv.png' style="display: block; margin: 0 auto"/>
 
  
  
