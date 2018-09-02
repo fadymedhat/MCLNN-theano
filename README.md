@@ -32,9 +32,7 @@ The below figures show 30 segments of a spectrogram as an input (left) and their
 The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
 
 
-
-
-![Spectrogram](imgs/segments.gif)&nbsp;&nbsp;&nbsp;&nbsp;![MCLNN output](imgs/mclnnout.gif)
+<p align='center'><img src='imgs/segments.gif'/>&nbsp;&nbsp;&nbsp;&nbsp;<img src='imgs/mclnnout.gif'/></p>
 
 
 A visualization of MCLNN weights for sample hidden nodes
