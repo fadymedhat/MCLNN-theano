@@ -109,18 +109,36 @@ In the below listings, we applied 12 augmentation variants for the ESC10 dataset
 __NOTE:__
  Augmentation is applied on the training data only and the Dataset.hdf5 will include the original and the augmentated
  version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, 
- while constraining the validation and test data to the original data only. This is carried on for all the folds of the 
+ while constraining the validation and test splits to the original data only. This is carried on for all the folds of the 
  cross-validtion operation.
 
 ```
 class ESC10AUGMENTED:
-    DATASET = 'esc10_12augment'
+
+   # dataset name
+    DATASET = 'esc10_12augmentations'
+
+    # Destination path for the indices to be generated
+    DST_PATH = 'I:/ESC10-augmented-for-MCLNN'
+ 
+     # Folds count
     FOLD_COUNT = 5
-    FOLDER_NAME = 'folds_indices_esc10_aug'
-    SHUFFLE_CATEGORY_CLIPS = False # dataset has predefined folds
-    AUGMENTATION_VARIANTS_COUNT = 12 # 12 augmentations are applied for each sample
+    
+     # parent folder for the indices generated
+    FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
+    
+     # shuffling is disabled for the dataset since it is released with predefined splits    
+    SHUFFLE_CATEGORY_CLIPS = False
+    
+    # Augmentation counts applied
+    AUGMENTATION_VARIANTS_COUNT = 12
+    
+    # the original count of each category
     CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40]
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8 # number of samples of a category assigned per fold.
+    
+    # samples assigned for a fold per instance of assignment 
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
+    
 ```    
     
     
