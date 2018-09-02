@@ -4,7 +4,12 @@
 
 MCLNN index generation
 ========
-The MCLNN expects a dataset to be packed in a single .hdf5 file. The assignment of each of the sample to any of the folds during training, testing and validation is delegated to the indices generated before the MCLNN starts its operation. Accordingly, it is the responsibility of the index generator to produce these required indices.
+In a 10-fold cross-validation, samples of a dataset are split into 10 subsets, where 8-folds are used for training and 1 fold 
+is used for validation and the remaining one is for testing. The folds rotate among each other for each trial of a cross-validation.
+
+This behavior is applied through the index generator by creating 10 subsets of indices following the index assigned to a sound 
+clip in Dataset.hdf5 file generated through the dataset transformer. 
+
 
 ## Configuration 
 
