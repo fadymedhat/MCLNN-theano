@@ -17,7 +17,8 @@ We will refer, in this section, to possible scenarios and their corresponding co
 
 
 #### A balanced dataset without Augmentation
---------------------------------------------
+___
+
 
 The ESC10 environmental sound dataset:
  * Composed of 400 sound file for 10 environmental categories. 
