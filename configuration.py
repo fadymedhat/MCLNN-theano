@@ -263,46 +263,21 @@ class YORNOISE(Configuration):
     CLASS_NAMES = ['AC', 'CH', 'CP', 'DB', 'Dr', 'EI', 'GS', 'Ja', 'Si', 'SM', 'Ra', 'Tr']
 
 
-class BALLROOM(Configuration):
-    # A model of 92.55% accuarcy
-    INITIAL_FOLD_ID = 0  # the initial fold to start with zero indexed. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_index'
-    # DATASET_FILE_PATH = 'F:/Ballroom-for-MCLNN/ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5'
-    DATASET_FILE_PATH = 'F:/Ballroom-for-MCLNN/ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN_600_30sec.hdf5'
-    # ALL_FOLDS_WEIGHTS_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_pretrained_weights_92.55percent'
-    # VISUALIZATION_PARENT_PATH = 'F:/Ballroom-for-MCLNN/ballroom_10_folds_visualization'
-
-    ALL_FOLDS_WEIGHTS_PATH = 'I:\locallyconnectedlearnedweights/ballroomvis/ballroom_10_folds_pretrained_weights_92.55percentSegmentPlot'
-    VISUALIZATION_PARENT_PATH = 'I:\locallyconnectedlearnedweights/ballroomvis/ballroom_10_folds_visualization'
-
-    CROSS_VALIDATION_FOLDS_COUNT = 10
-
-    STEP_SIZE = 1  # overlap between segments is q minus step_size
-    BATCH_SIZE = 600  # the samples in a mini-batch
-    NB_CLASSES = 8  # the number of classes to classify
-    DROPOUT = [0.01, 0.35, 0.1, 0.1]  # dropout at the input of each layer
-    HIDDEN_NODES_LIST = [220, 50, 10, NB_CLASSES]  # hidden nodes for each layer
-    WEIGHT_INITIALIZATION = ['he_normal', 'glorot_uniform', 'glorot_uniform', 'glorot_uniform']
-
-    # Model layers
-    MCLNN_LAYER_COUNT = 1  # number of MCLNN layers
-    DENSE_LAYER_COUNT = 2  # number of dense layers
-
-    # MCLNN hyperparameters
-    LAYERS_ORDER_LIST = [20]  # the order for each layer
-    MASK_BANDWIDTH = [40]  # the consecutive features enabled at the input for each layer
-    MASK_OVERLAP = [-10]  # the overlap of observation between a hidden node and another for each layer
-    EXTRA_FRAMES = 55  # the k extra frames beyond the middle frame (included by default)
-
-    CLASS_NAMES = ['CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa']
-
-
 class HOMBURG(Configuration):
-    INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/Homburg-for-MCLNN/Homburg_10_folds_index/'
-    DATASET_FILE_PATH = 'F:/Homburg-for-MCLNN/homburgSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=8_FN=200_10secs.hdf5'
-    ALL_FOLDS_WEIGHTS_PATH = 'F:/Homburg-for-MCLNN/homburg_10_folds_pretrained_weights_61.45percent'
+    # A model of 61.45% accuarcy
+    DATASET_NAME = 'Homburg'
     CROSS_VALIDATION_FOLDS_COUNT = 10
+    INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
+    PARENT_PATH = 'I:/Homburg-for-MCLNN'
+
+    COMMON_PATH_NAME = os.path.join(PARENT_PATH, DATASET_NAME + '_folds_' + str(CROSS_VALIDATION_FOLDS_COUNT))
+    INDEX_PATH = COMMON_PATH_NAME + '_index'
+    STANDARDIZATION_PATH = COMMON_PATH_NAME + '_standardization'
+    ALL_FOLDS_WEIGHTS_PATH = COMMON_PATH_NAME + '_weights'
+    VISUALIZATION_PARENT_PATH = COMMON_PATH_NAME + '_visualization'
+
+    DATASET_FILE_PATH = os.path.join(PARENT_PATH,
+                                     'homburgSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=8_FN=200_10secs.hdf5')
 
     STEP_SIZE = 1  # overlap between segments is q minus step_size
     BATCH_SIZE = 800  # the samples in a mini-batch
@@ -325,11 +300,19 @@ class HOMBURG(Configuration):
 
 
 class GTZAN(Configuration):
-    INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    INDEX_PATH = 'F:/GTZAN-for-MCLNN/GTZAN_10_folds_index'
-    DATASET_FILE_PATH = 'F:/GTZAN-for-MCLNN/gtzanSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5'
-    ALL_FOLDS_WEIGHTS_PATH = 'F:/GTZAN-for-MCLNN/GTZAN_10_folds_pretrained_weights_85percent'
+    DATASET_NAME = 'GTZAN'
     CROSS_VALIDATION_FOLDS_COUNT = 10
+    INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
+    PARENT_PATH = 'I:/GTZAN-for-MCLNN'
+
+    COMMON_PATH_NAME = os.path.join(PARENT_PATH, DATASET_NAME + '_folds_' + str(CROSS_VALIDATION_FOLDS_COUNT))
+    INDEX_PATH = COMMON_PATH_NAME + '_index'
+    STANDARDIZATION_PATH = COMMON_PATH_NAME + '_standardization'
+    ALL_FOLDS_WEIGHTS_PATH = COMMON_PATH_NAME + '_weights'
+    VISUALIZATION_PARENT_PATH = COMMON_PATH_NAME + '_visualization'
+
+    DATASET_FILE_PATH = os.path.join(PARENT_PATH,
+                                     'gtzanSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5')
 
     STEP_SIZE = 1  # overlap between segments is q minus step_size
     BATCH_SIZE = 600  # the samples in a mini-batch
@@ -352,11 +335,19 @@ class GTZAN(Configuration):
 
 
 class ISMIR2004(Configuration):
-    INITIAL_FOLD_ID = 0  # the initial fdold to start with. This should be zero unless you want to start from another fold
-    DATASET_FILE_PATH = 'F:/ISMIR2004-for-MCLNN/ismir2004Specmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=600_FN=600_30secs.hdf5'
-    INDEX_PATH = 'F:/ISMIR2004-for-MCLNN/ISMIR2004_10_folds_index_1754157958_hdf5'
-    ALL_FOLDS_WEIGHTS_PATH = 'F:/ISMIR2004-for-MCLNN/ISMIR2004_10_folds_pretrained_weights_85.0percent'
+    DATASET_NAME = 'ISMIR2004'
     CROSS_VALIDATION_FOLDS_COUNT = 10
+    INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
+    PARENT_PATH = 'I:/ISMIR2004-for-MCLNN'
+
+    COMMON_PATH_NAME = os.path.join(PARENT_PATH, DATASET_NAME + '_folds_' + str(CROSS_VALIDATION_FOLDS_COUNT))
+    INDEX_PATH = COMMON_PATH_NAME + '_index'
+    STANDARDIZATION_PATH = COMMON_PATH_NAME + '_standardization'
+    ALL_FOLDS_WEIGHTS_PATH = COMMON_PATH_NAME + '_weights'
+    VISUALIZATION_PARENT_PATH = COMMON_PATH_NAME + '_visualization'
+
+    DATASET_FILE_PATH = os.path.join(PARENT_PATH,
+                                     'ismir2004Specmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=600_FN=600_30secs.hdf5')
 
     STEP_SIZE = 1  # overlap between segments is q minus step_size
     BATCH_SIZE = 600  # the samples in a mini-batch
@@ -376,3 +367,43 @@ class ISMIR2004(Configuration):
     EXTRA_FRAMES = 10  # the k extra frames
 
     CLASS_NAMES = ['Cl', 'El', 'Ja', 'Me', 'Po', 'Wo']
+
+
+class BALLROOM(Configuration):
+    # A model of 92.55% accuarcy
+
+    DATASET_NAME = 'Ballroom'
+    CROSS_VALIDATION_FOLDS_COUNT = 10
+    INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
+    PARENT_PATH = 'I:/Ballroom-for-MCLNN'
+
+    COMMON_PATH_NAME = os.path.join(PARENT_PATH, DATASET_NAME + '_folds_' + str(CROSS_VALIDATION_FOLDS_COUNT))
+    INDEX_PATH = COMMON_PATH_NAME + '_index'
+    STANDARDIZATION_PATH = COMMON_PATH_NAME + '_standardization'
+    ALL_FOLDS_WEIGHTS_PATH = COMMON_PATH_NAME + '_weights'
+    VISUALIZATION_PARENT_PATH = COMMON_PATH_NAME + '_visualization'
+
+    # DATASET_FILE_PATH = os.path.join(PARENT_PATH,
+    #                                  'ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5')
+
+    DATASET_FILE_PATH = os.path.join(PARENT_PATH,
+                                     'ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN_600_30sec.hdf5')
+
+    STEP_SIZE = 1  # overlap between segments is q minus step_size
+    BATCH_SIZE = 600  # the samples in a mini-batch
+    NB_CLASSES = 8  # the number of classes to classify
+    DROPOUT = [0.01, 0.35, 0.1, 0.1]  # dropout at the input of each layer
+    HIDDEN_NODES_LIST = [220, 50, 10, NB_CLASSES]  # hidden nodes for each layer
+    WEIGHT_INITIALIZATION = ['he_normal', 'glorot_uniform', 'glorot_uniform', 'glorot_uniform']
+
+    # Model layers
+    MCLNN_LAYER_COUNT = 1  # number of MCLNN layers
+    DENSE_LAYER_COUNT = 2  # number of dense layers
+
+    # MCLNN hyperparameters
+    LAYERS_ORDER_LIST = [20]  # the order for each layer
+    MASK_BANDWIDTH = [40]  # the consecutive features enabled at the input for each layer
+    MASK_OVERLAP = [-10]  # the overlap of observation between a hidden node and another for each layer
+    EXTRA_FRAMES = 55  # the k extra frames beyond the middle frame (included by default)
+
+    CLASS_NAMES = ['CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa']

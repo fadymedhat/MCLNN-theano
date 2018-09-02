@@ -2,7 +2,9 @@ import os
 import h5py
 import numpy as np
 
-from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE, BALLROOM, ISMIR2004
+
+
+# from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE, HOMBURG, BALLROOM, ISMIR2004
 
 from numpy import random as rand
 
@@ -10,7 +12,20 @@ from numpy import random as rand
 # random.seed(1754157958)
 # random.seed(0)
 
-Config = YORNOISE
+import configuration
+# =============================================== #
+#    Enable a single configuration from below     #
+# =============================================== #
+# Config = configuration.ESC10
+# Config = configuration.ESC10AUGMENTED
+# Config = configuration.ESC50
+# Config = configuration.ESC50AUGMENTED
+# Config = configuration.URBANSOUND8K
+# Config = configuration.YORNOISE
+# Config = configuration.HOMBURG
+# Config = configuration.GTZAN
+# Config = configuration.ISMIR2004
+Config = configuration.BALLROOM
 
 rand.seed(1754157958)
 

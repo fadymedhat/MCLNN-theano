@@ -5,9 +5,23 @@ import librosa
 import numpy as np
 from fnmatch import fnmatch
 
-from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE
+# from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE
 
-Config = YORNOISE
+import configuration
+# =============================================== #
+#    Enable a single configuration from below     #
+# =============================================== #
+# Config = configuration.ESC10
+# Config = configuration.ESC10AUGMENTED
+# Config = configuration.ESC50
+# Config = configuration.ESC50AUGMENTED
+# Config = configuration.URBANSOUND8K
+# Config = configuration.YORNOISE
+# Config = configuration.HOMBURG
+# Config = configuration.GTZAN
+# Config = configuration.ISMIR2004
+Config = configuration.BALLROOM
+
 
 
 def store(file_handle, file_key, clip_list, sample_rate_list, short_count):
@@ -31,11 +45,19 @@ def store(file_handle, file_key, clip_list, sample_rate_list, short_count):
         start = Config.FIRST_FRAME_IN_SLICE  # start of the segment
         end = start + Config.FRAME_NUM  # end of the segment
 
+
         if log_mel_spec.shape[1] < Config.FRAME_NUM:
             start = 0
             end = log_mel_spec.shape[1]
             print('SHORT included ' + str(clip.shape[0] / sr) + ' start :' + str(start) + ' <> end :' + str(end))
             short_count += 1
+        elif Config.FRAME_NUM < log_mel_spec.shape[1] < Config.FRAME_NUM + Config.FIRST_FRAME_IN_SLICE:
+            start = log_mel_spec.shape[1] / 2 - (Config.FRAME_NUM / 2)
+            end = start + Config.FRAME_NUM
+            print('SHORT middle included ' + str(clip.shape[0] / sr) + '  start :' + str(start) + ' <> end :' + str(
+                    end))
+            short_count += 1
+
 
         spectrogram = np.transpose(log_mel_spec[:, start:end])
 
@@ -128,6 +150,10 @@ if __name__ == '__main__':
 
     # clip_list = []
     # sample_rate_list = []
+
+    if not os.path.exists(Config.SRC_PATH):
+        print ('Source path is not there :'+ Config.SRC_PATH)
+        exit()
 
     if not os.path.exists(Config.DST_PATH):
         os.makedirs(Config.DST_PATH)

@@ -22,8 +22,10 @@ import trainingcallbacks
 from datapreprocessor import DataLoader
 from layers import MaskedConditional, GlobalPooling1D
 import platform as plf
-from configuration import ESC10, ESC50, URBANSOUND8K, BALLROOM, GTZAN, HOMBURG, ISMIR2004, YORNOISE, ESC10AUGMENTED, \
-    ESC50AUGMENTED
+
+# from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE, BALLROOM, GTZAN, \
+#     HOMBURG, ISMIR2004
+
 from keras import callbacks
 from sklearn.metrics import f1_score as f1score
 from sklearn.metrics import confusion_matrix
@@ -34,21 +36,29 @@ import matplotlib
 from memory_profiler import profile
 from visualization import Visualizer
 
-
 # Config = BALLROOM  # 92.55% NEW trans script
 # Config = ISMIR2004 # 85% majority vote, NEW trans script
-# Config = GTZAN # 85% majority vote Checked-weights to upload
-# Config = HOMBURG
 
-# August revision check----------------------------
-# Config = ESC10  # 85.5% FULL CYCLE VALIDATION
-# Config = ESC10AUGMENTED # 85.25% FULL CYCLE VALIDATION
-# Config = ESC50 # 62.85% FULL CYCLE VALIDATION
-# Config = ESC50AUGMENTED # 66.6% FULL CYCLE VALIDATION
-# Config = URBANSOUND8K # 74.22% FULL CYCLE VALIDATION
-Config = YORNOISE # 75.816 - NEW trans script
 
-#http://mirg.city.ac.uk/
+
+import configuration
+
+# =============================================== #
+#    Enable a single configuration from below     #
+# =============================================== #
+# Config = configuration.ESC10          # 85.50% - FULL CYCLE VALIDATION
+# Config = configuration.ESC10AUGMENTED # 85.25% - FULL CYCLE VALIDATION
+# Config = configuration.ESC50          # 62.85% - FULL CYCLE VALIDATION
+# Config = configuration.ESC50AUGMENTED # 66.60% - FULL CYCLE VALIDATION
+# Config = configuration.URBANSOUND8K   # 74.22% - FULL CYCLE VALIDATION
+# Config = configuration.YORNOISE       # 75.82% - FULL CYCLE VALIDATION
+# Config = configuration.HOMBURG        # 61.45% - FULL CYCLE VALIDATION
+# Config = configuration.GTZAN          # 85.00% - FULL CYCLE VALIDATION
+# Config = configuration.ISMIR2004      # 85.00% - FULL CYCLE VALIDATION
+Config = configuration.BALLROOM
+
+
+# http://mirg.city.ac.uk/
 # pipreqs --force .
 
 # pip install -U memory_profiler MCLNN_MAIN.py
@@ -236,7 +246,7 @@ def run():
     # Every 3 files are for one run to train and validate on 9-folds and test on the remaining fold.
     folds_index_file_list = glob.glob(os.path.join(Config.INDEX_PATH, "Fold*.hdf5"))
     if len(folds_index_file_list) == 0:
-        print ('Index path is not found = '+ Config.INDEX_PATH)
+        print('Index path is not found = ' + Config.INDEX_PATH)
         return
     folds_index_file_list.sort()
 
@@ -277,7 +287,11 @@ def run():
                                       + 'extra' + str(Config.EXTRA_FRAMES)
         fold_weights_path = os.path.join(Config.ALL_FOLDS_WEIGHTS_PATH, weights_to_store_foldername)
         if not os.path.exists(fold_weights_path):
-            os.makedirs(fold_weights_path)
+            if Config.USE_PRETRAINED_WEIGHTS == False:
+                os.makedirs(fold_weights_path)
+            elif Config.USE_PRETRAINED_WEIGHTS == True:
+                print('Pre-trained weights do not exist in :' + fold_weights_path)
+                exit(1)
 
         print('----------- Training param -------------')
         print(' batch_size>' + str(Config.BATCH_SIZE) +
@@ -337,8 +351,6 @@ def run():
         all_folds_target_label = np.append(all_folds_target_label, fold_target_label)
 
         gc.collect()
-
-
 
     print('-------------- Cross validation performance --------------')
 
