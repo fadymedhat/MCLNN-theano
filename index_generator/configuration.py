@@ -61,7 +61,7 @@ class URBANSOUND8K:
     SHUFFLE_CATEGORY_CLIPS = False
     AUGMENTATION_VARIANTS_COUNT = 0
 
-    # Classes initals in order ('AC', 'CH', 'CP', 'DB', 'Dr', 'EI', 'GS', 'Ja', 'Si', 'SM')
+    # samples per category following the category order: ('AC', 'CH', 'CP', 'DB', 'Dr', 'EI', 'GS', 'Ja', 'Si', 'SM')
     CLIP_COUNT_PER_CATEGORY_LIST = [1000, 429, 1000, 1000, 1000, 1000, 374, 1000, 929, 1000]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
@@ -78,7 +78,7 @@ class YORNOISE:
     SHUFFLE_CATEGORY_CLIPS = False
     AUGMENTATION_VARIANTS_COUNT = 0
 
-    # Classes initals in order ('AC', 'CH', 'CP', 'DB', 'Dr', 'EI', 'GS', 'Ja', 'Si', 'SM', 'Ra', 'Tr')
+    # samples per category following the category order: ('AC', 'CH', 'CP', 'DB', 'Dr', 'EI', 'GS', 'Ja', 'Si', 'SM', 'Ra', 'Tr')
     CLIP_COUNT_PER_CATEGORY_LIST = [1000, 429, 1000, 1000, 1000, 1000, 374, 1000, 929, 1000, 620, 907]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
@@ -94,7 +94,8 @@ class HOMBURG:
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = True
     AUGMENTATION_VARIANTS_COUNT = 0
-    # Classes initals in order ('Al', 'Bl', 'El', 'FC', 'FS', 'Ja', 'Po', 'RH', 'Ro')
+
+    # samples per category following the category order: ('Al', 'Bl', 'El', 'FC', 'FS', 'Ja', 'Po', 'RH', 'Ro')
     CLIP_COUNT_PER_CATEGORY_LIST = [145, 120, 113, 222, 47, 319, 116, 300, 504]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
@@ -105,7 +106,8 @@ class GTZAN:
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = True
     AUGMENTATION_VARIANTS_COUNT = 0
-    # Classes initals in order ('Bl', 'Cl', 'Co', 'Di', 'Hi', 'Ja', 'Me', 'Po', 'Re', 'Ro')
+
+    # samples per category following the category order: ('Bl', 'Cl', 'Co', 'Di', 'Hi', 'Ja', 'Me', 'Po', 'Re', 'Ro')
     CLIP_COUNT_PER_CATEGORY_LIST = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
@@ -116,7 +118,8 @@ class ISMIR2004:
     FOLDER_NAME = DATASET + '_folds_indices'
     SHUFFLE_CATEGORY_CLIPS = True
     AUGMENTATION_VARIANTS_COUNT = 0
-    # Classes initals in order ('Cl', 'El', 'Ja', 'Me', 'Po', 'Wo')
+
+    # samples per category following the category order: ('Cl', 'El', 'Ja', 'Me', 'Po', 'Wo')
     CLIP_COUNT_PER_CATEGORY_LIST = [640, 229, 52, 90, 203, 244]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
@@ -128,6 +131,6 @@ class BALLROOM:
     FOLDER_NAME = DATASET + '_folds_indices'
     SHUFFLE_CATEGORY_CLIPS = True
     AUGMENTATION_VARIANTS_COUNT = 0
-    #  Classes initals in order ('CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa')
+    # samples per category following the category order: ('CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa')
     CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1

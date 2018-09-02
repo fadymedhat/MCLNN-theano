@@ -30,7 +30,7 @@ So each fold has 8 samples of a specific category. The below listing shows the r
 ```
 class ESC10:
 
-    # the name of the dataset
+    # dataset name
     DATASET = 'esc10'
     
     # Destination path for the indices to be generated
@@ -57,19 +57,46 @@ class ESC10:
 ```
 
 
-#### Unbalanced dataset without Augmentation
-The Ballroom dataset is another example. This dataset is made up of 698 music file that are unbalanced in distribution among 8 music genres. There is no specific arrangement or folds defined for the dataset. Accordingly, the index generator will handle the shuffling of the samples across the folds during the index generation. The assigned batch for each fold in this case will be 1 sample at a time that is iteratively assigned to the folds in turn until the samples are consumed.  
+#### An unbalanced dataset without Augmentation
+The Ballroom dataset is another example:
+* It is made up of 698 music file 
+* Unbalanced in distribution among 8 music genres. 
+* There is no specific arrangement or folds defined for the dataset. 
+
+The index generator will handle the shuffling of the samples across the folds during the index generation.
+The assigned batch for each fold in this case will be 1 sample at a time that is iteratively assigned to the folds 
+in turn until the samples are consumed.  
 
 ``` 	
 class BALLROOM:
+
+    # dataset name
     DATASET = 'ballroom'
-    FOLD_COUNT = 10 # 10-folds cross-validation
-    FOLDER_NAME = 'folds_indices_ballroom'
-    SHUFFLE_CATEGORY_CLIPS = True # allow shuffling the samples of each category separately before assiging them to the folds
-    AUGMENTATION_VARIANTS_COUNT = 0 # augmentation is disabled
-    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110] # the samples of each class following the alphabetical order of the class name.
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1 # samples are assigned to the folds a sample at a time until they are consumed.
+    
+    # Destination path for the indices to be generated
+    DST_PATH = 'I:/Ballroom-for-MCLNN'
+    
+    # Folds count
+    FOLD_COUNT = 10
+    
+    # parent folder for the indices generated
+    FOLDER_NAME = DATASET + '_folds_indices'
+    
+    # enable suffling the samples while being assigned to the folds 
+    SHUFFLE_CATEGORY_CLIPS = True
+    
+    # disable augmentation
+    AUGMENTATION_VARIANTS_COUNT = 0
+    
+    # samples per category following the category order: ('CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa')
+    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110]
+    
+    # samples are assigned one instance at a time
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
+
 ```
+
+
 #### Balanced dataset with Augmentation
 This is a different experiment to the ESC10 dataset in which augmentation is applied. Augmentation is a method to apply certain controlled deformations to the dataset that enhances the generalization of the model during training while still keeping the properties of the original sample to a certain extent. In the below listings, we applied 12 augmentation variants for the ESC10 dataset. Accordingly, the index generator will handle this generation and assignment of the samples across the folds. Keeping in mind that augmentation is applied on the training data only and the samples.hdf5 will include the original and the augmentated version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, while constraining the validation and test data to the original data only. This is carried on for all the folds of the cross-validtion operation.
 
