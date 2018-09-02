@@ -13,11 +13,18 @@ clip in Dataset.hdf5 file generated through the dataset transformer.
 
 ## Configuration 
 
-We will refer, in this section, to possible configurations using the datasets used in the experiments as examples for clarification.
+We will refer, in this section, to possible scenarios and their corresponding configurations using the datasets used in the experiments as examples for clarification.
 
-#### Balanced dataset without Augmentation
-The ESC10 environmental sound dataset is composed of 400 sound file for 10 environmental categories. The dataset is balanced, i.e. each category has 40 samples. The dataset is released into 5-folds. So each fold has 8 samples of a specific category.
-The below listing shows the required configuration to generate the training, testing and validation indices for the 5-fold cross-validation.
+#### A balanced dataset without Augmentation
+
+The ESC10 environmental sound dataset:
+ * Composed of 400 sound file for 10 environmental categories. 
+ * The dataset is balanced, i.e. each category has 40 samples. 
+ * The dataset is released into 5-folds. 
+
+So each fold has 8 samples of a specific category. The below listing shows the required configuration to generate
+ the training, testing and validation indices for the 5-fold cross-validation.
+
 
 ```
 class ESC10:
