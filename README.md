@@ -17,7 +17,7 @@ between different feature combinations at the input, analgous to the manual hand
 The below figure shows a network having two CLNN layers. The CLNN is used as a structure for the MCLNN.
 
 
-<img height="400" width="400" src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-3-source-large.gif'>
+<p align='center'><img height="400" width="400" src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-3-source-large.gif'></p>
 
 ## Masked Conditional Neural Network
 
