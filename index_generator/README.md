@@ -13,12 +13,10 @@ clip in Dataset.hdf5 file generated through the dataset transformer.
 
 ## Configuration 
 
-We will refer, in this section, to possible scenarios and their corresponding configurations using the datasets used in the experiments as examples for clarification.
+In this section, we will refer to possible scenarios and their corresponding configurations using the datasets used in the experiments as examples for clarification.
 
 
 #### A balanced dataset without Augmentation
-___
-
 
 The ESC10 environmental sound dataset:
  * Composed of 400 sound file for 10 environmental categories. 
