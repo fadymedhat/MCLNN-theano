@@ -120,22 +120,28 @@ The step size specifies the number of overlapping frames between consecutive seg
  stage of the segments present in the samples .hdf5 file. It also affects the number of samples that will be available for
 training.
 ```
-STEP_SIZE = 1 # overlap between segments is q minus step_size
+# overlap between segments is q minus step_size
+STEP_SIZE = 1 
 ```
 
 Number of epochs or wait count, will take over to stop the model's training.
 ```
-NB_EPOCH = 2000 # maximum number of epochs
-WAIT_COUNT = 50 # early stopping count
+# maximum number of epochs
+NB_EPOCH = 2000 
+
+# early stopping count
+WAIT_COUNT = 50 
 ```
 
 Track the validation accuracy or loss for the early stopping.
 ```
-STOPPING_CRITERION = 'val_acc'  # 'val_acc' or 'val_loss'
+# track the validation accuracy or loss for the stopping criterion : 'val_acc' or 'val_loss'
+STOPPING_CRITERION = 'val_acc'  
 ```
 Load pretrained model or start training from scratch. If this flag is enabled, pre-trained weights should be present in the
 weights parent folder (ALL_FOLDS_WEIGHTS_PATH).
 ```
+# use pretrained weights or train a model from scratch 
 USE_PRETRAINED_WEIGHTS = False  # True or False
 ```
 
@@ -155,11 +161,14 @@ Below are the hyperparameters for each layer of a five layers model.
 For each new layer of a deeper model, append its hyperparameters
 to the relevant list below. Note: all lists should be equal in length, following the number of layers in a model.
 ```
-DROPOUT = [0.01, 0.5, 0.5, 0.5, 0.1] # dropout at the input of each layer
+# dropout at the input of each layer
+DROPOUT = [0.01, 0.5, 0.5, 0.5, 0.1] 
 
-HIDDEN_NODES_LIST = [300, 200, 100, 100, NB_CLASSES] # hidden nodes for each layer, Note: the last element is the number of classes under consideration.
-
-WEIGHT_INITIALIZATION = ['he_normal', 'he_normal', 'glorot_uniform', 'glorot_uniform', 'glorot_uniform'] # initialization at each layer.
+# hidden nodes for each layer, Note: the last element is the number of classes under consideration.
+HIDDEN_NODES_LIST = [300, 200, 100, 100, NB_CLASSES]
+ 
+# initialization at each layer.
+WEIGHT_INITIALIZATION = ['he_normal', 'he_normal', 'glorot_uniform', 'glorot_uniform', 'glorot_uniform'] 
 ```
 
 
@@ -213,13 +222,18 @@ VALIDATION_SEGMENT_INDEX = 500 # validation segment index to plot during trainin
 
 The below flag enables segments generation from the test data after training.
 ```
-SAVE_TEST_SEGMENT_PREDICTION_IMAGE = True  # True or False - store prediction images for segments of a specific clip of testing data
+# store prediction images for segments of a specific clip of testing data
+SAVE_TEST_SEGMENT_PREDICTION_IMAGE = True  # True or False 
+
 ```
 The start index of the test sample to generate the prediction for, together with the number of segments to generate.
 Note: SAVE_TEST_SEGMENT_PREDICTION_IMAGE should to enabled for the below parameters to take effect.
 ```
-SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # first segment to plot. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
-SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # number of segments to save after the first segment. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+# index of starting segment to plot.
+SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+
+# number of segments to save after the starting segment.
+SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
 ```
 Visualize the weights affecting the hidden nodes at each MCLNN layer. The count specifies the number of hidden nodes to visiualize.
 ```
