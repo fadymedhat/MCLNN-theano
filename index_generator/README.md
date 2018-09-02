@@ -64,33 +64,26 @@ The Ballroom dataset is another example:
 * There is no specific arrangement or folds defined for the dataset. 
 
 The index generator will handle the shuffling of the samples across the folds during the index generation.
-The assigned batch for each fold in this case will be 1 sample at a time that is iteratively assigned to the folds 
+The assigned batch for each fold in this case will be one sample at a time that is iteratively assigned to the folds 
 in turn until the samples are consumed.  
 
 ``` 	
 class BALLROOM:
 
-    # dataset name
-    DATASET = 'ballroom'
-    
-    # Destination path for the indices to be generated
-    DST_PATH = 'I:/Ballroom-for-MCLNN'
-    
-    # Folds count
-    FOLD_COUNT = 10
-    
-    # parent folder for the indices generated
-    FOLDER_NAME = DATASET + '_folds_indices'
-    
+                        .
+                        .
+                        .                                                
+      
     # enable suffling the samples while being assigned to the folds 
     SHUFFLE_CATEGORY_CLIPS = True
     
     # disable augmentation
     AUGMENTATION_VARIANTS_COUNT = 0
     
-    # samples per category following the category order: ('CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa')
-    CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110]
-    
+                        .
+                        .
+                        .                                                   
+                        
     # samples are assigned one instance at a time
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
 
@@ -108,22 +101,14 @@ __NOTE:__
  Augmentation is applied on the training data only and the Dataset.hdf5 will include the original and the augmentated
  version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, 
  while constraining the validation and test splits to the original data only. This is carried on for all the folds of the 
- cross-validtion operation.
+ cross-validation operation.
 
 ```
 class ESC10AUGMENTED:
 
-   # dataset name
-    DATASET = 'esc10_12augmentations'
-
-    # Destination path for the indices to be generated
-    DST_PATH = 'I:/ESC10-augmented-for-MCLNN'
- 
-    # Folds count
-    FOLD_COUNT = 5
-    
-    # parent folder for the indices generated
-    FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
+                        .
+                        .
+                        .
     
     # shuffling is disabled for the dataset since it is released with predefined splits    
     SHUFFLE_CATEGORY_CLIPS = False
@@ -131,8 +116,9 @@ class ESC10AUGMENTED:
     # Augmentation counts applied
     AUGMENTATION_VARIANTS_COUNT = 12
     
-    # the original count of each category
-    CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40]
+                        .
+                        .
+                        .
     
     # samples assigned for a fold per instance of assignment 
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
@@ -140,4 +126,44 @@ class ESC10AUGMENTED:
 ```    
     
     
+#### Loading index from CSV
 
+if the dataset is accompanied with a CSV file, specifiying the samples assignment to folds. Below is a listing for the 
+ required configuration.
+ 
+ 
+```
+
+class URBANSOUND8K:
+
+                        .
+                        .
+                        .
+
+    # shuffling is disabled for the dataset since it is released with predefined splits                                                                         
+    SHUFFLE_CATEGORY_CLIPS = False
+    
+    # Augmentation is disabled
+    AUGMENTATION_VARIANTS_COUNT = 0
+
+                        .
+                        .
+                        .
+
+    # samples assigned for a fold per instance of assignment
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
+
+    # the name of the CSV file located in the DST_PATH
+    CSV_FILE_PATH = os.path.join(DST_PATH, 'UrbanSound8KwithFileSeq.csv')
+    
+    # csv column index for file sequence - file sequence zero indexed
+    COL_FILE_SEQ = 0 
+    
+    # csv column index for fold id of a file - fold id is 1 indexed
+    COL_FOLD_ID = 7 
+    
+    # csv column index for class id of a file - class id is zero indexed
+    COL_CLASS_ID = 8 
+
+
+```
