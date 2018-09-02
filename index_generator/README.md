@@ -15,6 +15,7 @@ clip in Dataset.hdf5 file generated through the dataset transformer.
 
 We will refer, in this section, to possible scenarios and their corresponding configurations using the datasets used in the experiments as examples for clarification.
 
+
 #### A balanced dataset without Augmentation
 
 The ESC10 environmental sound dataset:
@@ -29,13 +30,21 @@ So each fold has 8 samples of a specific category. The below listing shows the r
 ```
 class ESC10:
     DATASET = 'esc10' # the name of the dataset
+    
     FOLD_COUNT = 5 # the number of folds for the dataset
+    
     FOLDER_NAME = 'folds_indices_esc10' # the name of the folder that will hold the generated .hdf5 indices.
+    
     SHUFFLE_CATEGORY_CLIPS = False # this dataset is already released with prespecified folds. So we do not need random shuffling. 
+    
     AUGMENTATION_VARIANTS_COUNT = 0 # no augmentation is required for this experiment. So a value of Zero disables augmentation.
+    
     CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40] # number of clips for each category.
+    
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8 # number of samples of a specific category assigned to a fold.
 ```
+
+
 #### Unbalanced dataset without Augmentation
 The Ballroom dataset is another example. This dataset is made up of 698 music file that are unbalanced in distribution among 8 music genres. There is no specific arrangement or folds defined for the dataset. Accordingly, the index generator will handle the shuffling of the samples across the folds during the index generation. The assigned batch for each fold in this case will be 1 sample at a time that is iteratively assigned to the folds in turn until the samples are consumed.  
 
