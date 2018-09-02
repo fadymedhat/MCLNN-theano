@@ -131,8 +131,8 @@ class ESC10AUGMENTED:
 if the dataset is accompanied with a CSV file, specifiying the samples assignment to folds. Below is a listing for the 
  required configuration.
  
- 
- ![Urbansound8k CSV](imgs/urbansound8kcsv.png)
+ <img height='500'  src='imgs/urbansound8kcsv.png'/>
+
  
  
 ```
