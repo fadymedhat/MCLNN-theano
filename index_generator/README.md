@@ -29,19 +29,31 @@ So each fold has 8 samples of a specific category. The below listing shows the r
 
 ```
 class ESC10:
-    DATASET = 'esc10' # the name of the dataset
+
+    # the name of the dataset
+    DATASET = 'esc10'
     
-    FOLD_COUNT = 5 # the number of folds for the dataset
+    # Destination path for the indices to be generated
+    DST_PATH = 'I:/ESC10-for-MCLNN'
     
-    FOLDER_NAME = 'folds_indices_esc10' # the name of the folder that will hold the generated .hdf5 indices.
+    # Folds count
+    FOLD_COUNT = 5
     
-    SHUFFLE_CATEGORY_CLIPS = False # this dataset is already released with prespecified folds. So we do not need random shuffling. 
+    # parent folder for the indices generated
+    FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     
-    AUGMENTATION_VARIANTS_COUNT = 0 # no augmentation is required for this experiment. So a value of Zero disables augmentation.
+    # ESC10 is released with predefined folds, so no need for shuffling 
+    SHUFFLE_CATEGORY_CLIPS = False
     
-    CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40] # number of clips for each category.
+    # disable augmentation
+    AUGMENTATION_VARIANTS_COUNT = 0
     
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8 # number of samples of a specific category assigned to a fold.
+    # samples per category
+    CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40]
+    
+    # batch of samples assigned per fold in a single instance of assignment. 
+    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
+  
 ```
 
 

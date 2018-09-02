@@ -131,11 +131,3 @@ class BALLROOM:
     #  Classes initals in order ('CC', 'Ji', 'QS', 'Ru', 'Sa', 'Ta', 'VW', 'Wa')
     CLIP_COUNT_PER_CATEGORY_LIST = [111, 60, 82, 98, 86, 86, 65, 110]
     BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
-
-
-
-
-
-
-
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
