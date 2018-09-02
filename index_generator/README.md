@@ -97,8 +97,20 @@ class BALLROOM:
 ```
 
 
-#### Balanced dataset with Augmentation
-This is a different experiment to the ESC10 dataset in which augmentation is applied. Augmentation is a method to apply certain controlled deformations to the dataset that enhances the generalization of the model during training while still keeping the properties of the original sample to a certain extent. In the below listings, we applied 12 augmentation variants for the ESC10 dataset. Accordingly, the index generator will handle this generation and assignment of the samples across the folds. Keeping in mind that augmentation is applied on the training data only and the samples.hdf5 will include the original and the augmentated version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, while constraining the validation and test data to the original data only. This is carried on for all the folds of the cross-validtion operation.
+#### A Balanced dataset with Augmentation
+
+Augmentation is a method to apply certain controlled deformations to the dataset that enhances the generalization of 
+the model during training while still keeping the properties of the original sample to a certain extent. 
+
+This is a different experiment to the ESC10 dataset in which augmentation is applied. 
+
+In the below listings, we applied 12 augmentation variants for the ESC10 dataset. 
+
+__NOTE:__
+ Augmentation is applied on the training data only and the Dataset.hdf5 will include the original and the augmentated
+ version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, 
+ while constraining the validation and test data to the original data only. This is carried on for all the folds of the 
+ cross-validtion operation.
 
 ```
 class ESC10AUGMENTED:
