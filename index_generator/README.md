@@ -119,10 +119,10 @@ class ESC10AUGMENTED:
     # Destination path for the indices to be generated
     DST_PATH = 'I:/ESC10-augmented-for-MCLNN'
  
-     # Folds count
+    # Folds count
     FOLD_COUNT = 5
     
-     # parent folder for the indices generated
+    # parent folder for the indices generated
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     
     # shuffling is disabled for the dataset since it is released with predefined splits    
