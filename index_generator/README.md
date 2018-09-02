@@ -99,12 +99,10 @@ class BALLROOM:
 
 #### A Balanced dataset with Augmentation
 
-Augmentation is a method to apply certain controlled deformations to the dataset that enhances the generalization of 
-the model during training while still keeping the properties of the original sample to a certain extent. 
+Augmentation is a method to apply certain controlled deformations to the dataset while keeping the properties of the 
+original sample to a certain extent. This process enhances the generalization of a model during training.  
 
-This is a different experiment to the ESC10 dataset in which augmentation is applied. 
-
-In the below listings, we applied 12 augmentation variants for the ESC10 dataset. 
+This is a different experiment to the ESC10 dataset in which augmentation is applied. In the below listings, we applied 12 augmentation variants for the ESC10 dataset. 
 
 __NOTE:__
  Augmentation is applied on the training data only and the Dataset.hdf5 will include the original and the augmentated
@@ -127,7 +125,7 @@ class ESC10AUGMENTED:
      # parent folder for the indices generated
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     
-     # shuffling is disabled for the dataset since it is released with predefined splits    
+    # shuffling is disabled for the dataset since it is released with predefined splits    
     SHUFFLE_CATEGORY_CLIPS = False
     
     # Augmentation counts applied
