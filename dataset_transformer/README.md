@@ -117,13 +117,14 @@ class ESC10AUGMENTED:
     
 #### Loading index from CSV
 
-If the dataset is accompanied with a CSV file, specifiying the samples assignment to folds. Below is a listing for the 
+If the dataset is accompanied with a CSV file, specifiying the samples filename and category will be needed. Below is a listing for the 
  required configuration.
  
  The below figure shows a chunk of the CSV file released with the Urbansound8k. The file is not exactly the original one,
- but rather a modified version interms of the rows ordering in the csv file without changing the data and the sequenc folder added.
+ but rather a modified version in terms of the rows ordering in the csv file without changing the data and the sequence 
+ folder added.
  
- The indices of the three highlighted columns are required for the configuration as shown in the below listing. 
+ The indices of the two highlighted columns are required for the configuration as shown in the below listing. 
  
 <p align='center'><img height='200' src='imgs/urbansound8kcsv.png'/></p>
  
