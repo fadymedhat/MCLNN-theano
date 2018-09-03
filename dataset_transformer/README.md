@@ -37,7 +37,7 @@ Below is the folder structure of the ESC10 dataset. The folders for each sound c
 ```
 class ESC10:
     
-    # disbale augmentation
+    # disable augmentation
     AUGMENTATION_VARIANTS_COUNT = 0
     
     # the original file count for a dataset
