@@ -1,37 +1,27 @@
-'''
+"""
 Masked ConditionaL Neural Networks (MCLNN)
-'''
+"""
 from __future__ import print_function
-import gc
-import os
-import glob
+
 import datetime
+import gc
+import glob
+import os
 
 import numpy as np
-import numpy.ma as ma
-import pylab as pl
-import matplotlib.cm as cm
-import matplotlib
-import matplotlib.pyplot as plt
 from keras.layers.advanced_activations import PReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.utils import np_utils
-from keras.models import Model
-from sklearn.metrics import f1_score as f1score
 from sklearn.metrics import confusion_matrix
-
-from memory_profiler import profile
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-import platform as plf
+from sklearn.metrics import f1_score as f1score
 
 import configuration
 import trainingcallbacks
-from visualization import Visualizer
 from datapreprocessor import DataLoader
 from layers import MaskedConditional, GlobalPooling1D
-
+from visualization import Visualizer
 
 # =============================================== #
 #    Enable a single configuration from below     #
@@ -215,6 +205,8 @@ class MCLNNTrainer(object):
 
 # @profile
 def run():
+
+    # ======================================= Initialization ======================================= #
     all_folds_target_label = np.asarray([])
 
     all_folds_majority_vote_cm = np.zeros((Config.NB_CLASSES, Config.NB_CLASSES), dtype=np.int)
@@ -223,10 +215,11 @@ def run():
     all_folds_probability_vote_cm = np.zeros((Config.NB_CLASSES, Config.NB_CLASSES), dtype=np.int)
     all_folds_probability_vote_label = np.asarray([])
 
+
     segment_size = sum(Config.LAYERS_ORDER_LIST) * 2 + Config.EXTRA_FRAMES
     print('Segment without middle frame:' + str(segment_size))
 
-    is_visualization_called_flag = False
+    is_visualization_called_flag = False # visualization is done for first fold only using this variable
 
     # list of paths to the n-fold indices of the Training/Testing/Validation splits
     # number of paths should be e.g. 30 for 3x10, where 3 is for the splits and 10 for the 10-folds
@@ -238,6 +231,8 @@ def run():
     folds_index_file_list.sort()
 
     cross_val_index_list = np.arange(0, Config.SPLIT_COUNT * Config.CROSS_VALIDATION_FOLDS_COUNT, Config.SPLIT_COUNT)
+
+    # ======================================= Start cross-validation ======================================= #
 
     for j in range(cross_val_index_list[Config.INITIAL_FOLD_ID], len(folds_index_file_list), Config.SPLIT_COUNT):
 
@@ -257,6 +252,7 @@ def run():
         data_loader = DataLoader()
         mclnn_trainer = MCLNNTrainer()
 
+        # ------------------------  Load data --------------------- #
         data_loader.load_data(segment_size,
                               Config.STEP_SIZE,
                               Config.NB_CLASSES,
@@ -266,6 +262,7 @@ def run():
                               test_index_path,
                               validation_index_path)
 
+        # ------------------------  Weights path --------------------- #
         train_index_filename = os.path.basename(train_index_path).split('.')[0]
         weights_to_store_foldername = train_index_filename + '_' \
                                       + 'batch' + str(Config.BATCH_SIZE) \
@@ -279,6 +276,8 @@ def run():
             elif Config.USE_PRETRAINED_WEIGHTS == True:
                 print('Pre-trained weights do not exist in :' + fold_weights_path)
                 exit(1)
+
+        # ------------------------  Build and Train model --------------------- #
 
         print('----------- Training param -------------')
         print(' batch_size>' + str(Config.BATCH_SIZE) +
@@ -299,6 +298,7 @@ def run():
                                               pretrained_weights_path=None)
             mclnn_trainer.train_model(model, data_loader, fold_weights_path)
 
+        # ------------------------  Load trained weights in a new model --------------------- #
         # load paths of all weights generated during training
         weight_list = glob.glob(os.path.join(fold_weights_path, "*.hdf5"))
         if len(weight_list) == 0:
@@ -318,12 +318,14 @@ def run():
                                           feature_count=data_loader.train_segments.shape[2],
                                           pretrained_weights_path=startup_weights)
 
+        # ------------------------  Visualize a test sample through a trained model --------------------- #
         if is_visualization_called_flag == False and Config.SAVE_TEST_SEGMENT_PREDICTION_IMAGE == True:
             visualizer = Visualizer(Config)
             visualizer.visualize_weights_and_sample_test_clip(model=model, data_loader=data_loader)
             # mclnn_trainer.visualize_model(model=model, data_loader=data_loader)
             is_visualization_called_flag = True
 
+        # ------------------------ Evaluate model --------------------- #
         fold_majority_cm, fold_probability_cm, \
         fold_majority_vote_label, fold_probability_vote_label, \
         fold_target_label = mclnn_trainer.evaluate_model(segment_size=segment_size,
