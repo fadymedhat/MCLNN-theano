@@ -24,44 +24,62 @@ The ESC10 environmental sound dataset:
  * The dataset is balanced, i.e. each category has 40 samples. 
  * The dataset is released into 5-folds. 
 
-Below is the folder structure of the ESC10 dataset. Folders for each sound category are arranged alphabetically
+Below is the folder structure of the ESC10 dataset. The folders for each sound category are arranged alphabetically
  and similarly for the files within each folder. 
  
 
  
 <p align='center'><img height="300"  src='imgs/esc10folderstructure.png'/></p>
 
-So each fold has 8 samples of a specific category. The below listing shows the required configuration to generate
- the training, testing and validation indices for the 5-fold cross-validation.
+
 
 
 ```
 class ESC10:
-
-    # dataset name
-    DATASET = 'esc10'
     
-    # Destination path for the indices to be generated
-    DST_PATH = 'I:/ESC10-for-MCLNN'
-    
-    # Folds count
-    FOLD_COUNT = 5
-    
-    # parent folder for the indices generated
-    FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
-    
-    # ESC10 is released with predefined folds, so no need for shuffling 
-    SHUFFLE_CATEGORY_CLIPS = False
-    
-    # disable augmentation
+    # disbale augmentation
     AUGMENTATION_VARIANTS_COUNT = 0
     
-    # samples per category
-    CLIP_COUNT_PER_CATEGORY_LIST = [40, 40, 40, 40, 40, 40, 40, 40, 40, 40]
+    # the original file count for a dataset
+    DATASET_ORIGINAL_FILE_COUNT = 400
     
-    # batch of samples assigned per fold in a single instance of assignment. 
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
-  
+    # this variable adjusts the total count if augmentation is enabled
+    TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
+    
+    # the source folder containing the raw files of the dataset
+    SRC_PATH = 'I:/dataset-esc10/ESC-10'
+    
+    # destination path for the single hdf5 containing the whole dataset
+    DST_PATH = 'I:/ESC10-for-MCLNN'
+
+    DATASET_NAME = "esc10"
+    
+    # dataset standard file length = 5 seconds
+    DEFAULT_DURATION = "5secs"
+    
+    # The first frame to extract from the generated spectrogram 
+    # at a sampling rate of 22050 sample per second and nfft 1024 overlap 512 > 22050 * 5 sec / 512 = 215 frames
+    FIRST_FRAME_IN_SLICE = 4  # to avoid disruptions at the beginning
+    FRAME_NUM = 200  # the frame count to extract after the first frame to avoid disruptions at the end of the clip
+   
+    # mel-scale filter count
+    MEL_FILTERS_COUNT = 60
+    
+    # width of the nfft window
+    FFT_BINS = 1024
+    
+    # overlapping frames between windows 
+    HOP_LENGTH_IN_SAMPLES = 512
+    
+    # include the 1st derivative between consecutive frames.
+    INCLUDE_DELTA = True
+
+    # Number of files to load before starting the transformation
+    PROCESSING_BATCH = 10
+    
+    # Sleep time prevents possible deadlock situations between reading and writing
+    SLEEP_TIME = 0
+      
 ```
 
 

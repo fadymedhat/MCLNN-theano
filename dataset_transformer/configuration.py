@@ -17,10 +17,11 @@ class ESC10:
     MEL_FILTERS_COUNT = 60
     FFT_BINS = 1024
     HOP_LENGTH_IN_SAMPLES = 512
+    INCLUDE_DELTA = True
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = True
+
 
 class ESC10AUGMENTED:
     # file count for the dataset
@@ -39,10 +40,11 @@ class ESC10AUGMENTED:
     MEL_FILTERS_COUNT = 60
     FFT_BINS = 1024
     HOP_LENGTH_IN_SAMPLES = 512
+    INCLUDE_DELTA = True
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = True
+
 
 class ESC50:
     # file count for the dataset
@@ -61,10 +63,11 @@ class ESC50:
     MEL_FILTERS_COUNT = 60
     FFT_BINS = 1024
     HOP_LENGTH_IN_SAMPLES = 512
+    INCLUDE_DELTA = True
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = True
+
 
 class ESC50AUGMENTED:
     # file count for the dataset
@@ -83,10 +86,11 @@ class ESC50AUGMENTED:
     MEL_FILTERS_COUNT = 60
     FFT_BINS = 1024
     HOP_LENGTH_IN_SAMPLES = 512
+    INCLUDE_DELTA = True
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 1
-    INCLUDE_DELTA = True
+
 
 class URBANSOUND8K:
     # file count for the dataset
@@ -105,10 +109,10 @@ class URBANSOUND8K:
     MEL_FILTERS_COUNT = 60
     FFT_BINS = 1024
     HOP_LENGTH_IN_SAMPLES = 512
+    INCLUDE_DELTA = True
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = True
 
     CSV_FILE_PATH = os.path.join(DST_PATH, 'UrbanSound8KwithFileSeq.csv')
     COL_FILE_NAME = 2 # csv column index for file name
@@ -131,10 +135,10 @@ class YORNOISE:
     MEL_FILTERS_COUNT = 60
     FFT_BINS = 1024
     HOP_LENGTH_IN_SAMPLES = 512
+    INCLUDE_DELTA = True
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = True
 
     CSV_FILE_PATH = os.path.join(DST_PATH, 'UrbanSound8KwithFileSeqYork.csv')
     COL_FILE_NAME = 2 # csv column index for file name
@@ -157,10 +161,11 @@ class HOMBURG:
     MEL_FILTERS_COUNT = 256
     FFT_BINS = 2048
     HOP_LENGTH_IN_SAMPLES = 1024
+    INCLUDE_DELTA = False
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = False
+
 
 class GTZAN:
     # file count for the dataset
@@ -179,10 +184,11 @@ class GTZAN:
     MEL_FILTERS_COUNT = 256
     FFT_BINS = 2048
     HOP_LENGTH_IN_SAMPLES = 1024
+    INCLUDE_DELTA = False
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = False
+
 
 class ISMIR2004:
     # file count for the dataset
@@ -201,10 +207,11 @@ class ISMIR2004:
     MEL_FILTERS_COUNT = 256
     FFT_BINS = 2048
     HOP_LENGTH_IN_SAMPLES = 1024
+    INCLUDE_DELTA = False
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = False
+
 
 class BALLROOM:
     # file count for the dataset
@@ -223,7 +230,7 @@ class BALLROOM:
     MEL_FILTERS_COUNT = 256
     FFT_BINS = 2048
     HOP_LENGTH_IN_SAMPLES = 1024
+    INCLUDE_DELTA = False
 
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
-    INCLUDE_DELTA = False
