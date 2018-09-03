@@ -24,8 +24,12 @@ The ESC10 environmental sound dataset:
  * The dataset is balanced, i.e. each category has 40 samples. 
  * The dataset is released into 5-folds. 
 
-So each fold has 8 samples of a specific category. The below listing shows the required configuration to generate
- the training, testing and validation indices for the 5-fold cross-validation.
+The below listing shows the required configuration to generate the training, testing and validation indices for the 
+5-fold cross-validation.
+
+ __Note:__ a special setting for the ESC10 files is they have predefined assignment, where each 8 files of a category belong
+ to a fold. This is where the BATCH_SIZE_PER_FOLD_ASSIGNMENT configuration parameter, in the listing below, becomes handy
+  to specify how many files to assign to a fold per assignment iteration.
 
 
 ```

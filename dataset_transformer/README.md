@@ -24,6 +24,11 @@ The ESC10 environmental sound dataset:
  * The dataset is balanced, i.e. each category has 40 samples. 
  * The dataset is released into 5-folds. 
 
+Below is the folder structure of the ESC10 dataset. Folders for each sound category are arranged alphabetically
+ and similarly for the files within each folder. 
+ 
+
+ 
 <p align='center'><img height="300"  src='imgs/esc10folderstructure.png'></p>
 
 So each fold has 8 samples of a specific category. The below listing shows the required configuration to generate
