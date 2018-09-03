@@ -79,8 +79,8 @@ class ESC10:
     # Number of files to load before starting the transformation
     PROCESSING_BATCH = 10
     
-    # Sleep time prevents possible deadlock situations between reading and writing
-    SLEEP_TIME = 0
+    # Sleep time prevents possible deadlock situations between reading and writing 
+    SLEEP_TIME = 0 # operates in combination with PROCESSING_BATCH
       
 ```
 
