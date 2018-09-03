@@ -29,7 +29,7 @@ Below is the folder structure of the ESC10 dataset. Folders for each sound categ
  
 
  
-<p align='center'><img height="300"  src='imgs/esc10folderstructure.png'></p>
+<p align='center'><img height="300"  src='imgs/esc10folderstructure.png'/></p>
 
 So each fold has 8 samples of a specific category. The below listing shows the required configuration to generate
  the training, testing and validation indices for the 5-fold cross-validation.
