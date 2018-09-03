@@ -184,23 +184,27 @@ __MCLNN specific hyperparameters__
 
 The order for a two-layered MCLNN. The first MCLNN layer has an order of 17 and the second has an order of 15.
 ```
-LAYERS_ORDER_LIST = [17, 15]  # the order for each layer
+# the order for each layer
+LAYERS_ORDER_LIST = [17, 15]  
 ```
 
 The Mask Bandwidth of a two-layered MCLNN. The first layer has a bandwithd of 20 and the second layer has a
 bandwidth of 5.
 ```
-MASK_BANDWIDTH = [20, 5] # the consecutive features enabled at the input for each layer
+# the consecutive features enabled at the input for each layer
+MASK_BANDWIDTH = [20, 5] 
 ```
 
 The Mask Overlap of a two-layred MCLNN. The first layer has an overlap of -5 and the second layer has an overlap of 3.
 ```
-MASK_OVERLAP = [-5, 3] # the overlap of observation between a hidden node and another for each layer
+# the overlap of observation between a hidden node and another for each layer
+MASK_OVERLAP = [-5, 3] 
 ```
 
 The extra frames for the single-dimensional temporal pooling. Note: the middle frame is add to the below value by default.
 ```
-EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
+# the k extra excluding the middle frame (middle frame is included by default)
+EXTRA_FRAMES = 40  
 ```
 
 
