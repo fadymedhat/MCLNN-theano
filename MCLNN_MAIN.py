@@ -252,7 +252,7 @@ def run():
         data_loader = DataLoader()
         mclnn_trainer = MCLNNTrainer()
 
-        # ------------------------  Load data --------------------- #
+        # --------------------------------- Load data ----------------------------- #
         data_loader.load_data(segment_size,
                               Config.STEP_SIZE,
                               Config.NB_CLASSES,
@@ -262,7 +262,7 @@ def run():
                               test_index_path,
                               validation_index_path)
 
-        # ------------------------  Weights path --------------------- #
+        # ------------------------------  Weights path ---------------------------- #
         train_index_filename = os.path.basename(train_index_path).split('.')[0]
         weights_to_store_foldername = train_index_filename + '_' \
                                       + 'batch' + str(Config.BATCH_SIZE) \
@@ -277,7 +277,7 @@ def run():
                 print('Pre-trained weights do not exist in :' + fold_weights_path)
                 exit(1)
 
-        # ------------------------  Build and Train model --------------------- #
+        # --------------------------  Build and Train model ----------------------- #
 
         print('----------- Training param -------------')
         print(' batch_size>' + str(Config.BATCH_SIZE) +
@@ -298,7 +298,7 @@ def run():
                                               pretrained_weights_path=None)
             mclnn_trainer.train_model(model, data_loader, fold_weights_path)
 
-        # ------------------------  Load trained weights in a new model --------------------- #
+        # ------------------ Load trained weights in a new model ------------------ #
         # load paths of all weights generated during training
         weight_list = glob.glob(os.path.join(fold_weights_path, "*.hdf5"))
         if len(weight_list) == 0:
@@ -318,14 +318,14 @@ def run():
                                           feature_count=data_loader.train_segments.shape[2],
                                           pretrained_weights_path=startup_weights)
 
-        # ------------------------  Visualize a test sample through a trained model --------------------- #
+        # ------------------------  Visualize a test sample  --------------------- #
         if is_visualization_called_flag == False and Config.SAVE_TEST_SEGMENT_PREDICTION_IMAGE == True:
             visualizer = Visualizer(Config)
             visualizer.visualize_weights_and_sample_test_clip(model=model, data_loader=data_loader)
             # mclnn_trainer.visualize_model(model=model, data_loader=data_loader)
             is_visualization_called_flag = True
 
-        # ------------------------ Evaluate model --------------------- #
+        # --------------------------- Evaluate model ------------------------------ #
         fold_majority_cm, fold_probability_cm, \
         fold_majority_vote_label, fold_probability_vote_label, \
         fold_target_label = mclnn_trainer.evaluate_model(segment_size=segment_size,
