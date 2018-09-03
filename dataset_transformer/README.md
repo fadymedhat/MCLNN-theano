@@ -60,7 +60,9 @@ class ESC10:
     # The first frame to extract from the generated spectrogram 
     # at a sampling rate of 22050 sample per second and nfft 1024 overlap 512 > 22050 * 5 sec / 512 = 215 frames
     FIRST_FRAME_IN_SLICE = 4  # to avoid disruptions at the beginning
-    FRAME_NUM = 200  # the frame count to extract after the first frame to avoid disruptions at the end of the clip
+    
+    # the frame count to extract after the first frame to avoid disruptions at the end of the clip
+    FRAME_NUM = 200  
    
     # mel-scale filter count
     MEL_FILTERS_COUNT = 60
