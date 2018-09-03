@@ -131,33 +131,18 @@ If the dataset is accompanied with a CSV file, specifiying the samples assignmen
 ```
 
 class URBANSOUND8K:
-
+  
                         .
                         .
                         .
-
-    # shuffling is disabled for the dataset since it is released with predefined splits
-    SHUFFLE_CATEGORY_CLIPS = False
-    
-    # Augmentation is disabled
-    AUGMENTATION_VARIANTS_COUNT = 0
-
-                        .
-                        .
-                        .
-
-    # samples assigned for a fold per instance of assignment
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
-
+                        
     # the name of the CSV file located in the DST_PATH
     CSV_FILE_PATH = os.path.join(DST_PATH, 'UrbanSound8KwithFileSeq.csv')
     
-    # csv column index for file sequence - file sequence zero indexed
-    COL_FILE_SEQ = 0 
+    # csv column index for file name
+    COL_FILE_NAME = 2 
     
-    # csv column index for fold id of a file - fold id is 1 indexed
-    COL_FOLD_ID = 7 
+    # csv column index for folder name (class category)
+    COL_FOLDER_NAME = 9 
     
-    # csv column index for class id of a file - class id is zero indexed
-    COL_CLASS_ID = 8
 ```
