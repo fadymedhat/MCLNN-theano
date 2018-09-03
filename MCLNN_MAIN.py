@@ -203,7 +203,6 @@ class MCLNNTrainer(object):
         return cm_majority, cm_probability, clip_predicted_majority_vote, clip_predicted_probability_mean_vote, data_loader.test_clips_labels
 
 
-# @profile
 def run():
 
     # ======================================= Initialization ======================================= #

@@ -167,14 +167,14 @@ class DataLoader(object):
                   validation_index_path):
         """
 
-        :param segment_size:
-        :param step_size:
-        :param nb_classes:
-        :param data_path:
-        :param train_index_path:
-        :param test_index_path:
-        :param validation_index_path:
-        :param standardization_paramters_path:
+        :param segment_size: segment q length excluding the middle frame
+        :param step_size: non-overlapping frames between consecutive segments
+        :param nb_classes: number of classes
+        :param data_path: dataset hdf5 file path
+        :param train_index_path: train index hdf5 file path
+        :param test_index_path: test index hdf5 file path
+        :param validation_index_path: validation index hdf5 file path
+        :param standardization_paramters_path: standardization parameters hdf5 file path
         :return:
         """
 
