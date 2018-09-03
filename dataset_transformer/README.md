@@ -81,7 +81,9 @@ class ESC10:
 #### With Augmentation 
 
 Augmentation is a method to apply certain controlled deformations to the dataset while keeping the properties of the 
-original sample to a certain extent. This process enhances the generalization of a model during training.  
+original sample to a certain extent. This process enhances the generalization of a model during training. 
+ 
+ <p align='center'><img height="300"  src='imgs/esc10folderstructureaugmented.png'/></p>
 
 This is a different experiment to the ESC10 dataset in which augmentation is applied. In the below listings, we applied 12 augmentation variants for the ESC10 dataset. 
 
