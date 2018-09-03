@@ -88,7 +88,8 @@ This dataset dataset was augmented using 12 variants. Accordingly, the figure sh
 and the accompanying 12 versions.
 
 __NOTE:__
-The order of the files should match the structure shown below, since the index generation is dependant on it.
+The order of the files should match the structure shown below in terms of the original clip followed by its augmented variants
+, since the index generation is dependant on it.
  
  <p align='center'><img height="300"  src='imgs/esc10folderstructureaugmented.png'/></p>
 
