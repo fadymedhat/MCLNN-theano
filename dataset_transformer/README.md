@@ -82,16 +82,18 @@ class ESC10:
 
 Augmentation is a method to apply certain controlled deformations to the dataset while keeping the properties of the 
 original sample to a certain extent. This process enhances the generalization of a model during training. 
+
+The below figure shows the folder structure expected while generating the .hdf5 for an augmented ESC10 dataset.
+This dataset dataset was augmented using 12 variants. Accordingly, the figure shows each original file of the dataset 
+and the accompanying 12 versions.
+
+__NOTE:__
+The order of the files should match the structure shown below, since the index generation is dependant on it.
  
  <p align='center'><img height="300"  src='imgs/esc10folderstructureaugmented.png'/></p>
 
-This is a different experiment to the ESC10 dataset in which augmentation is applied. In the below listings, we applied 12 augmentation variants for the ESC10 dataset. 
 
-__NOTE:__
- Augmentation is applied on the training data only and the Dataset.hdf5 will include the original and the augmentated
- version, so it is up to the generator to ensure that the training indices include the original and the augmented versions, 
- while constraining the validation and test splits to the original data only. This is carried on for all the folds of the 
- cross-validation operation.
+
 
 ```
 class ESC10AUGMENTED:
