@@ -23,9 +23,9 @@ from datapreprocessor import DataLoader
 from layers import MaskedConditional, GlobalPooling1D
 from visualization import Visualizer
 
-# =============================================== #
-#    Enable a single configuration from below     #
-# =============================================== #
+# ===================================================== #
+#      Uncomment a single configuration from below      #
+# ----------------------------------------------------- #
 Config = configuration.ESC10          # Accuracy 85.50%
 # Config = configuration.ESC10AUGMENTED # Accuracy 85.25%
 # Config = configuration.ESC50          # Accuracy 62.85%
@@ -36,7 +36,7 @@ Config = configuration.ESC10          # Accuracy 85.50%
 # Config = configuration.GTZAN          # Accuracy 85.00%
 # Config = configuration.ISMIR2004      # Accuracy 85.00%
 # Config = configuration.BALLROOM       # Accuracy 92.12%
-
+# ===================================================== #
 
 # http://mirg.city.ac.uk/
 # pipreqs --force .
