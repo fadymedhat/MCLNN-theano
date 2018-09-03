@@ -1,3 +1,6 @@
+"""
+MCLNN configuration
+"""
 import os
 
 

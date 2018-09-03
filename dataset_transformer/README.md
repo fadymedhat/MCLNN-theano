@@ -2,19 +2,19 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/MCLNN/blob/master/LICENSE)
 
-MCLNN index generation
+MCLNN dataset transformation
 ========
-In a 10-fold cross-validation, samples of a dataset are split into 10 subsets, where 8-folds are used for training and 1 fold 
-is used for validation and the remaining one is for testing. The folds rotate among each other for each trial of a cross-validation.
+The transformation involves the generation of a single file containing the intermediate representation of a signal,
+e.g. spectrogram in case of sound. 
 
-This behavior is applied through the index generator by creating 10 subsets of indices following the index assigned to a sound 
-clip in Dataset.hdf5 file generated through the dataset transformer. 
+The transformer loads each file in order from the dataset, applied the intermediate representation and stores the resulting
+transformation to a single hdf5 file (referred later as Dataset.hdf5) for the whole dataset.
 
 
 ## Configuration 
 
-In this section, we will refer to possible scenarios and their corresponding configurations demonstrated over datasets 
-used in the experiments as examples for clarification.
+In this section, we will refer to possible scenarios and their corresponding configurations demonstrated over datasets used 
+in the experiments as examples for clarification.
 
 
 #### A balanced dataset without Augmentation

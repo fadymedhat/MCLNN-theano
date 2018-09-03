@@ -46,6 +46,14 @@ Config = configuration.ESC10          # Accuracy 85.50%
 
 class MCLNNTrainer(object):
     def build_model(self, segment_size, feature_count, pretrained_weights_path=None, verbose=True):
+        '''
+
+        :param segment_size:
+        :param feature_count:
+        :param pretrained_weights_path:
+        :param verbose:
+        :return:
+        '''
 
         model = Sequential()
 
@@ -137,6 +145,13 @@ class MCLNNTrainer(object):
         print(after - before)
 
     def evaluate_model(self, segment_size, model, data_loader):
+        '''
+
+        :param segment_size:
+        :param model:
+        :param data_loader:
+        :return:
+        '''
 
         # # convert class vectors to binary class matrices
         # train_one_hot_target = np_utils.to_categorical(data_loader.train_labels, Config.NB_CLASSES)

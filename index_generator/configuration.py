@@ -1,3 +1,6 @@
+"""
+Configuration for Index Generation
+"""
 import os
 
 
