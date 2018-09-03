@@ -17,21 +17,14 @@ In this section, we will refer to possible scenarios and their corresponding con
 in the experiments as examples for clarification.
 
 
-#### A balanced dataset without Augmentation
-
-The ESC10 environmental sound dataset:
- * Composed of 400 sound file for 10 environmental categories. 
- * The dataset is balanced, i.e. each category has 40 samples. 
- * The dataset is released into 5-folds. 
+#### Representation with Delta 
 
 Below is the folder structure of the ESC10 dataset. The folders for each sound category are arranged alphabetically
- and similarly for the files within each folder. 
+ and similarly for the files within each folder. The intermediate representation required can include the 1st derivative 
+ across the frames of a spectrogram, which is controlled by the INCLUDE_DELTA flag.
  
-
  
 <p align='center'><img height="300"  src='imgs/esc10folderstructure.png'/></p>
-
-
 
 
 ```
@@ -86,6 +79,7 @@ class ESC10:
 
 
 #### An unbalanced dataset without Augmentation
+
 The Ballroom dataset is another example:
 * It is made up of 698 music file 
 * Unbalanced in distribution among 8 music genres. 
@@ -98,22 +92,25 @@ in turn until the samples are consumed.
 ``` 	
 class BALLROOM:
 
-                        .
-                        .
-                        .                                                
-      
-    # enable suffling the samples while being assigned to the folds 
-    SHUFFLE_CATEGORY_CLIPS = True
-    
-    # disable augmentation
     AUGMENTATION_VARIANTS_COUNT = 0
-    
-                        .
-                        .
-                        .                                                   
-                        
-    # samples are assigned one instance at a time
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 1
+    DATASET_ORIGINAL_FILE_COUNT = 698
+    TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
+    SRC_PATH = 'F:/dataset-ballroom/BallroomData'
+    DST_PATH = 'I:/dataset-ballroomGIT'
+
+    DATASET_NAME = "ballroom"
+    # dataset standard file length of the Ballroom = 30 seconds
+    DEFAULT_DURATION = "30secs"
+    # at a sampling rate of 22050 sample per second and nfft 2048 overlap 1024 > 22050 * 30 sec / 1024 = 645 frames
+    FIRST_FRAME_IN_SLICE = 23  # to avoid disruptions at the beginning
+    FRAME_NUM = 600  # this is enough to avoid disruptions at the end of the clip
+    MEL_FILTERS_COUNT = 256
+    FFT_BINS = 2048
+    HOP_LENGTH_IN_SAMPLES = 1024
+    INCLUDE_DELTA = False
+
+    PROCESSING_BATCH = 10
+    SLEEP_TIME = 0
 
 ```
 
