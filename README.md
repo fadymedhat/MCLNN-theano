@@ -21,7 +21,7 @@ The below figure shows a network having two CLNN layers. The CLNN is used as a s
 
 ## Masked Conditional Neural Network
 
-The below figure shows the enforced filterbank-like behavior enforced over the weights of a single temporal instance using
+The below figure shows a weight matrix with the enforced filterbank-like behavior enforced over the weights of a single temporal instance using
 a systematic controlled sparsness.
 
 
