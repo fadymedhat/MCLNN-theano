@@ -96,26 +96,22 @@ The order of the files should match the structure shown below in terms of the or
 
 
 
-```
+```    
 class ESC10AUGMENTED:
 
-                        .
-                        .
-                        .
-    
-    # shuffling is disabled for the dataset since it is released with predefined splits    
-    SHUFFLE_CATEGORY_CLIPS = False
-    
-    # Augmentation counts applied
+    # number of augmentations for each clip
     AUGMENTATION_VARIANTS_COUNT = 12
     
-                        .
-                        .
-                        .
+    # original dataset clip count without augmentation
+    DATASET_ORIGINAL_FILE_COUNT = 400
     
-    # samples assigned for a fold per instance of assignment 
-    BATCH_SIZE_PER_FOLD_ASSIGNMENT = 8
-    
+    # total with augmentation 
+    TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
+      
+                        .
+                        .
+                        .
+   
 ```    
     
     
