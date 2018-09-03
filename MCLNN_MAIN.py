@@ -5,66 +5,53 @@ from __future__ import print_function
 import gc
 import os
 import glob
-import matplotlib.cm as cm
 import datetime
+
 import numpy as np
 import numpy.ma as ma
 import pylab as pl
-from keras.callbacks import ModelCheckpoint
+import matplotlib.cm as cm
+import matplotlib
+import matplotlib.pyplot as plt
 from keras.layers.advanced_activations import PReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.models import Sequential
-from keras.optimizers import SGD, Adam
+from keras.optimizers import Adam
 from keras.utils import np_utils
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-# from trainingcallbacks import DirectoryHouseKeepingCallback, SegmentPlotCallback
-import trainingcallbacks
-from datapreprocessor import DataLoader
-from layers import MaskedConditional, GlobalPooling1D
-import platform as plf
-
-# from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE, BALLROOM, GTZAN, \
-#     HOMBURG, ISMIR2004
-
-from keras import callbacks
+from keras.models import Model
 from sklearn.metrics import f1_score as f1score
 from sklearn.metrics import confusion_matrix
 
-from keras.models import Model
-import matplotlib.pyplot as plt
-import matplotlib
 from memory_profiler import profile
-from visualization import Visualizer
-
-# Config = BALLROOM  # 92.55% NEW trans script
-# Config = ISMIR2004 # 85% majority vote, NEW trans script
-
-
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+import platform as plf
 
 import configuration
+import trainingcallbacks
+from visualization import Visualizer
+from datapreprocessor import DataLoader
+from layers import MaskedConditional, GlobalPooling1D
+
 
 # =============================================== #
 #    Enable a single configuration from below     #
 # =============================================== #
-# Config = configuration.ESC10          # 85.50% - FULL CYCLE VALIDATION
-# Config = configuration.ESC10AUGMENTED # 85.25% - FULL CYCLE VALIDATION
-# Config = configuration.ESC50          # 62.85% - FULL CYCLE VALIDATION
-# Config = configuration.ESC50AUGMENTED # 66.60% - FULL CYCLE VALIDATION
-# Config = configuration.URBANSOUND8K   # 74.22% - FULL CYCLE VALIDATION
-# Config = configuration.YORNOISE       # 75.82% - FULL CYCLE VALIDATION
-# Config = configuration.HOMBURG        # 61.45% - FULL CYCLE VALIDATION
-# Config = configuration.GTZAN          # 85.00% - FULL CYCLE VALIDATION
-# Config = configuration.ISMIR2004      # 85.00% - FULL CYCLE VALIDATION
-Config = configuration.BALLROOM
+Config = configuration.ESC10          # Accuracy 85.50%
+# Config = configuration.ESC10AUGMENTED # Accuracy 85.25%
+# Config = configuration.ESC50          # Accuracy 62.85%
+# Config = configuration.ESC50AUGMENTED # Accuracy 66.60%
+# Config = configuration.URBANSOUND8K   # Accuracy 74.22%
+# Config = configuration.YORNOISE       # Accuracy 75.82%
+# Config = configuration.HOMBURG        # Accuracy 61.45%
+# Config = configuration.GTZAN          # Accuracy 85.00%
+# Config = configuration.ISMIR2004      # Accuracy 85.00%
+# Config = configuration.BALLROOM       # Accuracy 92.12%
 
 
 # http://mirg.city.ac.uk/
 # pipreqs --force .
-
 # pip install -U memory_profiler MCLNN_MAIN.py
 # python -m memory_profiler MCLNN_MAIN.py
-
-# -------------- END of july check --------------------------
 
 
 class MCLNNTrainer(object):
