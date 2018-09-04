@@ -174,10 +174,7 @@ if __name__ == '__main__':
     else:
         file_key, short_count, counter = navigate_directory(clip_name_txt_handle)
 
-
-
     clip_name_txt_handle.close()
-
 
     print('Total files :' + str(file_key + 1) + ' out of ' + str(Config.DATASET_ORIGINAL_FILE_COUNT)
           + ' increment concat count in the previous processing stage if there is a mismatch')

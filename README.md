@@ -234,10 +234,10 @@ The start index of the test sample to generate the prediction for, together with
 Note: SAVE_TEST_SEGMENT_PREDICTION_IMAGE should to enabled for the below parameters to take effect.
 ```
 # index of starting segment to plot.
-SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
 
 # number of segments to save after the starting segment.
-SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
 ```
 Visualize the weights affecting the hidden nodes at each MCLNN layer. The count specifies the number of hidden nodes to visiualize.
 ```
