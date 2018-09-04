@@ -29,7 +29,7 @@ a systematic controlled sparsness.
 
 ## MCLNN in operation
 The below figures show 30 segments of a spectrogram as an input (left) and their corresponding output (right) from an MCLNN before applying any activation function.
-The spectrogram shown is a concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
+The spectrogram shown is a frequency-wise concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
 
 
 <p align='center'><img src='imgs/segments.gif'/>&nbsp;&nbsp;&nbsp;&nbsp;<img src='imgs/mclnnout.gif'/></p>
