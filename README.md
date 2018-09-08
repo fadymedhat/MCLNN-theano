@@ -46,7 +46,7 @@ A visualization of MCLNN weights for sample hidden nodes
 ### Prerequisite
 
    * Frameworks:
-      * CUDA release 7.5, V7.5.17
+      * CUDA release 7.5, v7.5.17
 
    * Python (version 2.7.11) environment and packages:
      - Keras 1.0.8
@@ -243,6 +243,23 @@ Visualize the weights affecting the hidden nodes at each MCLNN layer. The count 
 ```
 HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
 ```
+
+## Experiments
+The MCLNN has been evaluated using a range of datasets. The required configuration for each one is available in the `configuration.py`
+Please visit each dataset relevant repo. for more details.
+
+* [ESC10](https://github.com/fadymedhat/ESC10-for-MCLNN)
+* [ESC10 augmented](https://github.com/fadymedhat/ESC10-augmented-for-MCLNN)
+* [ESC50](https://github.com/fadymedhat/ESC50-for-MCLNN)
+* [ESC50 augmented](https://github.com/fadymedhat/ESC50-augmented-for-MCLNN)
+* [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN)
+* [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN)
+* [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)
+* [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN)
+* [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN)
+* [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN)
+
+
 
 ## Citing the MCLNN
 If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:

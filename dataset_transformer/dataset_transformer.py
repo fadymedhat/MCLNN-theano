@@ -19,8 +19,8 @@ import configuration
 # Config = configuration.YORNOISE
 # Config = configuration.HOMBURG
 # Config = configuration.GTZAN
-# Config = configuration.ISMIR2004
-Config = configuration.BALLROOM
+Config = configuration.ISMIR2004
+# Config = configuration.BALLROOM
 
 
 
@@ -102,7 +102,7 @@ def navigate_directory(clip_name_txt_handle):
             if fnmatch(name, "*.wav"):
                 counter += 1
                 clip_path = os.path.join(path, name)
-                clip_name_txt_handle.write(clip_path + '\n')
+                clip_name_txt_handle.write(clip_path.replace(Config.SRC_PATH,'') + '\n')
                 clip_path_list.append(clip_path)
                 if len(clip_path_list) == Config.PROCESSING_BATCH:
                     file_key, short_count = process_batch(clip_path_list, file_key, short_count)
@@ -129,7 +129,7 @@ def navigate_csv(clip_name_txt_handle):
             clip_path = os.path.join(Config.SRC_PATH, class_folder, file_name)
             if fnmatch(clip_path, "*.wav"):
                 counter += 1
-                clip_name_txt_handle.write(clip_path + '\n')
+                clip_name_txt_handle.write(clip_path.replace(Config.SRC_PATH,'') + '\n')
                 clip_path_list.append(clip_path)
                 if len(clip_path_list) == Config.PROCESSING_BATCH:
                     file_key, short_count = process_batch(clip_path_list, file_key, short_count)
@@ -165,7 +165,7 @@ if __name__ == '__main__':
     if Config.INCLUDE_DELTA == True:
         full_dataset_filename += 'Delta'
 
-    clip_name_txt_handle = open(os.path.join(Config.DST_PATH, full_dataset_filename + "_storage_ordering.txt"), "w")
+    clip_name_txt_handle = open(os.path.join(Config.DST_PATH, Config.DATASET_NAME + "_storage_ordering.txt"), "w")
     # initialize hdf5 file
     hdf5_handle = h5py.File(os.path.join(Config.DST_PATH, full_dataset_filename + ".hdf5"), "w")
 
