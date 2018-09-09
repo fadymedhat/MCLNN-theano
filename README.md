@@ -95,22 +95,22 @@ Below are the most important configuration required by the MCLNN categorized int
 #### Files and paths
 
 The parent folder for the  training/validation/testing .hdf5 index files for the n-folds
-```
+```python
 INDEX_PATH = 'parent/path/for/indices'
 ```
 
 The main .hdf5 file containing the dataset processed samples, e.g. spectrograms.
-```
+```python
 FILE_PATH = 'dataset_processed_files.hdf5'
 ```
 
 The parent path for the weights stored during training. This is also the same passed used for loading the weights
 for a pre-trained model. A folder per fold will be generated in this parent path.
-```
+```python
 ALL_FOLDS_WEIGHTS_PATH = 'parent/path/for/weights'
 ```
 The parent path for images for weights and activations visualization, if any of the visualization flags is enabled
-```
+```python
 VISUALIZATION_PARENT_PATH = 'parent/path/for/visualization'
 ```
 
@@ -119,13 +119,13 @@ VISUALIZATION_PARENT_PATH = 'parent/path/for/visualization'
 The step size specifies the number of overlapping frames between consecutive segments. This number affects the processing
  stage of the segments present in the samples .hdf5 file. It also affects the number of samples that will be available for
 training.
-```
+```python
 # overlap between segments is q minus step_size
 STEP_SIZE = 1 
 ```
 
 Number of epochs or wait count, will take over to stop the model's training.
-```
+```python
 # maximum number of epochs
 NB_EPOCH = 2000 
 
@@ -134,13 +134,13 @@ WAIT_COUNT = 50
 ```
 
 Track the validation accuracy or loss for the early stopping.
-```
+```python
 # track the validation accuracy or loss for the stopping criterion : 'val_acc' or 'val_loss'
 STOPPING_CRITERION = 'val_acc'  
 ```
 Load pretrained model or start training from scratch. If this flag is enabled, pre-trained weights should be present in the
 weights parent folder (ALL_FOLDS_WEIGHTS_PATH).
-```
+```python
 # use pretrained weights or train a model from scratch 
 USE_PRETRAINED_WEIGHTS = False  # True or False
 ```
