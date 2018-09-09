@@ -149,18 +149,18 @@ USE_PRETRAINED_WEIGHTS = False  # True or False
 #### Model
 
 Number of classes under consideration
-```
+```python
 NB_CLASSES = 10 # number of classes
 ```
 The names of the classes. These are the names used for the confusion matrix.
-```
+```python
 CLASS_NAMES = ['DB', 'Ra', 'SW', 'BC', 'CT', 'PS', 'He', 'Ch', 'Ro', 'FC']
 ```
 
 Below are the hyperparameters for each layer of a five layers model.
 For each new layer of a deeper model, append its hyperparameters
 to the relevant list below. Note: all lists should be equal in length, following the number of layers in a model.
-```
+```python
 # dropout at the input of each layer
 DROPOUT = [0.01, 0.5, 0.5, 0.5, 0.1] 
 
@@ -173,7 +173,7 @@ WEIGHT_INITIALIZATION = ['he_normal', 'he_normal', 'glorot_uniform', 'glorot_uni
 
 
 The count of MCLNN and Dense layers
-```
+```python
 # Model layers
 MCLNN_LAYER_COUNT = 2  # number of MCLNN layers
 DENSE_LAYER_COUNT = 2  # number of Dense layers
@@ -183,26 +183,26 @@ DENSE_LAYER_COUNT = 2  # number of Dense layers
 __MCLNN specific hyperparameters__
 
 The order for a two-layered MCLNN. The first MCLNN layer has an order of 17 and the second has an order of 15.
-```
+```python
 # the order for each layer
 LAYERS_ORDER_LIST = [17, 15]  
 ```
 
 The Mask Bandwidth of a two-layered MCLNN. The first layer has a bandwithd of 20 and the second layer has a
 bandwidth of 5.
-```
+```python
 # the consecutive features enabled at the input for each layer
 MASK_BANDWIDTH = [20, 5] 
 ```
 
 The Mask Overlap of a two-layred MCLNN. The first layer has an overlap of -5 and the second layer has an overlap of 3.
-```
+```python
 # the overlap of observation between a hidden node and another for each layer
 MASK_OVERLAP = [-5, 3] 
 ```
 
 The extra frames for the single-dimensional temporal pooling. Note: the middle frame is add to the below value by default.
-```
+```python
 # the k extra excluding the middle frame (middle frame is included by default)
 EXTRA_FRAMES = 40  
 ```
@@ -214,25 +214,25 @@ EXTRA_FRAMES = 40
 The below flag allows saving the output of the first MCLNN layer of a model during the training stage.
 NOTE: this flag is for trial visualization only, it will affect the training. Accordingly, this flag should ALWAYS be disabled
 to train a proper model. (This has to do with prediction during training and the Learning_Phase flag used by Keras)
-```
+```python
 SAVE_SEGMENT_PREDICTION_IMAGE_PER_EPOCH = False
 ```
 The indices of the segments to be saved if the SAVE_SEGMENT_PREDICTION_IMAGE_PER_EPOCH flag is enabled.
-```
+```python
 TRAIN_SEGMENT_INDEX = 500 # train segment index to plot during training
 TEST_SEGMENT_INDEX = 500 # test segment index to plot during training
 VALIDATION_SEGMENT_INDEX = 500 # validation segment index to plot during training
 ```
 
 The below flag enables segments generation from the test data after training.
-```
+```python
 # store prediction images for segments of a specific clip of testing data
 SAVE_TEST_SEGMENT_PREDICTION_IMAGE = True  # True or False 
 
 ```
 The start index of the test sample to generate the prediction for, together with the number of segments to generate.
 Note: SAVE_TEST_SEGMENT_PREDICTION_IMAGE should to enabled for the below parameters to take effect.
-```
+```python
 # index of starting segment to plot.
 SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
 
