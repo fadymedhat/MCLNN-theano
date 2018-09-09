@@ -240,7 +240,7 @@ SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # used only if the SAVE
 SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
 ```
 Visualize the weights affecting the hidden nodes at each MCLNN layer. The count specifies the number of hidden nodes to visiualize.
-```
+```python
 HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
 ```
 
