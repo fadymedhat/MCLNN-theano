@@ -254,34 +254,30 @@ Please visit each dataset relevant repo. for more details.
 | [ESC10 augmented](https://github.com/fadymedhat/ESC10-augmented-for-MCLNN) |85.3|
 | [ESC50](https://github.com/fadymedhat/ESC50-for-MCLNN) | 62.9|
 | [ESC50 augmented](https://github.com/fadymedhat/ESC50-augmented-for-MCLNN) | 66.6|
-| [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN) ||
-| [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN) ||
-| [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)||
-| [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) ||
-| [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) ||
-| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) ||
-
+| [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN) | 74.22 |
+| [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN) | 75.82 |
+| [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)| 61.45 |
+| [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) | 85.00 |
+| [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) | 85.00 |
+| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) | 92.12 |
 
 
 ## Citing the MCLNN
 .If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
 
-> If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets.
->
+If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets.
+
 > Fady Medhat, David Chesmore, John Robinson, **Masked Conditional Neural Networks for Audio Classification**
 > International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 >
 > [DOI: https://doi.org/10.1007/978-3-319-68612-7_40]
 
-> * Shallow MCLNN with long segments for Ballroom
-> 
+Shallow MCLNN with long segments for Ballroom 
 > Fady Medhat, David Chesmore, John Robinson, **Automatic Classification of Music Genre Using 
 > Masked Conditional Neural Networks**, *IEEE International Conference on Data Mining*, ICDM, 2017.
 >
 > [DOI: https://doi.org/10.1109/ICDM.2017.125]
 
-> * Deep MCLNN with short segments for Ballroom and Homburg_
->
 > Fady Medhat, David Chesmore, John Robinson. **Music Genre Classification Using 
 Masked Conditional Neural Networks**, *International Conference on Neural Information Processing*, ICONIP, 2017.
 > 
