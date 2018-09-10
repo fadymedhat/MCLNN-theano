@@ -286,6 +286,21 @@ Masked Conditional Neural Networks**, *International Conference on Neural Inform
 > 
 > [DOI: https://doi.org/10.1007/978-3-319-70096-0_49]
 
+
+
+> Fady Medhat, David  Chesmore and John Robinson, **Recognition of Acoustic Events Using Masked Conditional Neural 
+> Networks**, *IEEE International Conference on Machine Learning and Applications *, ICMLA, 2017
+>
+> [DOI: https://doi.org/10.1109/ICMLA.2017.0-158]
+
+ 
+
+Medhat F., Chesmore D., Robinson J. (2017) Environmental Sound Recognition Using Masked Conditional Neural Networks.  Advanced Data Mining and Applications. ADMA 2017.
+
+Medhat F., Chesmore D., Robinson J. (2017) Masked Conditional Neural Networks for Environmental Sound Classification.  Artificial Intelligence XXXIV. SGAI 2017. 
+F. Medhat, D. Chesmore and J. Robinson, "Masked Conditional Neural Networks for Automatic Sound Events Recognition," 2017 IEEE International Conference on Data Science and Advanced Analytics (DSAA)
+
+
 ```
 Fady Medhat, David Chesmore, John Robinson, "Music Genre Classification Using 
 Masked Conditional Neural Networks," International Conference on Neural Information Processing, ICONIP 2017.
