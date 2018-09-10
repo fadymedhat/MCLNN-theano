@@ -292,14 +292,19 @@ Masked Conditional Neural Networks**, *International Conference on Neural Inform
 Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shallow MCLNN with long segments.
 
 > Fady Medhat, David  Chesmore and John Robinson, **Recognition of Acoustic Events Using Masked Conditional Neural 
-> Networks**, *IEEE International Conference on Machine Learning and Applications*, ICMLA, 2017
+> Networks**, *IEEE International Conference on Machine Learning and Applications*, ICMLA, 2017.
 >
 > <a href="https://arxiv.org/ftp/arxiv/papers/1802/1802.02617.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1109/ICMLA.2017.0-158]
 
  
 
-Medhat F., Chesmore D., Robinson J. (2017) Environmental Sound Recognition Using Masked Conditional Neural Networks.  Advanced Data Mining and Applications. ADMA 2017.
+> Fady Medhat, David  Chesmore and John Robinson, **Environmental Sound Recognition Using Masked Conditional Neural 
+> Networks**, *Advanced Data Mining and Applications*, ADMA, 2017.
+>
+> <a href="https://arxiv.org/abs/1804.02665"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
+> [DOI: https://doi.org/10.1007/978-3-319-69179-4_26]
+
 
 Medhat F., Chesmore D., Robinson J. (2017) Masked Conditional Neural Networks for Environmental Sound Classification.  Artificial Intelligence XXXIV. SGAI 2017. 
 F. Medhat, D. Chesmore and J. Robinson, "Masked Conditional Neural Networks for Automatic Sound Events Recognition," 2017 IEEE International Conference on Data Science and Advanced Analytics (DSAA)
