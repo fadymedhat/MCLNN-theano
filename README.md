@@ -275,13 +275,15 @@ _If your work involves temporal signals other than sound, or you are using the G
 
 * Shallow MCLNN with long segments for Ballroom
  
-  _Fady Medhat, David Chesmore, John Robinson, "Automatic Classification of Music Genre Using 
-Masked Conditional Neural Networks," IEEE International Conference on Data Mining, ICDM 2017._
+> Fady Medhat, David Chesmore, John Robinson, **Automatic Classification of Music Genre Using 
+> Masked Conditional Neural Networks**, *IEEE International Conference on Data Mining*, ICDM, 2017.
+>
+> [DOI: https://doi.org/10.1109/ICDM.2017.125]
 
 _Deep MCLNN with short segments for Ballroom and Homburg_
 
 > Fady Medhat, David Chesmore, John Robinson. **Music Genre Classification Using 
-Masked Conditional Neural Networks**. *International Conference on Neural Information Processing*, ICONIP, 2017.
+Masked Conditional Neural Networks**, *International Conference on Neural Information Processing*, ICONIP, 2017.
 > 
 > [DOI: https://doi.org/10.1007/978-3-319-70096-0_49]
 
