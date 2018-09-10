@@ -322,16 +322,3 @@ __ESC-50 and ESC10 environmental sound dataset, CLNN vs MCLNN - deep MCLNN with 
 >
 > <a href="https://arxiv.org/ftp/arxiv/papers/1802/1802.05792.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1109/DSAA.2017.43]
-
-
-
-
-```
-Fady Medhat, David Chesmore, John Robinson, "Music Genre Classification Using 
-Masked Conditional Neural Networks," International Conference on Neural Information Processing, ICONIP 2017.
-```
-
-
-
-
-
