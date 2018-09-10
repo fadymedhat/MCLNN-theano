@@ -283,7 +283,7 @@ Ballroom music dataset - shallow MCLNN with long segments.
 
 Ballroom or Homburg music datasets - deep MCLNN with short segments.
 
-> Fady Medhat, David Chesmore, John Robinson. **Music Genre Classification Using 
+> Fady Medhat, David Chesmore, John Robinson, **Music Genre Classification Using 
 Masked Conditional Neural Networks**, *International Conference on Neural Information Processing*, ICONIP, 2017.
 > 
 > <a href="https://arxiv.org/pdf/1802.06432.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
@@ -294,6 +294,7 @@ Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shallow
 > Fady Medhat, David  Chesmore and John Robinson, **Recognition of Acoustic Events Using Masked Conditional Neural 
 > Networks**, *IEEE International Conference on Machine Learning and Applications*, ICMLA, 2017
 >
+> <a href="https://arxiv.org/ftp/arxiv/papers/1802/1802.02617.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1109/ICMLA.2017.0-158]
 
  
