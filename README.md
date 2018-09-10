@@ -286,7 +286,7 @@ Masked Conditional Neural Networks**, *International Conference on Neural Inform
 > 
 > [DOI: https://doi.org/10.1007/978-3-319-70096-0_49]
 
-
+Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shallow MCLNN with long segments.
 
 > Fady Medhat, David  Chesmore and John Robinson, **Recognition of Acoustic Events Using Masked Conditional Neural 
 > Networks**, *IEEE International Conference on Machine Learning and Applications*, ICMLA, 2017
