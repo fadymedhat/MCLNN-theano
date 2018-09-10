@@ -273,7 +273,7 @@ __GTZAN or ISMIR2004 music datasets and temporal signals other than sound.__
 > <a href="https://arxiv.org/pdf/1803.02421.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1007/978-3-319-68612-7_40] 
 
-Ballroom music dataset - shallow MCLNN with long segments.  
+__Ballroom music dataset - shallow MCLNN with long segments.__  
 
 > Fady Medhat, David Chesmore, John Robinson, **Automatic Classification of Music Genre Using 
 > Masked Conditional Neural Networks**, *IEEE International Conference on Data Mining*, ICDM, 2017.
@@ -281,7 +281,7 @@ Ballroom music dataset - shallow MCLNN with long segments.
 > <a href="https://arxiv.org/ftp/arxiv/papers/1801/1801.05504.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1109/ICDM.2017.125]
 
-Ballroom or Homburg music datasets - deep MCLNN with short segments.
+__Ballroom or Homburg music datasets - deep MCLNN with short segments.__
 
 > Fady Medhat, David Chesmore, John Robinson, **Music Genre Classification Using 
 Masked Conditional Neural Networks**, *International Conference on Neural Information Processing*, ICONIP, 2017.
@@ -289,7 +289,7 @@ Masked Conditional Neural Networks**, *International Conference on Neural Inform
 > <a href="https://arxiv.org/pdf/1802.06432.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1007/978-3-319-70096-0_49]
 
-Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shallow MCLNN with long segments.
+__Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shallow MCLNN with long segments.__
 
 > Fady Medhat, David  Chesmore and John Robinson, **Recognition of Acoustic Events Using Masked Conditional Neural 
 > Networks**, *IEEE International Conference on Machine Learning and Applications*, ICMLA, 2017.
