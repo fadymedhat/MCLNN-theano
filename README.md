@@ -248,27 +248,30 @@ HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
 The MCLNN has been evaluated using a range of datasets. The required configuration for each one is available in the `configuration.py`
 Please visit each dataset relevant repo. for more details.
 
-* [ESC10](https://github.com/fadymedhat/ESC10-for-MCLNN)
-* [ESC10 augmented](https://github.com/fadymedhat/ESC10-augmented-for-MCLNN)
-* [ESC50](https://github.com/fadymedhat/ESC50-for-MCLNN)
-* [ESC50 augmented](https://github.com/fadymedhat/ESC50-augmented-for-MCLNN)
-* [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN)
-* [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN)
-* [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)
-* [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN)
-* [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN)
-* [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN)
+| Dataset | MCLNN accuracy % |
+|:---|:---:|
+| [ESC10](https://github.com/fadymedhat/ESC10-for-MCLNN) | 85.5|
+| [ESC10 augmented](https://github.com/fadymedhat/ESC10-augmented-for-MCLNN) |85.3|
+| [ESC50](https://github.com/fadymedhat/ESC50-for-MCLNN) | 62.9|
+| [ESC50 augmented](https://github.com/fadymedhat/ESC50-augmented-for-MCLNN) | 66.6|
+| [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN) ||
+| [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN) ||
+| [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)||
+| [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) ||
+| [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) ||
+| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) ||
 
 
 
 ## Citing the MCLNN
-If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
+.If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
 
-_If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets._
-```
-Fady Medhat, David Chesmore, John Robinson, "Masked Conditional Neural Networks for Audio Classification,"
-International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
-```
+_If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets.
+
+> Fady Medhat, David Chesmore, John Robinson, **Masked Conditional Neural Networks for Audio Classification**
+> International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
+>
+> [DOI: https://doi.org/10.1007/978-3-319-68612-7_40]
 
 * Shallow MCLNN with long segments for Ballroom
  
