@@ -298,6 +298,7 @@ __Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shall
 > [DOI: https://doi.org/10.1109/ICMLA.2017.0-158]
 
  
+__ESC-10 environmental sound datasets - deep MCLNN with long segments.__
 
 > Fady Medhat, David  Chesmore and John Robinson, **Environmental Sound Recognition Using Masked Conditional Neural 
 > Networks**, *Advanced Data Mining and Applications*, ADMA, 2017.
