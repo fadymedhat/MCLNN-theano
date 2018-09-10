@@ -289,7 +289,7 @@ Masked Conditional Neural Networks**, *International Conference on Neural Inform
 
 
 > Fady Medhat, David  Chesmore and John Robinson, **Recognition of Acoustic Events Using Masked Conditional Neural 
-> Networks**, *IEEE International Conference on Machine Learning and Applications *, ICMLA, 2017
+> Networks**, *IEEE International Conference on Machine Learning and Applications*, ICMLA, 2017
 >
 > [DOI: https://doi.org/10.1109/ICMLA.2017.0-158]
 
