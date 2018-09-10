@@ -263,20 +263,23 @@ Please visit each dataset relevant repo. for more details.
 
 
 ## Citing the MCLNN
-.If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
+If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
 
-If your work involves temporal signals other than sound, or you are using the GTZAN or ISMIR2004 music datasets.
+GTZAN or ISMIR2004 music datasets and temporal signals other than sound.
 
 > Fady Medhat, David Chesmore, John Robinson, **Masked Conditional Neural Networks for Audio Classification**
 > International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 >
 > [DOI: https://doi.org/10.1007/978-3-319-68612-7_40]
 
-Shallow MCLNN with long segments for Ballroom 
+Ballroom music dataset - shallow MCLNN with long segments.  
+
 > Fady Medhat, David Chesmore, John Robinson, **Automatic Classification of Music Genre Using 
 > Masked Conditional Neural Networks**, *IEEE International Conference on Data Mining*, ICDM, 2017.
 >
 > [DOI: https://doi.org/10.1109/ICDM.2017.125]
+
+Ballroom or Homburg music datasets - deep MCLNN with short segments.
 
 > Fady Medhat, David Chesmore, John Robinson. **Music Genre Classification Using 
 Masked Conditional Neural Networks**, *International Conference on Neural Information Processing*, ICONIP, 2017.
