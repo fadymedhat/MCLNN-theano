@@ -265,7 +265,7 @@ Please visit each dataset relevant repo. for more details.
 ## Citing the MCLNN
 If you are using the MCLNN in your work please cite us as follows based on the dataset and the MCLNN architecture used:
 
-GTZAN or ISMIR2004 music datasets and temporal signals other than sound.
+__GTZAN or ISMIR2004 music datasets and temporal signals other than sound.__
 
 > Fady Medhat, David Chesmore, John Robinson, **Masked Conditional Neural Networks for Audio Classification**
 > International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
