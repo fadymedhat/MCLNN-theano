@@ -278,6 +278,7 @@ Ballroom music dataset - shallow MCLNN with long segments.
 > Fady Medhat, David Chesmore, John Robinson, **Automatic Classification of Music Genre Using 
 > Masked Conditional Neural Networks**, *IEEE International Conference on Data Mining*, ICDM, 2017.
 >
+> <a href="https://arxiv.org/ftp/arxiv/papers/1801/1801.05504.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1109/ICDM.2017.125]
 
 Ballroom or Homburg music datasets - deep MCLNN with short segments.
