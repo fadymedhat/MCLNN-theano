@@ -272,9 +272,9 @@ _If your work involves temporal signals other than sound, or you are using the G
 > International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
 >
 > [DOI: https://doi.org/10.1007/978-3-319-68612-7_40]
-
-* Shallow MCLNN with long segments for Ballroom
- 
+>
+> * Shallow MCLNN with long segments for Ballroom
+> 
 > Fady Medhat, David Chesmore, John Robinson, **Automatic Classification of Music Genre Using 
 > Masked Conditional Neural Networks**, *IEEE International Conference on Data Mining*, ICDM, 2017.
 >
