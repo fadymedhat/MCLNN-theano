@@ -269,8 +269,8 @@ GTZAN or ISMIR2004 music datasets and temporal signals other than sound.
 
 > Fady Medhat, David Chesmore, John Robinson, **Masked Conditional Neural Networks for Audio Classification**
 > International Conference on Artificial Neural Networks and Machine Learning, ICANN 2017.
->
-> [DOI: https://doi.org/10.1007/978-3-319-68612-7_40] <a href="https://arxiv.org/pdf/1803.02421.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="Download paper in PDF format" align="right" /></a>
+> <a href="https://arxiv.org/pdf/1803.02421.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="Download paper in PDF format" align="right" /></a>
+> [DOI: https://doi.org/10.1007/978-3-319-68612-7_40] 
 
 Ballroom music dataset - shallow MCLNN with long segments.  
 
