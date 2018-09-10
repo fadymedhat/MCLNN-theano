@@ -298,17 +298,24 @@ __Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shall
 > [DOI: https://doi.org/10.1109/ICMLA.2017.0-158]
 
  
-__ESC-10 environmental sound datasets - deep MCLNN with long segments.__
+__ESC-10 environmental sound dataset - deep MCLNN with long segments.__
 
 > Fady Medhat, David  Chesmore and John Robinson, **Environmental Sound Recognition Using Masked Conditional Neural 
 > Networks**, *Advanced Data Mining and Applications*, ADMA, 2017.
 >
-> <a href="https://arxiv.org/abs/1804.02665"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
+> <a href="https://arxiv.org/ftp/arxiv/papers/1804/1804.02665.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1007/978-3-319-69179-4_26]
 
 
-Medhat F., Chesmore D., Robinson J. (2017) Masked Conditional Neural Networks for Environmental Sound Classification.  Artificial Intelligence XXXIV. SGAI 2017. 
-F. Medhat, D. Chesmore and J. Robinson, "Masked Conditional Neural Networks for Automatic Sound Events Recognition," 2017 IEEE International Conference on Data Science and Advanced Analytics (DSAA)
+> Fady Medhat, David  Chesmore and John Robinson, **Masked Conditional Neural Networks for Environmental Sound 
+> Classification**, *Artificial Intelligence XXXIV*. SGAI, 2017.
+>
+> <a href="https://arxiv.org/ftp/arxiv/papers/1805/1805.10004.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
+> [DOI: https://doi.org/10.1007/978-3-319-71078-5_2]
+
+> Fady Medhat, David  Chesmore and John Robinson, **Masked Conditional Neural Networks for Automatic Sound 
+> Events Recognition**, *IEEE International Conference on Data Science and Advanced Analytics*, DSAA, 2017.
+
 
 
 ```
