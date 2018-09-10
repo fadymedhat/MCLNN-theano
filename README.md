@@ -306,6 +306,7 @@ __ESC-10 environmental sound dataset - deep MCLNN with long segments.__
 > <a href="https://arxiv.org/ftp/arxiv/papers/1804/1804.02665.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1007/978-3-319-69179-4_26]
 
+__YorNoise and UrbanSound8k environmental sound datasets - deep MCLNN with short segments.__
 
 > Fady Medhat, David  Chesmore and John Robinson, **Masked Conditional Neural Networks for Environmental Sound 
 > Classification**, *Artificial Intelligence XXXIV*. SGAI, 2017.
@@ -314,6 +315,7 @@ __ESC-10 environmental sound dataset - deep MCLNN with long segments.__
 > [DOI: https://doi.org/10.1007/978-3-319-71078-5_2]
 
 
+__ESC-50 and ESC10 environmental sound dataset, CLNN vs MCLNN - deep MCLNN with short segments.__
 
 > Fady Medhat, David  Chesmore and John Robinson, **Masked Conditional Neural Networks for Automatic Sound 
 > Events Recognition**, *IEEE International Conference on Data Science and Advanced Analytics*, DSAA, 2017.
