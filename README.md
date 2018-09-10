@@ -286,6 +286,7 @@ Ballroom or Homburg music datasets - deep MCLNN with short segments.
 > Fady Medhat, David Chesmore, John Robinson. **Music Genre Classification Using 
 Masked Conditional Neural Networks**, *International Conference on Neural Information Processing*, ICONIP, 2017.
 > 
+> <a href="https://arxiv.org/pdf/1802.06432.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1007/978-3-319-70096-0_49]
 
 Urbansound8k, YorNoise, ESC-10 and ESC-50 environmental sound datasets - shallow MCLNN with long segments.
