@@ -254,12 +254,12 @@ Please visit each dataset relevant repo. for more details.
 | [ESC10 augmented](https://github.com/fadymedhat/ESC10-augmented-for-MCLNN) |85.3|
 | [ESC50](https://github.com/fadymedhat/ESC50-for-MCLNN) | 62.9|
 | [ESC50 augmented](https://github.com/fadymedhat/ESC50-augmented-for-MCLNN) | 66.6|
-| [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN) | 74.22 |
-| [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN) | 75.82 |
-| [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)| 61.45 |
-| [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) | 85.00 |
+| [UrbanSound8k](https://github.com/fadymedhat/Urbansound8K-for-MCLNN) | 74.2 |
+| [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN) | 75.8 |
+| [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)| 61.5 |
+| [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) | 85.0 |
 | [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) | 85.00 |
-| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) | 92.12 |
+| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) | 92.1 |
 
 
 ## Citing the MCLNN
@@ -315,7 +315,7 @@ __YorNoise and UrbanSound8k environmental sound datasets - deep MCLNN with short
 > [DOI: https://doi.org/10.1007/978-3-319-71078-5_2]
 
 
-__ESC-50 and ESC10 environmental sound dataset, CLNN vs MCLNN - deep MCLNN with short segments.__
+__ESC-50 and ESC10 environmental sound datasets, CLNN vs MCLNN - deep MCLNN with short segments.__
 
 > Fady Medhat, David  Chesmore and John Robinson, **Masked Conditional Neural Networks for Automatic Sound 
 > Events Recognition**, *IEEE International Conference on Data Science and Advanced Analytics*, DSAA, 2017.
