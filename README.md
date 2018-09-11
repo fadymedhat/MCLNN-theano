@@ -258,7 +258,7 @@ Please visit each dataset relevant repo. for more details.
 | [YorNoise](https://github.com/fadymedhat/YorNoise-for-MCLNN) | 75.8 |
 | [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)| 61.5 |
 | [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) | 85.0 |
-| [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) | 85.00 |
+| [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) | 85.0 |
 | [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) | 92.1 |
 
 
