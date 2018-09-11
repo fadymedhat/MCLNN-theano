@@ -7,7 +7,7 @@ MCLNN: Masked Conditional Neural Networks
 A neural network model designed for multi-channel temporal signals.
 The Masked Conditional Neural Networks (MCLNN) is inspired by spectrograms and the use of filterbanks in signal analysis. It has been evaluated on sound. However, the model is
 general enough to be used for any multi-channel temporal signal. This work also introduces the Conditional Neural Networks (CLNN)
-inspired by the Conditional Restricted Boltzamann Machine (CRBM). The CLNN is the main structure for the MCLNN operation.
+inspired by the Conditional Restricted Boltzamann Machine (CRBM) [1]. The CLNN is the main structure for the MCLNN operation.
 
 The MCLNN allows inferring the middle frame of a window of frames, in a temporal signal, conditioned on n preceeding and n succeeding frames.
 The mask enforces a systematic sparsness that follows a filterbank-like pattern and it automates the mixing-and-matching
@@ -246,7 +246,7 @@ HIDDEN_NODES_SLICES_COUNT= 40 # weights visualization for n hidden nodes
 
 ## Experiments
 The MCLNN has been evaluated using a range of datasets. The required configuration for each one is available in the `configuration.py`
-Please visit each dataset relevant repo. for more details.
+We have created a separate repository for the prepossessing required for each dataset, please refer to them for more details.
 
 | Dataset | MCLNN accuracy % |
 |:---|:---:|
@@ -322,3 +322,8 @@ __ESC-50 and ESC10 environmental sound datasets, CLNN vs MCLNN - deep MCLNN with
 >
 > <a href="https://arxiv.org/ftp/arxiv/papers/1802/1802.05792.pdf"><img src="https://img.shields.io/badge/download-.pdf-blue.svg" alt="download paper" title="download paper" align="right" /></a>
 > [DOI: https://doi.org/10.1109/DSAA.2017.43]
+
+## References
+
+[1] G.W. Taylor, G.E. Hinton, S. Roweis, **Modeling Human Motion Using Binary Latent Variables** *In: Advances in Neural Information Processing Systems*, NIPS, 2006
+
