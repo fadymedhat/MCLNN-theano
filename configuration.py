@@ -36,8 +36,8 @@ class Configuration:
     # Enabling the below flag will allow storing a visualization of the MCLNN weights.
     # Note! this is applied for the first fold only and disabled later on.
     SAVE_TEST_SEGMENT_PREDICTION_IMAGE = True  # True or False - store predicted images for segments of a specific clip of testing data
-    SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # index of starting segment to plot. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
-    SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # number of segments to save after the starting segment. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+    SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50  # index of starting segment to plot. This value is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+    SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 100  # number of segments to save after the starting segment. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
     HIDDEN_NODES_SLICES_COUNT = 40  # weights visualization for n hidden nodes
 
 
@@ -386,11 +386,11 @@ class BALLROOM(Configuration):
     ALL_FOLDS_WEIGHTS_PATH = COMMON_PATH_NAME + '_weights'
     VISUALIZATION_PARENT_PATH = COMMON_PATH_NAME + '_visualization'
 
-    # DATASET_FILE_PATH = os.path.join(PARENT_PATH,
-    #                                  'ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5')
-
     DATASET_FILE_PATH = os.path.join(PARENT_PATH,
-                                     'ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN_600_30sec.hdf5')
+                                     'ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN=600_30secs.hdf5')
+
+    # DATASET_FILE_PATH = os.path.join(PARENT_PATH,
+    #                                  'ballroomSpecmeln_mels=256_nfft=2048_hoplength=1024_fmax=NIL_22050hzsampling_FF=23_FN_600_30sec.hdf5')
 
     STEP_SIZE = 1  # overlap between segments is q minus step_size
     BATCH_SIZE = 600  # the samples in a mini-batch

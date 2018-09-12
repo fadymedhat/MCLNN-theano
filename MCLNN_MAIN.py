@@ -35,7 +35,7 @@ from visualization import Visualizer
 # Config = configuration.HOMBURG        # Accuracy 61.45% Homburg-for-MCLNN done
 # Config = configuration.GTZAN          # Accuracy 85.00% GTZAN-for-MCLNN done
 # Config = configuration.ISMIR2004      # Accuracy 85.00% ISMIR-for-MCLNN done
-# Config = configuration.BALLROOM       # Accuracy 92.12% Ballroom-for-MCLNN done
+Config = configuration.BALLROOM       # Accuracy 92.12% Ballroom-for-MCLNN done
 # ===================================================== #
 
 # http://mirg.city.ac.uk/
