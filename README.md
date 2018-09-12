@@ -28,8 +28,8 @@ a systematic controlled sparsness.
 <p align='center'><img height="150"  src='https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/8211002/8215462/8215588/8215588-fig-4-source-large.gif'></p>
 
 ## MCLNN in operation
-The below figures show 30 segments of a spectrogram as an input (left) and their corresponding output (right) from an MCLNN before applying any activation function.
-The spectrogram shown is a frequency-wise concatenation between a logarithmic 60-bins mel-scalled spectrogram and its delta.
+The below figures show 30 segments of a spectrogram as an input (colored) and their corresponding output (grayscale) from an MCLNN before applying any activation function.
+The spectrogram shown is a frequency-wise concatenation between a logarithmic 60-bins mel-scaled spectrogram and its delta (left figure) and a 256-bin spectrogram of the Ballroom dataset (right figure).
 
 
 <p align='center'><img src='imgs/segments.gif'/>&nbsp;&nbsp;&nbsp;&nbsp;<img src='imgs/mclnnout.gif'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src='imgs/ballroom_input.gif'/>&nbsp;&nbsp;&nbsp;&nbsp;<img src='imgs/ballroom_mclnn.gif'/></p>
