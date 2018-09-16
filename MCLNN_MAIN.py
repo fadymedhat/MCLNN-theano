@@ -26,16 +26,16 @@ from visualization import Visualizer
 # ===================================================== #
 #      Uncomment a single configuration from below      #
 # ----------------------------------------------------- #
-# Config = configuration.ESC10          # Accuracy 85.50% ESC10-for-MCLNN done
+# Config = configuration.ESC10  # Accuracy 85.50% ESC10-for-MCLNN done
 # Config = configuration.ESC10AUGMENTED # Accuracy 85.25% ESC10-augmented-for-MCLNN done
 # Config = configuration.ESC50          # Accuracy 62.85% ESC50-for-MCLNN done
 # Config = configuration.ESC50AUGMENTED # Accuracy 66.60% ESC50-augmented-for-MCLNN done
 # Config = configuration.URBANSOUND8K   # Accuracy 74.22% Urbansound8k-for-MCLNN done
-# Config = configuration.YORNOISE       # Accuracy 75.82% YorNoise-for-MCLNN done
+Config = configuration.YORNOISE       # Accuracy 75.82% YorNoise-for-MCLNN done
 # Config = configuration.HOMBURG        # Accuracy 61.45% Homburg-for-MCLNN done
 # Config = configuration.GTZAN          # Accuracy 85.00% GTZAN-for-MCLNN done
 # Config = configuration.ISMIR2004      # Accuracy 85.00% ISMIR-for-MCLNN done
-Config = configuration.BALLROOM       # Accuracy 92.12% Ballroom-for-MCLNN done
+# Config = configuration.BALLROOM       # Accuracy 92.12% Ballroom-for-MCLNN done
 # ===================================================== #
 
 # http://mirg.city.ac.uk/
@@ -61,7 +61,9 @@ class MCLNNTrainer(object):
 
         for layer_index in range(Config.MCLNN_LAYER_COUNT):
             if verbose == True:
-                print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
+                print('Layer' + str(layer_index) +
+                      ' - Type = ' + ('mclnn' if Config.LAYER_IS_MASKED[layer_index] else 'clnn ') +
+                      ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
                       ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
                       ', Order = ' + str(Config.LAYERS_ORDER_LIST[layer_index]) +
                       ', Bandwidth = ' + str(Config.MASK_BANDWIDTH[layer_index]) +
@@ -76,7 +78,9 @@ class MCLNNTrainer(object):
                                         order=Config.LAYERS_ORDER_LIST[layer_index],
                                         bandwidth=Config.MASK_BANDWIDTH[layer_index],
                                         overlap=Config.MASK_OVERLAP[layer_index],
-                                        name='mclnn' + str(layer_index)))
+                                        layer_is_masked=Config.LAYER_IS_MASKED[layer_index],
+                                        name=('mclnn' if Config.LAYER_IS_MASKED[layer_index] else 'clnn') + str(
+                                            layer_index)))
             model.add(PReLU(init='zero', weights=None, name='prelu' + str(layer_index)))
 
         model.add(GlobalPooling1D(name='globalpool' + str(layer_index)))
@@ -86,7 +90,9 @@ class MCLNNTrainer(object):
         layer_index += 1
         for layer_index in range(layer_index, layer_index + Config.DENSE_LAYER_COUNT):
             if verbose == True:
-                print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
+                print('Layer' + str(layer_index) +
+                      ' - Type = dense'+
+                      ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
                       ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
                       ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
             model.add(Dropout(Config.DROPOUT[layer_index], name='dropout' + str(layer_index)))
@@ -98,7 +104,9 @@ class MCLNNTrainer(object):
         # --------- Output LAYER -----------------
         layer_index += 1
         if verbose == True:
-            print('Layer' + str(layer_index) + ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
+            print('Layer' + str(layer_index) +
+                  ' - Type = softmax' +
+                  ' - Dropout = ' + str(Config.DROPOUT[layer_index]) +
                   ', Initialization = ' + str(Config.WEIGHT_INITIALIZATION[layer_index]) +
                   ', Hidden nodes = ' + str(Config.HIDDEN_NODES_LIST[layer_index]))
         model.add(Dropout(Config.DROPOUT[layer_index], name='dropout' + str(layer_index)))
@@ -219,7 +227,6 @@ class MCLNNTrainer(object):
 
 
 def run():
-
     # ======================================= Initialization ======================================= #
     all_folds_target_label = np.asarray([])
 
@@ -229,11 +236,10 @@ def run():
     all_folds_probability_vote_cm = np.zeros((Config.NB_CLASSES, Config.NB_CLASSES), dtype=np.int)
     all_folds_probability_vote_label = np.asarray([])
 
-
     segment_size = sum(Config.LAYERS_ORDER_LIST) * 2 + Config.EXTRA_FRAMES
     print('Segment without middle frame:' + str(segment_size))
 
-    is_visualization_called_flag = False # visualization is done for first fold only using this variable
+    is_visualization_called_flag = False  # visualization is done for first fold only using this variable
 
     # list of paths to the n-fold indices of the Training/Testing/Validation splits
     # number of paths should be e.g. 30 for 3x10, where 3 is for the splits and 10 for the 10-folds

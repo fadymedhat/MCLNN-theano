@@ -191,21 +191,25 @@ def prepare_callbacks(configuration, fold_weights_path, data_loader):
     # remote_callback = callbacks.RemoteMonitor(root='http://localhost:9000')
     # callback_list.append(remote_callback)
 
+    # early stopping
     early_stopping_callback = callbacks.EarlyStopping(monitor=configuration.STOPPING_CRITERION,
                                                       patience=configuration.WAIT_COUNT,
                                                       verbose=0,
                                                       mode='auto')
     callback_list.append(early_stopping_callback)
 
+    # save weights at the end of epoch
     weights_file_name_format = 'weights.epoch{epoch:02d}-val_loss{val_loss:.2f}-val_acc{val_acc:.4f}.hdf5'
     checkpoint_callback = ModelCheckpoint(os.path.join(fold_weights_path, weights_file_name_format),
                                           monitor='val_loss', verbose=0,
                                           save_best_only=False, mode='auto')
     callback_list.append(checkpoint_callback)
 
+    # free space of stored weights of early epochs
     directory_house_keeping_callback = DirectoryHouseKeepingCallback(fold_weights_path)
     callback_list.append(directory_house_keeping_callback)
 
+    # call for visualization if it is enabled
     if configuration.SAVE_SEGMENT_PREDICTION_IMAGE_PER_EPOCH == True:
         segment_plot_callback = SegmentPlotCallback(configuration=configuration,
                                                     data_loader=data_loader)

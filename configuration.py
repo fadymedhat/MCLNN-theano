@@ -36,7 +36,7 @@ class Configuration:
     # Enabling the below flag will allow storing a visualization of the MCLNN weights.
     # Note! this is applied for the first fold only and disabled later on.
     SAVE_TEST_SEGMENT_PREDICTION_IMAGE = True  # True or False - store predicted images for segments of a specific clip of testing data
-    SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 1021  # index of starting segment to plot. This value is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
+    SAVE_TEST_SEGMENT_PREDICTION_INITIAL_SEGMENT_INDEX = 50#1021  # index of starting segment to plot. This value is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
     SAVE_TEST_SEGMENT_PREDICTION_IMAGE_COUNT = 30  # number of segments to save after the starting segment. This count is used only if the SAVE_LAYER_OUTPUT_IMAGE is enabled
     HIDDEN_NODES_SLICES_COUNT = 40  # weights visualization for n hidden nodes
 
@@ -62,6 +62,7 @@ class ESC10(Configuration):
     NB_CLASSES = 10  # the number of classes to classify
     DROPOUT = [0.01, 0.5, 0.5, 0.5, 0.1]  # dropout at the input of each layer
     HIDDEN_NODES_LIST = [300, 200, 100, 100, NB_CLASSES]  # hidden nodes for each layer
+    # initialization for each layer
     WEIGHT_INITIALIZATION = ['he_normal', 'he_normal', 'glorot_uniform', 'glorot_uniform', 'glorot_uniform']
 
     # Model layers
@@ -70,6 +71,8 @@ class ESC10(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15, 15]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True, True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [20, 5]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-5, 3]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
@@ -106,6 +109,8 @@ class ESC10AUGMENTED(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15, 15]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True, True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [20, 5]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-5, 3]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 20  # the k extra frames beyond the middle frame (included by default)
@@ -143,6 +148,8 @@ class ESC50(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [14]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [20]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-5]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
@@ -183,6 +190,8 @@ class ESC50AUGMENTED(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [14]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [20]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-5]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 40  # the k extra frames beyond the middle frame (included by default)
@@ -223,6 +232,8 @@ class URBANSOUND8K(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [20]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-5]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 50  # the k extra frames beyond the middle frame (included by default)
@@ -259,6 +270,8 @@ class YORNOISE(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [15]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [20]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-5]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 50  # the k extra frames beyond the middle frame (included by default)
@@ -295,6 +308,8 @@ class HOMBURG(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [5, 5]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True, True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [40, 10]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-10, 3]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 1  # the k extra frames beyond the middle frame (included by default)
@@ -330,6 +345,8 @@ class GTZAN(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [4, 4]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True, True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [40, 10]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-10, 3]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 10  # the k extra frames
@@ -365,6 +382,8 @@ class ISMIR2004(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [4, 4]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True, True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [40, 10]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-10, 3]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 10  # the k extra frames
@@ -405,6 +424,8 @@ class BALLROOM(Configuration):
 
     # MCLNN hyperparameters
     LAYERS_ORDER_LIST = [20]  # the order for each layer
+    # Type (MCLNN/CLNN) of each layer before pooling
+    LAYER_IS_MASKED = [True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
     MASK_BANDWIDTH = [40]  # the consecutive features enabled at the input for each layer
     MASK_OVERLAP = [-10]  # the overlap of observation between a hidden node and another for each layer
     EXTRA_FRAMES = 55  # the k extra frames beyond the middle frame (included by default)

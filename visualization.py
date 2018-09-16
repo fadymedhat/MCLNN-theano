@@ -66,12 +66,12 @@ class Visualizer(object):
             if layer_type == 'flatter':
                 return
 
-            if layer_type in ['mclnn']:
+            if layer_type in ['mclnn', 'clnn']:
                 layer_weights = model.layers[i].W.get_value(borrow=True)
                 weight_transposed = layer_weights.transpose(2, 1, 0)
                 weight_chunk = weight_transposed[0:self.hidden_nodes_slices_count, :, :]
                 weight_slices = np.reshape(weight_chunk.transpose(1, 0, 2), (weight_chunk.shape[1], -1))
-                self.save_image(image_matrix=weight_slices, image_name='weights_mclnn_layer_' + str(i),
+                self.save_image(image_matrix=weight_slices, image_name='weights_'+layer_type+'_layer_' + str(i),
                                 image_path=path, colormap='gray',
                                 transpose=False, normalize_per_feature=False,interpolate=True)
 
@@ -84,7 +84,7 @@ class Visualizer(object):
                             colormap='jet')
 
     def visualize_prediction_segments(self, model, segments, path, initial_segment, epoch_id='',
-                                      layer_filter_list=['prelu', 'mclnn'], first_mclnn_only=False):
+                                      layer_filter_list=['prelu', 'mclnn', 'clnn'], first_mclnn_only=False):
         # perdicted_segments_path = os.path.join(folder_name, 'predicted_segment')
 
         for i in range(len(model.layers)):
@@ -108,13 +108,16 @@ class Visualizer(object):
 
     def visualize_weights_and_sample_test_clip(self, model, data_loader):
 
+        # weights visualization
         self.visualize_model_weights(model=model, path=self.visualization_parent_path)
 
+        # input segments visualization
         input_segments_path = os.path.join(self.visualization_parent_path, 'input_segment')
         self.visualize_input_segments(
             segments=data_loader.test_segments[self.initial_segment_index:self.initial_segment_index + self.image_count],
             path=input_segments_path, initial_segment=self.initial_segment_index)
 
+        # predicted segments visualization
         predicted_segments_path = os.path.join(self.visualization_parent_path, 'predicted_segment')
         self.visualize_prediction_segments(model=model,
                                            segments=data_loader.test_segments[
