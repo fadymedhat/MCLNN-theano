@@ -1,12 +1,12 @@
 """
-Configuration for Index Generation
+Configuration for MCLNN Index Generation
 """
 import os
 
 
 class ESC10:
     DATASET = 'esc10'
-    DST_PATH = 'I:/dataset-esc10_'
+    DST_PATH = 'I:/dataset-esc10'
     FOLD_COUNT = 5
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = False
@@ -28,7 +28,7 @@ class ESC10AUGMENTED:
 
 class ESC50:
     DATASET = 'esc50'
-    DST_PATH = 'I:/dataset-esc50GIT'
+    DST_PATH = 'I:/dataset-esc50'
     FOLD_COUNT = 5
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = False
@@ -75,7 +75,7 @@ class URBANSOUND8K:
 
 class YORNOISE:
     DATASET = 'YorNoise'
-    DST_PATH = 'I:/dataset-YorNoiseGIT'
+    DST_PATH = 'I:/dataset-YorNoise'
     FOLD_COUNT = 10
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = False
@@ -92,7 +92,7 @@ class YORNOISE:
 
 class HOMBURG:
     DATASET = 'homburg'
-    DST_PATH = 'I:/dataset-homburgGIT'
+    DST_PATH = 'I:/dataset-homburg'
     FOLD_COUNT = 10
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = True
@@ -104,7 +104,7 @@ class HOMBURG:
 
 class GTZAN:
     DATASET = 'gtzan'
-    DST_PATH = 'I:/dataset-gtzanGIT'
+    DST_PATH = 'I:/dataset-gtzan'
     FOLD_COUNT = 10
     FOLDER_NAME = DATASET + '_folds_' + str(FOLD_COUNT) + '_index'
     SHUFFLE_CATEGORY_CLIPS = True
@@ -116,7 +116,7 @@ class GTZAN:
 
 class ISMIR2004:
     DATASET = 'ismir2004'
-    DST_PATH = 'I:/dataset-ismir2004GIT'
+    DST_PATH = 'I:/dataset-ismir2004'
     FOLD_COUNT = 10
     FOLDER_NAME = DATASET + '_folds_indices'
     SHUFFLE_CATEGORY_CLIPS = True
@@ -129,7 +129,7 @@ class ISMIR2004:
 
 class BALLROOM:
     DATASET = 'ballroom'
-    DST_PATH = 'I:/dataset-ballroomGIT'
+    DST_PATH = 'I:/dataset-ballroom'
     FOLD_COUNT = 10
     FOLDER_NAME = DATASET + '_folds_indices'
     SHUFFLE_CATEGORY_CLIPS = True
