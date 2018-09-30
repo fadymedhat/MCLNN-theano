@@ -5,8 +5,6 @@ import librosa
 import numpy as np
 from fnmatch import fnmatch
 
-# from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE
-
 import configuration
 # =============================================== #
 #    Enable a single configuration from below     #
