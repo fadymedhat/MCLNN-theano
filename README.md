@@ -107,7 +107,7 @@ DATASET_FILE_PATH = os.path.join(PARENT_PATH, 'Dataset.hdf5')
 ```
 
 The dataset name and the number of folds are used to name the index, standardization, weights and visualization folders as below. 
-So make sure the index folder is named with the convention: 'datasetname_fold-count_index'.
+So make sure the index folder is named with the convention: 'datasetname_folds_count_index', e.g. ESC10_folds_5_index.
  
 The the visualization folder stores the images for weights and activations, if any of the visualization flags is enabled.
 ```python
@@ -193,6 +193,11 @@ The order for a two-layered MCLNN. The first MCLNN layer has an order of 17 and 
 ```python
 # the order for each layer
 LAYERS_ORDER_LIST = [17, 15]  
+```
+
+Disable/Enable the mask of each layer. "False" converts the layer to CLNN and the mask parameters (bandwithd and overlap) are ignored. 
+```
+LAYER_IS_MASKED = [True, True]  # True: MCLNN, False: CLNN (Bandwidth and Overlap are ignored in this case)
 ```
 
 The Mask Bandwidth of a two-layered MCLNN. The first layer has a bandwithd of 20 and the second layer has a
