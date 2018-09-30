@@ -156,12 +156,7 @@ class MCLNNTrainer(object):
         :param data_loader:
         :return:
         '''
-
-        # # convert class vectors to binary class matrices
-        # train_one_hot_target = np_utils.to_categorical(data_loader.train_labels, Config.NB_CLASSES)
-        # test_one_hot_target = np_utils.to_categorical(data_loader.test_labels, Config.NB_CLASSES)
-        # validation_one_hot_target = np_utils.to_categorical(data_loader.validation_labels, Config.NB_CLASSES)
-
+        
         # ________________ Frame level evaluation for Test/Validation splits ________________________
         print('Validation segments = ' + str(data_loader.validation_segments.shape) +
               ' one-hot encoded target' + str(data_loader.validation_one_hot_target.shape))
