@@ -156,7 +156,7 @@ class MCLNNTrainer(object):
         :param data_loader:
         :return:
         '''
-        
+
         # ________________ Frame level evaluation for Test/Validation splits ________________________
         print('Validation segments = ' + str(data_loader.validation_segments.shape) +
               ' one-hot encoded target' + str(data_loader.validation_one_hot_target.shape))
