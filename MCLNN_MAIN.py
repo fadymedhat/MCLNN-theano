@@ -26,12 +26,12 @@ from visualization import Visualizer
 # ===================================================== #
 #      Uncomment a single configuration from below      #
 # ----------------------------------------------------- #
-# Config = configuration.ESC10  # Accuracy 85.50% ESC10-for-MCLNN done
+Config = configuration.ESC10  # Accuracy 85.50% ESC10-for-MCLNN done
 # Config = configuration.ESC10AUGMENTED # Accuracy 85.25% ESC10-augmented-for-MCLNN done
 # Config = configuration.ESC50          # Accuracy 62.85% ESC50-for-MCLNN done
 # Config = configuration.ESC50AUGMENTED # Accuracy 66.60% ESC50-augmented-for-MCLNN done
 # Config = configuration.URBANSOUND8K   # Accuracy 74.22% Urbansound8k-for-MCLNN done
-Config = configuration.YORNOISE       # Accuracy 75.82% YorNoise-for-MCLNN done
+# Config = configuration.YORNOISE       # Accuracy 75.82% YorNoise-for-MCLNN done
 # Config = configuration.HOMBURG        # Accuracy 61.45% Homburg-for-MCLNN done
 # Config = configuration.GTZAN          # Accuracy 85.00% GTZAN-for-MCLNN done
 # Config = configuration.ISMIR2004      # Accuracy 85.00% ISMIR-for-MCLNN done

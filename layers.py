@@ -45,7 +45,8 @@ class MaskedConditional(Layer):
     def __init__(self, output_dim, init='glorot_uniform', activation='linear',
                  weights=None, order=None, bandwidth=None, overlap=None, layer_is_masked=True,
                  W_regularizer=None, b_regularizer=None, activity_regularizer=None,
-                 W_constraint=None, b_constraint=None, input_dim=None, **kwargs):
+                 W_constraint=None, b_constraint=None,
+                 input_dim=None, **kwargs):
         self.init = initializations.get(init)
         self.activation = activations.get(activation)
         self.output_dim = output_dim
@@ -55,7 +56,7 @@ class MaskedConditional(Layer):
         self.overlap = overlap
         self.layer_is_masked=layer_is_masked
 
-        # --K_START -- Refer to keras documentation for the below parameters.
+        # --K_START -- Refer to keras documentation for the below.
         self.W_regularizer = regularizers.get(W_regularizer)
         self.b_regularizer = regularizers.get(b_regularizer)
         self.activity_regularizer = regularizers.get(activity_regularizer)
@@ -64,7 +65,7 @@ class MaskedConditional(Layer):
         self.b_constraint = constraints.get(b_constraint)
 
         self.initial_weights = weights
-        # --K_END -- Refer to keras documentation for the above parameters.
+        # --K_END -- Refer to keras documentation for the above.
 
         self.input_spec = [InputSpec(ndim=3)]
 
@@ -78,33 +79,6 @@ class MaskedConditional(Layer):
     def printdim(self, name, mat):
         return printing.Print(name, attrs=['shape'])(mat)
 
-    def construct_mask_original(self, feature_count, hidden_count, bandwidth, overlap):
-
-        binary_mask = np.zeros([hidden_count, feature_count])
-        base_index = np.arange(0, feature_count * hidden_count, feature_count + (bandwidth - overlap))
-        base_location = np.tile(base_index, bandwidth)
-        base_location = base_location.reshape([bandwidth, base_index.shape[0]])
-        base_location = base_location.transpose()
-
-        increment = np.arange(0, bandwidth)
-        increment = increment.transpose()
-        increment = np.tile(increment, base_index.shape[0])
-        increment = increment.reshape([base_index.shape[0], bandwidth])
-        linear_index = base_location + increment
-
-        # make sure the generated indices reside within the size of the mask
-        linear_index_filtered = linear_index.astype(int).flatten()
-        linear_index_filtered = linear_index_filtered[linear_index_filtered < np.prod(binary_mask.shape)]
-
-        # fill in the mask with the filter-like pattern of binary 1 values
-        binary_mask.flat[linear_index_filtered] = 1
-        binary_mask = binary_mask.transpose()
-        binary_mask = np.asarray(binary_mask, np.float32)
-        # print('=============================== DISABLE MASK  (CLNN)===============================')
-        # binary_mask = np.ones(binary_mask.shape, np.float32)
-        # print('Layer featcount: ' + str(feature_count) + ' bandwidth: ' + str(bandwidth) + ' overlap: ' + str(
-        #     overlap) + ' maskcol: ' + str( hidden_count))
-        return binary_mask
 
     def construct_mask(self, feature_count, hidden_count, bandwidth, overlap, layer_is_masked):
 
@@ -130,10 +104,6 @@ class MaskedConditional(Layer):
 
             binary_mask =  np.transpose(flat_matrix.reshape(e, l))
 
-        # binary_mask = np.ones(binary_mask.shape, np.float32)
-        # print('Layer featcount: ' + str(feature_count) + ' bandwidth: ' + str(bandwidth) + ' overlap: ' + str(
-        #     overlap) + ' maskcol: ' + str( hidden_count))
-
         return binary_mask.astype(np.float32)
 
     def build(self, input_shape):
@@ -156,6 +126,7 @@ class MaskedConditional(Layer):
                                               overlap=self.overlap,
                                               layer_is_masked=self.layer_is_masked)
 
+        # --K_START -- Refer to keras documentation for the below.
         self.regularizers = []
         if self.W_regularizer:
             self.W_regularizer.set_param(self.W)
@@ -178,6 +149,7 @@ class MaskedConditional(Layer):
         if self.initial_weights is not None:
             self.set_weights(self.initial_weights)
             del self.initial_weights
+        # --K_START -- Refer to keras documentation for the above.
 
     def call(self, x, mask=None):
 

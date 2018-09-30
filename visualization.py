@@ -85,7 +85,7 @@ class Visualizer(object):
 
     def visualize_prediction_segments(self, model, segments, path, initial_segment, epoch_id='',
                                       layer_filter_list=['prelu', 'mclnn', 'clnn'], first_mclnn_only=False):
-        # perdicted_segments_path = os.path.join(folder_name, 'predicted_segment')
+
 
         for i in range(len(model.layers)):
 

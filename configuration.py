@@ -5,7 +5,7 @@ import os
 
 
 class Configuration:
-    USE_PRETRAINED_WEIGHTS = True  # True or False - no training is initiated (pre-trained weights are used)
+    USE_PRETRAINED_WEIGHTS = False  # True or False - no training is initiated (pre-trained weights are used)
 
     # IMPORTANT! This flag will affect training epochs.
     # Keep Visualization DISABLED if you need a properly trained model.
@@ -46,7 +46,7 @@ class ESC10(Configuration):
     DATASET_NAME = 'ESC10'
     CROSS_VALIDATION_FOLDS_COUNT = 5
     INITIAL_FOLD_ID = 0  # the initial fold to start with. This should be zero unless you want to start from another fold
-    PARENT_PATH = 'I:/ESC10-for-MCLNN'
+    PARENT_PATH = 'I:/ESC10-for-MCLNN_KERAS_PARAM'
 
     COMMON_PATH_NAME = os.path.join(PARENT_PATH, DATASET_NAME + '_folds_' + str(CROSS_VALIDATION_FOLDS_COUNT))
     INDEX_PATH = COMMON_PATH_NAME + '_index'
