@@ -37,10 +37,6 @@ class SegmentPlotCallback(keras.callbacks.Callback):
         self.test_path = os.path.join(self.visualization_parent_path, 'test_sample_across_epochs')
         self.validation_path = os.path.join(self.visualization_parent_path, 'validation_sample_across_epochs')
 
-        # self.train_path = 'train_sample_across_epochs'
-        # self.test_path = 'test_sample_across_epochs'
-        # self.validation_path = 'validation_sample_across_epochs'
-
         # change the following numbers to choose other segments for visualization
         self.train_segment_index = configuration.TRAIN_SEGMENT_INDEX
         self.test_segment_index = configuration.TEST_SEGMENT_INDEX
@@ -79,99 +75,6 @@ class SegmentPlotCallback(keras.callbacks.Callback):
                                                       initial_segment=self.validation_segment_index,
                                                       epoch_id='epoch_'+str(epoch),
                                                       layer_filter_list=['mclnn'], first_mclnn_only=True)
-
-
-
-        # visualizer.special_save(self.model, np.expand_dims(self.data_loader.train_segments[100], 0), epoch,
-        #                         self.train_path,
-        #                         layer_filter_list=['mclnn'], first_mclnn_only=False)
-
-        # plt = pyplt
-        # plt.ioff()
-        # plt.axis('off')
-        # plt.tick_params(
-        #     axis='both',  # changes apply to the x-axis
-        #     which='both',  # both major and minor ticks are affected
-        #     bottom='off',  # ticks along the bottom edge are off
-        #     top='off',  # ticks along the top edge are off
-        #     left='off',
-        #     right='off',
-        #     labelbottom='off',
-        #     labelleft='off')
-        #
-        #
-        # for layer in self.model.layers:
-        #
-        #     layer_name = layer.name
-        #     layer_type = layer_name.strip('0123456789')
-        #
-        #     if layer_type in ['mclnn']:
-        #         intermediate_model = Model(input=self.model.input,
-        #                                    output=self.model.get_layer(layer_name).output)
-        #
-        #         # import matplotlib
-        #
-        #
-        #
-        #         intermediate_prediction = intermediate_model.predict(np.expand_dims(self.data_loader.train_segments[100], 0), batch_size=1)
-        #         normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
-        #         segment_image = plt.imshow(np.transpose(normalized_prediction), interpolation='none', aspect='equal', cmap='gray')
-        #         plt.savefig(os.path.join(self.train_path, 'mclnn_training_segment_epoch_' + str(epoch) + '.png'), dpi=300, bbox_inches='tight', pad_inches=0)
-        #
-
-
-
-        # for layer in self.model.layers:
-        #
-        #     layer_name = layer.name
-        #     layer_type = layer_name.strip('0123456789')
-        #
-        #     if layer_type in ['mclnn']:
-        #         intermediate_model = Model(input=self.model.input,
-        #                                    output=self.model.get_layer(layer_name).output)
-        #
-        #         # import matplotlib
-        #         plt = pyplt
-        #         plt.ioff()
-        #         plt.axis('off')
-        #         plt.tick_params(
-        #             axis='both',  # changes apply to the x-axis
-        #             which='both',  # both major and minor ticks are affected
-        #             bottom='off',  # ticks along the bottom edge are off
-        #             top='off',  # ticks along the top edge are off
-        #             left='off',
-        #             right='off',
-        #             labelbottom='off',
-        #             labelleft='off')
-        #
-        #         intermediate_prediction = intermediate_model.predict(
-        #             np.expand_dims(self.data_loader.train_segments[100], 0), batch_size=1)
-        #         normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
-        #         segment_image = plt.imshow(np.transpose(normalized_prediction),
-        #                                    interpolation='none',
-        #                                    aspect='equal', cmap='gray')
-        #         plt.savefig(os.path.join(self.train_path, 'mclnn_training_segment_epoch_' + str(epoch) + '.png'),
-        #                     dpi=300, bbox_inches='tight', pad_inches=0)
-        #
-        # intermediate_prediction = intermediate_model.predict(
-        #     np.expand_dims(self.data_loader.test_segments[50], 0))
-        # normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
-        # segment_image = plt.imshow(np.transpose(normalized_prediction),
-        #                            interpolation='none',
-        #                            aspect='equal', cmap='gray')
-        # plt.savefig(os.path.join(self.test_path, 'mclnn_testing_segment_epoch_' + str(epoch) + '.png'),
-        #             dpi=300, bbox_inches='tight', pad_inches=0)
-        #
-        # intermediate_prediction = intermediate_model.predict(
-        #     np.expand_dims(self.data_loader.validation_segments[50], 0))
-        # normalized_prediction = preprocessing.MinMaxScaler(copy=True).fit_transform(intermediate_prediction[0])
-        # segment_image = plt.imshow(np.transpose(normalized_prediction),
-        #                            interpolation='none',
-        #                            aspect='equal', cmap='gray')
-        # plt.savefig(os.path.join(self.validation_path, 'mclnn_validation_segment_epoch_' + str(epoch) + '.png'),
-        #             dpi=300, bbox_inches='tight', pad_inches=0)
-
-        # break  # Only the first MCLNN layer is visualized
 
 
 class DirectoryHouseKeepingCallback(keras.callbacks.Callback):
