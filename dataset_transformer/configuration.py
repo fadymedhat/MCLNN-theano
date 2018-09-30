@@ -6,7 +6,7 @@ class ESC10:
     DATASET_ORIGINAL_FILE_COUNT = 400
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
     SRC_PATH = 'I:/dataset-esc10/ESC-10-masterstretched'
-    DST_PATH = 'I:/dataset-esc10_textfiles'
+    DST_PATH = 'I:/dataset-esc10'
 
     DATASET_NAME = "esc10"
     # dataset standard file length = 5 seconds
@@ -28,7 +28,7 @@ class ESC10AUGMENTED:
     AUGMENTATION_VARIANTS_COUNT = 12
     DATASET_ORIGINAL_FILE_COUNT = 400
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'I:/dataset-esc10/ESC-10-JAMS_12variants'
+    SRC_PATH = 'I:/dataset-esc10/aug_audio'
     DST_PATH = 'I:/dataset-esc10AUG'
 
     DATASET_NAME = "esc10_AUG"
@@ -51,8 +51,8 @@ class ESC50:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 2000
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'I:/dataset-esc50/ESC-50-masterstretched'
-    DST_PATH = 'I:/dataset-esc50GIT'
+    SRC_PATH = 'I:/dataset-esc50/audio'
+    DST_PATH = 'I:/dataset-esc50'
 
     DATASET_NAME = "esc50"
     # dataset standard file length = 5 seconds
@@ -74,7 +74,7 @@ class ESC50AUGMENTED:
     AUGMENTATION_VARIANTS_COUNT = 4
     DATASET_ORIGINAL_FILE_COUNT = 2000
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'I:/dataset-esc50/ESC-50-JAMS'
+    SRC_PATH = 'I:/dataset-esc50/aug_audio'
     DST_PATH = 'I:/dataset-esc50AUG'
 
     DATASET_NAME = "esc50_4augmentations"
@@ -97,8 +97,8 @@ class URBANSOUND8K:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 8732
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'I:/dataset-urbansound8k/UrbanSound8KexpandedSmallfiles/audiostretch'
-    DST_PATH = 'I:/dataset-UrbanDST'
+    SRC_PATH = 'I:/dataset-urbansound8k/audio'
+    DST_PATH = 'I:/dataset-Urbansound8k'
 
     DATASET_NAME = "urbansound8k"
     # dataset standard file length = 4 seconds
@@ -123,8 +123,8 @@ class YORNOISE:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 10259
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'I:/dataset-urbansound8k/UrbanSound8KexpandedSmallfiles/audiostretch'
-    DST_PATH = 'I:/dataset-YorNoiseGIT'
+    SRC_PATH = 'I:/dataset-yornoise/audio'
+    DST_PATH = 'I:/dataset-YorNoise'
 
     DATASET_NAME = "yornoise"
     # dataset standard file length = 4 seconds
@@ -140,7 +140,7 @@ class YORNOISE:
     PROCESSING_BATCH = 10
     SLEEP_TIME = 0
 
-    CSV_FILE_PATH = os.path.join(DST_PATH, 'UrbanSound8KwithFileSeqYork.csv')
+    CSV_FILE_PATH = os.path.join(DST_PATH, 'YorNoise_UrbanSound8K.csv')
     COL_FILE_NAME = 2 # csv column index for file name
     COL_FOLDER_NAME = 9 # csv column index for folder name (class category)
 
@@ -149,8 +149,8 @@ class HOMBURG:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 1886
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'F:/dataset-homburg/homburg-mp3towav'
-    DST_PATH = 'I:/dataset-homburgGIT'
+    SRC_PATH = 'F:/dataset-homburg/audio'
+    DST_PATH = 'I:/dataset-homburg'
 
     DATASET_NAME = "homburg"
     # dataset standard file length of the Homburg = 10 seconds
@@ -172,8 +172,8 @@ class GTZAN:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 1000
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'G:/dataset-gtzan/gtzan-autowav'
-    DST_PATH = 'I:/dataset-gtzanGIT'
+    SRC_PATH = 'G:/dataset-gtzan/audio'
+    DST_PATH = 'I:/dataset-gtzan'
 
     DATASET_NAME = "gtzan"
     # dataset standard file length of the GTZAN = 30 seconds
@@ -195,8 +195,8 @@ class ISMIR2004:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 1458
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'G:\dataset-ISMIR2004\ismir_mp3towav'
-    DST_PATH = 'I:\dataset-ISMIR2004GIT'
+    SRC_PATH = 'I:/dataset-ISMIR2004/audio'
+    DST_PATH = 'I:/dataset-ISMIR2004'
 
     DATASET_NAME = "ismir2004"
     # different length for each file in the ISMIR2004. we will extract the second 30secs from each file
@@ -218,8 +218,8 @@ class BALLROOM:
     AUGMENTATION_VARIANTS_COUNT = 0
     DATASET_ORIGINAL_FILE_COUNT = 698
     TOTAL_EXPECTED_COUNT = DATASET_ORIGINAL_FILE_COUNT + DATASET_ORIGINAL_FILE_COUNT * AUGMENTATION_VARIANTS_COUNT
-    SRC_PATH = 'F:/dataset-ballroom/BallroomData'
-    DST_PATH = 'I:/dataset-ballroomGIT'
+    SRC_PATH = 'I:/dataset-ballroom/audio'
+    DST_PATH = 'I:/dataset-ballroom'
 
     DATASET_NAME = "ballroom"
     # dataset standard file length of the Ballroom = 30 seconds
