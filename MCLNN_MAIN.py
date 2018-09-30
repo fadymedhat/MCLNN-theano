@@ -38,10 +38,6 @@ Config = configuration.ESC10  # Accuracy 85.50% ESC10-for-MCLNN done
 # Config = configuration.BALLROOM       # Accuracy 92.12% Ballroom-for-MCLNN done
 # ===================================================== #
 
-# http://mirg.city.ac.uk/
-# pipreqs --force .
-# pip install -U memory_profiler MCLNN_MAIN.py
-# python -m memory_profiler MCLNN_MAIN.py
 
 
 class MCLNNTrainer(object):
