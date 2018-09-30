@@ -1,22 +1,13 @@
 import os
 import h5py
 import numpy as np
-
-
-
-# from configuration import ESC10, ESC10AUGMENTED, ESC50, ESC50AUGMENTED, URBANSOUND8K, YORNOISE, HOMBURG, BALLROOM, ISMIR2004
-
 from numpy import random as rand
-
-# random.seed(None)
-# random.seed(1754157958)
-# random.seed(0)
 
 import configuration
 # =============================================== #
 #    Enable a single configuration from below     #
 # =============================================== #
-# Config = configuration.ESC10
+Config = configuration.ESC10
 # Config = configuration.ESC10AUGMENTED
 # Config = configuration.ESC50
 # Config = configuration.ESC50AUGMENTED
@@ -25,7 +16,7 @@ import configuration
 # Config = configuration.HOMBURG
 # Config = configuration.GTZAN
 # Config = configuration.ISMIR2004
-Config = configuration.BALLROOM
+# Config = configuration.BALLROOM
 
 rand.seed(1754157958)
 
@@ -72,6 +63,7 @@ class IndexGenerator():
     def generate_consecutive_index_all_categories(self, shuffle):
         """
 
+        :param shuffle:
         :return:
         """
         offset = 0  # offset to consider previous class elements count in current one
@@ -141,6 +133,11 @@ class IndexGenerator():
             np.sum(np_hist_sum, axis=0)), 'should match the original dataset clip-count per category'
 
     def load_index_from_csv(self, file_path):
+        """
+
+        :param file_path:
+        :return:
+        """
 
         fold_cells = [[] for _ in range(Config.FOLD_COUNT)]
         fold_cells_label = [[] for _ in range(Config.FOLD_COUNT)]
@@ -186,7 +183,7 @@ class IndexGenerator():
             validation_set_label = fold_cells_label[fold_index_list[1]][0::(Config.AUGMENTATION_VARIANTS_COUNT + 1)]
             train_set_label = np.concatenate(fold_cells_label[fold_index_list[2::]])
 
-            # _______ End of Text :) _______________
+            # _______ validate that no overlap between splits  _______________
 
             print('Test no. : ', len(test_set_index));
             print('Validation no. : ', len(validation_set_index));
