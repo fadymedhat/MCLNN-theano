@@ -107,6 +107,8 @@ DATASET_FILE_PATH = os.path.join(PARENT_PATH, 'Dataset.hdf5')
 ```
 
 The dataset name and the number of folds are used to name the index, standardization, weights and visualization folders as below. 
+So make sure the index folder is named with the convention: 'datasetname_fold-count_index'.
+ 
 The the visualization folder stores the images for weights and activations, if any of the visualization flags is enabled.
 ```python
 DATASET_NAME = 'datasetname'
