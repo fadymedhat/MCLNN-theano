@@ -5,7 +5,7 @@ import os
 
 
 class Configuration:
-    USE_PRETRAINED_WEIGHTS = False  # True or False - no training is initiated (pre-trained weights are used)
+    USE_PRETRAINED_WEIGHTS = True  # True or False - no training is initiated (pre-trained weights are used)
 
     # IMPORTANT! This flag will affect training epochs.
     # Keep Visualization DISABLED if you need a properly trained model.
