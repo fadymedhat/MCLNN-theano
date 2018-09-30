@@ -11,7 +11,7 @@ import configuration
 # =============================================== #
 #    Enable a single configuration from below     #
 # =============================================== #
-# Config = configuration.ESC10
+Config = configuration.ESC10
 # Config = configuration.ESC10AUGMENTED
 # Config = configuration.ESC50
 # Config = configuration.ESC50AUGMENTED
@@ -19,7 +19,7 @@ import configuration
 # Config = configuration.YORNOISE
 # Config = configuration.HOMBURG
 # Config = configuration.GTZAN
-Config = configuration.ISMIR2004
+# Config = configuration.ISMIR2004
 # Config = configuration.BALLROOM
 
 
