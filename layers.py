@@ -176,7 +176,7 @@ class MaskedConditional(Layer):
 
 
         # remove the columns corresponding to the order from the index matrix
-        # this insures that n frames will remain when processing the frame at
+        # this ensures that n frames will remain when processing the frame at
         # position [q - (n+1)], where 1 is the window's middle frame
         frames_index_per_segment_trimmed_matrix = frames_index_per_segment_matrix[:, : -self.order * 2]
         # frames_index_per_segment_trimmed_matrix = self.print_me('frames_index_per_segment_trimmed_matrix',frames_index_per_segment_trimmed_matrix)
