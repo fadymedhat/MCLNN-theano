@@ -271,7 +271,7 @@ We have created a separate repository for the prepossessing required for each da
 | [Homburg](https://github.com/fadymedhat/Homburg-for-MCLNN)| 61.5 |
 | [GTZAN](https://github.com/fadymedhat/GTZAN-for-MCLNN) | 85.0 |
 | [ISMIR2004](https://github.com/fadymedhat/ISMIR2004-for-MCLNN) | 86.0 |
-| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) | 92.1 |
+| [Ballroom](https://github.com/fadymedhat/Ballroom-for-MCLNN) | 92.6 |
 
 
 ## Citing the MCLNN
