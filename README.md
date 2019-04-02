@@ -77,7 +77,7 @@ The MCLNN code requires two .hdf5 files, one containing the samples and another 
 
 ##### _Dataset.hdf5_
 
-A single file containing the intermediate representation (e.g. spectrograms for sound) of all the files of a single dataset. Samples are the complete clips (segmentation is handled within the MCLNN code). Samples are ordered by their category name in ascending order, similarly samples within a category are ordered by their name.
+A single file containing the intermediate representation (e.g. spectrograms for sound) of all the files of a single dataset. Samples are the complete clips (segmentation is handled within the MCLNN code). Samples are ordered by their category name in ascending order, similarly samples within a category are ordered by their name. Refer to the [dataset_transformer](https://github.com/fadymedhat/MCLNN/tree/master/dataset_transformer) folder for more details.
 
 ##### _Index.hdf5_
 
@@ -85,7 +85,7 @@ These are primarily 3 files, training, testing and validation. Each of the indic
 following their location in the Samples.hdf5. These files can be generated as many times as the number of cross-validation
 operation, i.e. 10-fold cross-validation will have 30 index files generated, where every triple are: training.hdf5
 containing 8-folds for training, validation.hdf5 having 1-fold for validation and testing.hdf5 with 1-fold for testing.
-Folds are shuffled across the n-fold cross-validation.
+Folds are shuffled across the n-fold cross-validation. Refer to the [index_generator](https://github.com/fadymedhat/MCLNN/tree/master/index_generator) folder for more details.
 
 
 Configuration
