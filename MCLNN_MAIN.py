@@ -34,7 +34,7 @@ Config = configuration.ESC10  # Accuracy 85.50% ESC10-for-MCLNN done
 # Config = configuration.YORNOISE       # Accuracy 75.82% YorNoise-for-MCLNN done
 # Config = configuration.HOMBURG        # Accuracy 61.45% Homburg-for-MCLNN done
 # Config = configuration.GTZAN          # Accuracy 85.00% GTZAN-for-MCLNN done
-# Config = configuration.ISMIR2004      # Accuracy 85.00% ISMIR-for-MCLNN done
+# Config = configuration.ISMIR2004      # Accuracy 86.00% ISMIR-for-MCLNN done
 # Config = configuration.BALLROOM       # Accuracy 92.12% Ballroom-for-MCLNN done
 # ===================================================== #
 
