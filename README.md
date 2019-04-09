@@ -58,12 +58,6 @@ A visualization of MCLNN weights for sample hidden nodes
      - matplotlib 2.2.3
      - scikit_learn 0.19.2
 
-   * Hardware requirements (optional):
-     - GPU - Nvidia Geforce Titan X
-     - Processor - Intel Xeon E5-2640v3 @2.6GHz
-     - RAM - 128 GB
-
-
    * Sound related:
 
      * FFmpeg version N-81489-ga37e6dd (built with gcc 5.4.0)
