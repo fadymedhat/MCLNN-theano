@@ -2,6 +2,8 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/MCLNN/blob/master/LICENSE)
 
+### __NOTE:__ This is the Theano implementation of the MCLNN. The Tensorflow version is avaliable [here](https://github.com/fadymedhat/MCLNN_tensorflow)
+
 MCLNN: Masked Conditional Neural Networks
 ========
 A neural network model designed for multi-channel temporal signals.
