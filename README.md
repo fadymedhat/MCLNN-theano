@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/fadymedhat/MCLNN/blob/master/LICENSE)
 
-### __NOTE:__ ![Tensorflow](https://www.gstatic.com/devrel-devsite/va3a0eb1ff00a004a87e2f93101f27917d794beecfd23556fc6d8627bba2ff3cf/tensorflow/images/lockup.svg) version is avaliable [here](https://github.com/fadymedhat/MCLNN_tensorflow)
+### __NOTE:__  <p align='center'><img height="50"  src='https://www.gstatic.com/devrel-devsite/va3a0eb1ff00a004a87e2f93101f27917d794beecfd23556fc6d8627bba2ff3cf/tensorflow/images/lockup.svg) version is avaliable [here](https://github.com/fadymedhat/MCLNN_tensorflow'></p> version is avaliable [here](https://github.com/fadymedhat/MCLNN_tensorflow)
 
 MCLNN: Masked Conditional Neural Networks (theano)
 ========
