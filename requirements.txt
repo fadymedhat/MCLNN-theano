@@ -1,5 +1,5 @@
 memory_profiler==0.52.0
-numpy==1.9.2
+numpy==1.21.0
 scipy==1.0.1
 Keras==1.0.8
 Theano==0.8.2
